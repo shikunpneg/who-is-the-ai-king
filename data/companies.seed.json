@@ -1,0 +1,896 @@
+{
+  "_comment": "种子数据：手工整理的 25 家头部 LLM 公司。cron 跑通后会被每日 snapshot 补充。每周一由人工校对一次。",
+  "updated_at": "2026-08-25",
+  "companies": [
+    {
+      "id": "openai",
+      "name": "OpenAI",
+      "country_code": "US",
+      "country_name": "美国",
+      "strategy": "closed-ecosystem",
+      "founded_year": 2015,
+      "hq_city": "旧金山",
+      "website": "https://openai.com",
+      "description": "ChatGPT 月活 11 亿，GPT-5.6 系列；与 Jony Ive 合作 AI 硬件；已递交 S-1 IPO。",
+      "flag_model": {
+        "id": "gpt-5-6-sol",
+        "display_name": "GPT-5.6 Sol",
+        "release_date": "2026-08-12",
+        "is_open_source": false,
+        "license": "Closed",
+        "total_params": "未公开",
+        "active_params": null,
+        "context_length": "1M",
+        "architecture": "MoE（据报）",
+        "modality": ["text", "image", "audio"],
+        "hf_org": null,
+        "notes": "OpenAI 主线旗舰；5.5 Instant 已成 ChatGPT 默认模型。"
+      },
+      "metrics": {
+        "aa_index": 61,
+        "aa_rank": 5,
+        "lmarena_elo": null,
+        "mau_millions": 1100,
+        "mau_source": "Sensor Tower 2026-05"
+      }
+    },
+    {
+      "id": "anthropic",
+      "name": "Anthropic",
+      "country_code": "US",
+      "country_name": "美国",
+      "strategy": "closed-ecosystem",
+      "founded_year": 2021,
+      "hq_city": "旧金山",
+      "website": "https://www.anthropic.com",
+      "description": "Claude 系列；Q1 2026 收入份额 31.4% 首超 OpenAI；ARR 440 亿美元；企业级 AI 操作系统。",
+      "flag_model": {
+        "id": "claude-opus-5",
+        "display_name": "Claude Opus 5",
+        "release_date": "2026-07-22",
+        "is_open_source": false,
+        "license": "Closed",
+        "total_params": "未公开",
+        "active_params": null,
+        "context_length": "1M",
+        "architecture": "Hybrid（据报）",
+        "modality": ["text", "image"],
+        "hf_org": null,
+        "notes": "AA Index 63 分（榜首）；LMArena Elo 1508（榜首）。"
+      },
+      "metrics": {
+        "aa_index": 63,
+        "aa_rank": 1,
+        "lmarena_elo": 1508,
+        "mau_millions": 245,
+        "mau_source": "Sensor Tower 2026-06"
+      }
+    },
+    {
+      "id": "google-deepmind",
+      "name": "Google DeepMind",
+      "country_code": "US",
+      "country_name": "美国",
+      "strategy": "closed-ecosystem",
+      "founded_year": 2014,
+      "hq_city": "山景城 / 伦敦",
+      "website": "https://deepmind.google",
+      "description": "Gemini 3.7/4.0；唯一原生四模态；2026-08 哈萨比斯转任董事长，工程派接任。",
+      "flag_model": {
+        "id": "gemini-3-7-flash",
+        "display_name": "Gemini 3.7 Flash",
+        "release_date": "2026-07-09",
+        "is_open_source": false,
+        "license": "Closed",
+        "total_params": "未公开",
+        "active_params": null,
+        "context_length": "1M",
+        "architecture": "MoE（据报）",
+        "modality": ["text", "image", "audio", "video"],
+        "hf_org": null,
+        "notes": "唯一原生四模态；中文 SuperCLUE 75.73 分（榜首）。"
+      },
+      "metrics": {
+        "aa_index": 56,
+        "aa_rank": 15,
+        "lmarena_elo": 1490,
+        "mau_millions": 900,
+        "mau_source": "Google I/O 2026-05"
+      }
+    },
+    {
+      "id": "meta",
+      "name": "Meta (FAIR)",
+      "country_code": "US",
+      "country_name": "美国",
+      "strategy": "open-source",
+      "founded_year": 2004,
+      "hq_city": "门罗帕克",
+      "website": "https://ai.meta.com",
+      "description": "Llama 4 (Muse Spark)；Meta AI 10 亿+ MAU；FAIR 重启独立运营。",
+      "flag_model": {
+        "id": "muse-spark-1-2",
+        "display_name": "Muse Spark 1.2",
+        "release_date": "2026-07-30",
+        "is_open_source": false,
+        "license": "Llama 4 Community",
+        "total_params": "~1T",
+        "active_params": null,
+        "context_length": "128K",
+        "architecture": "MoE",
+        "modality": ["text", "image"],
+        "hf_org": "meta-llama",
+        "notes": "LMArena Elo 1498（第 4 名）；HF 下载累计 1.15 亿。"
+      },
+      "metrics": {
+        "aa_index": 57,
+        "aa_rank": 12,
+        "lmarena_elo": 1498,
+        "mau_millions": 1000,
+        "mau_source": "Meta 官方"
+      }
+    },
+    {
+      "id": "xai",
+      "name": "xAI",
+      "country_code": "US",
+      "country_name": "美国",
+      "strategy": "closed-ecosystem",
+      "founded_year": 2023,
+      "hq_city": "旧金山",
+      "website": "https://x.ai",
+      "description": "Grok 4.6 训练中（2T 参数）；马斯克目标每月一模型；原生接入 X/Twitter。",
+      "flag_model": {
+        "id": "grok-4-6",
+        "display_name": "Grok 4.6",
+        "release_date": "2026-08-22",
+        "is_open_source": false,
+        "license": "Closed",
+        "total_params": "2T（训练中）",
+        "active_params": null,
+        "context_length": "256K",
+        "architecture": "MoE",
+        "modality": ["text", "image"],
+        "hf_org": null,
+        "notes": "AA Index 61；接入 X 实时数据流。"
+      },
+      "metrics": {
+        "aa_index": 61,
+        "aa_rank": 6,
+        "lmarena_elo": null,
+        "mau_millions": 50,
+        "mau_source": "Sensor Tower 2026-06"
+      }
+    },
+    {
+      "id": "alibaba",
+      "name": "Alibaba · Qwen",
+      "country_code": "CN",
+      "country_name": "中国",
+      "strategy": "open-source",
+      "founded_year": 1999,
+      "hq_city": "杭州",
+      "website": "https://qwen.alibaba.com",
+      "description": "Qwen3.8-Max（2.4T）；C 端千问 2.51 亿 MAU；接入淘宝/支付宝/钉钉。",
+      "flag_model": {
+        "id": "qwen3-8-max",
+        "display_name": "Qwen3.8-Max",
+        "release_date": "2026-07-19",
+        "is_open_source": true,
+        "license": "Apache 2.0",
+        "total_params": "2.4T",
+        "active_params": null,
+        "context_length": "1M",
+        "architecture": "Hybrid MoE",
+        "modality": ["text", "image", "audio"],
+        "hf_org": "Qwen",
+        "notes": "AA Index 58；HF 下载榜 Qwen 系列合计 2.70 亿。"
+      },
+      "metrics": {
+        "aa_index": 58,
+        "aa_rank": 10,
+        "lmarena_elo": null,
+        "mau_millions": 251,
+        "mau_source": "AICPB 2026-06"
+      }
+    },
+    {
+      "id": "bytedance",
+      "name": "ByteDance · 豆包",
+      "country_code": "CN",
+      "country_name": "中国",
+      "strategy": "closed-ecosystem",
+      "founded_year": 2012,
+      "hq_city": "北京",
+      "website": "https://www.volcengine.com",
+      "description": "豆包 3.24 亿 MAU；Seedance 2.0 支撑春晚 AI 影像；嵌入抖音/今日头条。",
+      "flag_model": {
+        "id": "doubao-seed-2-0-pro",
+        "display_name": "豆包 Seed 2.0 Pro",
+        "release_date": "2026-02-15",
+        "is_open_source": false,
+        "license": "Closed",
+        "total_params": "未公开",
+        "active_params": null,
+        "context_length": "256K",
+        "architecture": "MoE",
+        "modality": ["text", "image", "video"],
+        "hf_org": null,
+        "notes": "SuperCLUE 中文 69.96；C 端 MAU 长期第一。"
+      },
+      "metrics": {
+        "aa_index": null,
+        "aa_rank": null,
+        "lmarena_elo": null,
+        "mau_millions": 324,
+        "mau_source": "AICPB 2026-06"
+      }
+    },
+    {
+      "id": "deepseek",
+      "name": "深度求索 DeepSeek",
+      "country_code": "CN",
+      "country_name": "中国",
+      "strategy": "open-source",
+      "founded_year": 2023,
+      "hq_city": "杭州",
+      "website": "https://www.deepseek.com",
+      "description": "V4-Pro（1.6T/49B）；优先适配华为 CANN；融资 510 亿元；DSA 架构。",
+      "flag_model": {
+        "id": "deepseek-v4-pro",
+        "display_name": "DeepSeek-V4-Pro",
+        "release_date": "2026-04-13",
+        "is_open_source": true,
+        "license": "MIT",
+        "total_params": "1.6T",
+        "active_params": "49B",
+        "context_length": "1M",
+        "architecture": "MoE + DSA",
+        "modality": ["text"],
+        "hf_org": "deepseek-ai",
+        "notes": "AA Index 53；OpenRouter 周调用 8.83 万亿 token。"
+      },
+      "metrics": {
+        "aa_index": 53,
+        "aa_rank": 20,
+        "lmarena_elo": null,
+        "mau_millions": 139,
+        "mau_source": "AICPB 2026-06"
+      }
+    },
+    {
+      "id": "zhipu",
+      "name": "智谱 Z.ai / GLM",
+      "country_code": "CN",
+      "country_name": "中国",
+      "strategy": "open-source",
+      "founded_year": 2019,
+      "hq_city": "北京",
+      "website": "https://zhipuai.cn",
+      "description": "GLM-5.3（AA 60 分）；上市满半年；MIT 开源；长程任务 + 自治 Agent。",
+      "flag_model": {
+        "id": "glm-5-3",
+        "display_name": "GLM-5.3",
+        "release_date": "2026-07-15",
+        "is_open_source": true,
+        "license": "MIT",
+        "total_params": "753B",
+        "active_params": "40B",
+        "context_length": "1M",
+        "architecture": "MoE + DSA",
+        "modality": ["text", "image"],
+        "hf_org": "zai-org",
+        "notes": "AA Index 60；国产开源第一。"
+      },
+      "metrics": {
+        "aa_index": 60,
+        "aa_rank": 8,
+        "lmarena_elo": null,
+        "mau_millions": 14,
+        "mau_source": "QuestMobile 2026-05"
+      }
+    },
+    {
+      "id": "moonshot",
+      "name": "月之暗面 Kimi",
+      "country_code": "CN",
+      "country_name": "中国",
+      "strategy": "open-source",
+      "founded_year": 2023,
+      "hq_city": "北京",
+      "website": "https://www.moonshot.cn",
+      "description": "K3（2.8T 拟开源权重）；发布后 48h 暂停订阅；ARR 3 亿美元 / 估值 315 亿美元。",
+      "flag_model": {
+        "id": "kimi-k3",
+        "display_name": "Kimi K3",
+        "release_date": "2026-07-16",
+        "is_open_source": true,
+        "license": "Modified MIT",
+        "total_params": "2.8T",
+        "active_params": null,
+        "context_length": "1M",
+        "architecture": "MoE + MLA + 多模态",
+        "modality": ["text", "image", "video"],
+        "hf_org": "moonshotai",
+        "notes": "AA Index 60；发布当日 Arena 代码榜全球第一。"
+      },
+      "metrics": {
+        "aa_index": 60,
+        "aa_rank": 7,
+        "lmarena_elo": 1489,
+        "mau_millions": 15.37,
+        "mau_source": "AICPB 2026-07"
+      }
+    },
+    {
+      "id": "MiniMax",
+      "name": "MiniMax",
+      "country_code": "CN",
+      "country_name": "中国",
+      "strategy": "open-source",
+      "founded_year": 2021,
+      "hq_city": "上海",
+      "website": "https://www.MiniMax.cn",
+      "description": "M3（428B/23B）；海螺/Talkie 多模态；全球用户 3 亿；创始人零薪至 AGI。",
+      "flag_model": {
+        "id": "MiniMax-m3",
+        "display_name": "MiniMax-M3",
+        "release_date": "2026-07-29",
+        "is_open_source": true,
+        "license": "Custom Community",
+        "total_params": "428B",
+        "active_params": "23B",
+        "context_length": "1M",
+        "architecture": "MoE",
+        "modality": ["text", "image", "video", "audio"],
+        "hf_org": "MiniMaxAI",
+        "notes": "HF 点赞 12,775；AA 开源榜第 2。"
+      },
+      "metrics": {
+        "aa_index": null,
+        "aa_rank": null,
+        "lmarena_elo": null,
+        "mau_millions": 120,
+        "mau_source": "MiniMax 官方 2026-Q1"
+      }
+    },
+    {
+      "id": "baidu",
+      "name": "Baidu · 文心",
+      "country_code": "CN",
+      "country_name": "中国",
+      "strategy": "closed-ecosystem",
+      "founded_year": 2000,
+      "hq_city": "北京",
+      "website": "https://wenxin.baidu.com",
+      "description": "文心 5.0；月活 2 亿+；搜索与 PC 端整合；与京东/美团打通。",
+      "flag_model": {
+        "id": "ernie-5-0",
+        "display_name": "文心 5.0",
+        "release_date": "2026-05-20",
+        "is_open_source": false,
+        "license": "Closed",
+        "total_params": "未公开",
+        "active_params": null,
+        "context_length": "128K",
+        "architecture": "MoE",
+        "modality": ["text"],
+        "hf_org": null,
+        "notes": "百度搜索主战场；2026-07 MAU 同比-42.7%。"
+      },
+      "metrics": {
+        "aa_index": null,
+        "aa_rank": null,
+        "lmarena_elo": null,
+        "mau_millions": 200,
+        "mau_source": "百度官方 2026-01"
+      }
+    },
+    {
+      "id": "tencent",
+      "name": "Tencent · 混元",
+      "country_code": "CN",
+      "country_name": "中国",
+      "strategy": "closed-ecosystem",
+      "founded_year": 1998,
+      "hq_city": "深圳",
+      "website": "https://hunyuan.tencent.com",
+      "description": "元宝 MAU 1.04 亿；微信小微灰度上线后下滑 7%；2026 H1 砸 2000 亿 AI 投入。",
+      "flag_model": {
+        "id": "hunyuan-turbo",
+        "display_name": "混元 Turbo",
+        "release_date": "2026-06-10",
+        "is_open_source": false,
+        "license": "Closed",
+        "total_params": "未公开",
+        "active_params": null,
+        "context_length": "256K",
+        "architecture": "MoE",
+        "modality": ["text", "image"],
+        "hf_org": null,
+        "notes": "微信生态深度整合。"
+      },
+      "metrics": {
+        "aa_index": null,
+        "aa_rank": null,
+        "lmarena_elo": null,
+        "mau_millions": 104,
+        "mau_source": "AICPB 2026-06"
+      }
+    },
+    {
+      "id": "stepfun",
+      "name": "阶跃星辰 StepFun",
+      "country_code": "CN",
+      "country_name": "中国",
+      "strategy": "hardware",
+      "founded_year": 2023,
+      "hq_city": "上海",
+      "website": "https://www.stepfun.com",
+      "description": "发布无定价/发售日的 AI 手机；C 端 MAU 仅 56.8 万；探索软硬一体。",
+      "flag_model": {
+        "id": "step-2",
+        "display_name": "Step-2",
+        "release_date": "2026-07-25",
+        "is_open_source": false,
+        "license": "Closed",
+        "total_params": "万亿级 MoE",
+        "active_params": null,
+        "context_length": "128K",
+        "architecture": "MoE",
+        "modality": ["text", "image"],
+        "hf_org": null,
+        "notes": "AI 手机路线。"
+      },
+      "metrics": {
+        "aa_index": null,
+        "aa_rank": null,
+        "lmarena_elo": null,
+        "mau_millions": 0.568,
+        "mau_source": "AICPB 2026-04"
+      }
+    },
+    {
+      "id": "sensenova",
+      "name": "SenseTime · 商汤",
+      "country_code": "CN",
+      "country_name": "中国",
+      "strategy": "vertical",
+      "founded_year": 2014,
+      "hq_city": "上海",
+      "website": "https://www.sensetime.com",
+      "description": "SenseChat 5.5；视觉 SOTA；多模态 + 城市级 AI 落地。",
+      "flag_model": {
+        "id": "sensechat-5-5",
+        "display_name": "SenseChat 5.5",
+        "release_date": "2026-03-12",
+        "is_open_source": false,
+        "license": "Closed",
+        "total_params": "未公开",
+        "active_params": null,
+        "context_length": "128K",
+        "architecture": "MoE",
+        "modality": ["text", "image", "video"],
+        "hf_org": null,
+        "notes": "SuperCLUE 文科 81.8 分。"
+      },
+      "metrics": {
+        "aa_index": null,
+        "aa_rank": null,
+        "lmarena_elo": null,
+        "mau_millions": null,
+        "mau_source": "未公开"
+      }
+    },
+    {
+      "id": "iflytek",
+      "name": "科大讯飞 iFLYTEK",
+      "country_code": "CN",
+      "country_name": "中国",
+      "strategy": "vertical",
+      "founded_year": 1999,
+      "hq_city": "合肥",
+      "website": "https://www.iflytek.com",
+      "description": "星火 4.0 Ultra；斯坦福 HAI 报告国产唯一前十；语音起家。",
+      "flag_model": {
+        "id": "spark-4-0-ultra",
+        "display_name": "星火 4.0 Ultra",
+        "release_date": "2026-01-30",
+        "is_open_source": false,
+        "license": "Closed",
+        "total_params": "未公开",
+        "active_params": null,
+        "context_length": "128K",
+        "architecture": "MoE",
+        "modality": ["text", "audio"],
+        "hf_org": null,
+        "notes": "语音识别 SOTA。"
+      },
+      "metrics": {
+        "aa_index": null,
+        "aa_rank": null,
+        "lmarena_elo": null,
+        "mau_millions": null,
+        "mau_source": "未公开"
+      }
+    },
+    {
+      "id": "mistral",
+      "name": "Mistral AI",
+      "country_code": "FR",
+      "country_name": "法国",
+      "strategy": "sovereign",
+      "founded_year": 2023,
+      "hq_city": "巴黎",
+      "website": "https://mistral.ai",
+      "description": "Mistral Large 3；Ministral 3（3B/8B/14B）端侧；与 NVIDIA 建欧洲最大 AI 园。",
+      "flag_model": {
+        "id": "mistral-large-3",
+        "display_name": "Mistral Large 3",
+        "release_date": "2026-06-18",
+        "is_open_source": true,
+        "license": "Apache 2.0",
+        "total_params": "数百 B",
+        "active_params": null,
+        "context_length": "256K",
+        "architecture": "MoE",
+        "modality": ["text"],
+        "hf_org": "mistralai",
+        "notes": "欧洲主权旗舰。"
+      },
+      "metrics": {
+        "aa_index": null,
+        "aa_rank": null,
+        "lmarena_elo": null,
+        "mau_millions": null,
+        "mau_source": "未公开"
+      }
+    },
+    {
+      "id": "black-forest-labs",
+      "name": "Black Forest Labs",
+      "country_code": "DE",
+      "country_name": "德国",
+      "strategy": "vertical",
+      "founded_year": 2024,
+      "hq_city": "弗赖堡",
+      "website": "https://blackforestlabs.ai",
+      "description": "FLUX.1-dev（HF 点赞冠军 14,243）；B2B API 创收；Stable Diffusion 团队衍生。",
+      "flag_model": {
+        "id": "flux-1-dev",
+        "display_name": "FLUX.1-dev",
+        "release_date": "2024-08-01",
+        "is_open_source": true,
+        "license": "FLUX.1 [dev] Non-Commercial",
+        "total_params": "12B",
+        "active_params": "12B",
+        "context_length": "8K",
+        "architecture": "MMDiT",
+        "modality": ["text", "image"],
+        "hf_org": "black-forest-labs",
+        "notes": "全球点赞第一。"
+      },
+      "metrics": {
+        "aa_index": null,
+        "aa_rank": null,
+        "lmarena_elo": null,
+        "mau_millions": null,
+        "mau_source": "B 端 API"
+      }
+    },
+    {
+      "id": "stability-ai",
+      "name": "Stability AI",
+      "country_code": "GB",
+      "country_name": "英国",
+      "strategy": "vertical",
+      "founded_year": 2019,
+      "hq_city": "伦敦",
+      "website": "https://stability.ai",
+      "description": "SDXL、SD3-medium；2026 商业化压力；转 B 端企业。",
+      "flag_model": {
+        "id": "sdxl-base-1-0",
+        "display_name": "Stable Diffusion XL",
+        "release_date": "2023-07-26",
+        "is_open_source": true,
+        "license": "OpenRAIL++",
+        "total_params": "3.5B",
+        "active_params": "3.5B",
+        "context_length": "n/a",
+        "architecture": "UNet + Transformer",
+        "modality": ["text", "image"],
+        "hf_org": "stabilityai",
+        "notes": "HF 点赞 8,069。"
+      },
+      "metrics": {
+        "aa_index": null,
+        "aa_rank": null,
+        "lmarena_elo": null,
+        "mau_millions": null,
+        "mau_source": "B 端 API"
+      }
+    },
+    {
+      "id": "cohere",
+      "name": "Cohere",
+      "country_code": "CA",
+      "country_name": "加拿大",
+      "strategy": "vertical",
+      "founded_year": 2019,
+      "hq_city": "多伦多",
+      "website": "https://cohere.com",
+      "description": "Command R+；企业 RAG + 多语言；与 Salesforce/Oracle 集成。",
+      "flag_model": {
+        "id": "command-r-plus",
+        "display_name": "Command R+",
+        "release_date": "2024-04-04",
+        "is_open_source": true,
+        "license": "CC-BY-NC",
+        "total_params": "104B",
+        "active_params": "104B",
+        "context_length": "128K",
+        "architecture": "Dense",
+        "modality": ["text"],
+        "hf_org": "CohereForAI",
+        "notes": "企业 RAG SOTA。"
+      },
+      "metrics": {
+        "aa_index": null,
+        "aa_rank": null,
+        "lmarena_elo": null,
+        "mau_millions": null,
+        "mau_source": "B 端 API"
+      }
+    },
+    {
+      "id": "sakana",
+      "name": "Sakana AI",
+      "country_code": "JP",
+      "country_name": "日本",
+      "strategy": "sovereign",
+      "founded_year": 2023,
+      "hq_city": "东京",
+      "website": "https://sakana.ai",
+      "description": "日本主权模型；与日本政府合作；小模型 + 高效训练。",
+      "flag_model": {
+        "id": "sakana-1",
+        "display_name": "Sakana-1",
+        "release_date": "2026-02-10",
+        "is_open_source": true,
+        "license": "Apache 2.0",
+        "total_params": "10B",
+        "active_params": "10B",
+        "context_length": "32K",
+        "architecture": "EvoLLM",
+        "modality": ["text"],
+        "hf_org": "sakana-ai",
+        "notes": "日本主权旗舰。"
+      },
+      "metrics": {
+        "aa_index": null,
+        "aa_rank": null,
+        "lmarena_elo": null,
+        "mau_millions": null,
+        "mau_source": "未公开"
+      }
+    },
+    {
+      "id": "naver",
+      "name": "Naver Clova",
+      "country_code": "KR",
+      "country_name": "韩国",
+      "strategy": "sovereign",
+      "founded_year": 2017,
+      "hq_city": "京畿道",
+      "website": "https://clova.ai",
+      "description": "HyperCLOVA X；与 Kakao / LG 合作；韩语 + 韩国生态。",
+      "flag_model": {
+        "id": "hyperclova-x",
+        "display_name": "HyperCLOVA X",
+        "release_date": "2024-08-21",
+        "is_open_source": false,
+        "license": "Closed",
+        "total_params": "未公开",
+        "active_params": null,
+        "context_length": "64K",
+        "architecture": "MoE",
+        "modality": ["text"],
+        "hf_org": null,
+        "notes": "韩国主权旗舰。"
+      },
+      "metrics": {
+        "aa_index": null,
+        "aa_rank": null,
+        "lmarena_elo": null,
+        "mau_millions": null,
+        "mau_source": "未公开"
+      }
+    },
+    {
+      "id": "sarvam",
+      "name": "Sarvam AI",
+      "country_code": "IN",
+      "country_name": "印度",
+      "strategy": "sovereign",
+      "founded_year": 2023,
+      "hq_city": "班加罗尔",
+      "website": "https://www.sarvam.ai",
+      "description": "22 种印度官方语言；IndiaAI 10 亿美元资助；本土 GPU 联盟。",
+      "flag_model": {
+        "id": "sarvam-1",
+        "display_name": "Sarvam-1",
+        "release_date": "2025-12-01",
+        "is_open_source": true,
+        "license": "Apache 2.0",
+        "total_params": "70B",
+        "active_params": "70B",
+        "context_length": "8K",
+        "architecture": "Dense",
+        "modality": ["text"],
+        "hf_org": "sarvamai",
+        "notes": "印度主权旗舰。"
+      },
+      "metrics": {
+        "aa_index": null,
+        "aa_rank": null,
+        "lmarena_elo": null,
+        "mau_millions": null,
+        "mau_source": "未公开"
+      }
+    },
+    {
+      "id": "tii-falcon",
+      "name": "TII Falcon",
+      "country_code": "AE",
+      "country_name": "阿联酋",
+      "strategy": "sovereign",
+      "founded_year": 2022,
+      "hq_city": "阿布扎比",
+      "website": "https://falconllm.tii.ae",
+      "description": "Falcon 3 / 4 开源领先；阿拉伯语 SOTA；中东 AI 枢纽。",
+      "flag_model": {
+        "id": "falcon-3-180b",
+        "display_name": "Falcon 3 180B",
+        "release_date": "2024-12-23",
+        "is_open_source": true,
+        "license": "Apache 2.0",
+        "total_params": "180B",
+        "active_params": "180B",
+        "context_length": "131K",
+        "architecture": "Dense",
+        "modality": ["text"],
+        "hf_org": "tiiuae",
+        "notes": "阿拉伯语 SOTA。"
+      },
+      "metrics": {
+        "aa_index": null,
+        "aa_rank": null,
+        "lmarena_elo": null,
+        "mau_millions": null,
+        "mau_source": "未公开"
+      }
+    },
+    {
+      "id": "lightricks",
+      "name": "Lightricks",
+      "country_code": "IL",
+      "country_name": "以色列",
+      "strategy": "vertical",
+      "founded_year": 2013,
+      "hq_city": "耶路撒冷",
+      "website": "https://www.lightricks.com",
+      "description": "LTX-2.3 视频生成；HF 点赞 7,626；以色列创意 AI。",
+      "flag_model": {
+        "id": "ltx-2-3",
+        "display_name": "LTX-2.3",
+        "release_date": "2026-05-08",
+        "is_open_source": true,
+        "license": "LTX Community",
+        "total_params": "20B",
+        "active_params": "20B",
+        "context_length": "n/a",
+        "architecture": "视频 DiT",
+        "modality": ["text", "image", "video"],
+        "hf_org": "Lightricks",
+        "notes": "视频生成垂直。"
+      },
+      "metrics": {
+        "aa_index": null,
+        "aa_rank": null,
+        "lmarena_elo": null,
+        "mau_millions": null,
+        "mau_source": "B 端 API"
+      }
+    }
+  ],
+  "countries": [
+    {
+      "code": "US",
+      "name": "美国",
+      "is_ai_priority": true,
+      "policy_label": "国家战略",
+      "annual_investment_usd": "4 巨头 2026 投入约 6500 亿美元",
+      "key_companies": ["openai", "anthropic", "google-deepmind", "meta", "xai", "microsoft"]
+    },
+    {
+      "code": "CN",
+      "name": "中国",
+      "is_ai_priority": true,
+      "policy_label": "国家战略",
+      "annual_investment_usd": "至 2030 累计 10 万亿人民币",
+      "key_companies": ["alibaba", "bytedance", "deepseek", "zhipu", "moonshot", "MiniMax", "baidu", "tencent", "stepfun", "sensenova", "iflytek"]
+    },
+    {
+      "code": "FR",
+      "name": "法国",
+      "is_ai_priority": false,
+      "policy_label": "积极扶持",
+      "annual_investment_usd": "欧盟 2000 亿欧元计划中受益",
+      "key_companies": ["mistral"]
+    },
+    {
+      "code": "DE",
+      "name": "德国",
+      "is_ai_priority": false,
+      "policy_label": "积极扶持",
+      "annual_investment_usd": "AI Gigafactory 计划",
+      "key_companies": ["black-forest-labs"]
+    },
+    {
+      "code": "GB",
+      "name": "英国",
+      "is_ai_priority": false,
+      "policy_label": "积极扶持",
+      "annual_investment_usd": "AI 安全峰会发起国",
+      "key_companies": ["stability-ai"]
+    },
+    {
+      "code": "CA",
+      "name": "加拿大",
+      "is_ai_priority": false,
+      "policy_label": "积极扶持",
+      "annual_investment_usd": "Pan-Canadian AI 战略",
+      "key_companies": ["cohere"]
+    },
+    {
+      "code": "JP",
+      "name": "日本",
+      "is_ai_priority": true,
+      "policy_label": "国家战略",
+      "annual_investment_usd": "3873 亿日元 ≈ 24 亿美元",
+      "key_companies": ["sakana"]
+    },
+    {
+      "code": "KR",
+      "name": "韩国",
+      "is_ai_priority": true,
+      "policy_label": "国家战略",
+      "annual_investment_usd": "10.1 万亿韩元 ≈ 70 亿美元",
+      "key_companies": ["naver"]
+    },
+    {
+      "code": "IN",
+      "name": "印度",
+      "is_ai_priority": true,
+      "policy_label": "国家战略",
+      "annual_investment_usd": "IndiaAI 10 亿美元",
+      "key_companies": ["sarvam"]
+    },
+    {
+      "code": "AE",
+      "name": "阿联酋",
+      "is_ai_priority": false,
+      "policy_label": "积极扶持",
+      "annual_investment_usd": "Falcon 主权云",
+      "key_companies": ["tii-falcon"]
+    },
+    {
+      "code": "IL",
+      "name": "以色列",
+      "is_ai_priority": false,
+      "policy_label": "场景切入",
+      "annual_investment_usd": "未公开",
+      "key_companies": ["lightricks"]
+    }
+  ]
+}
