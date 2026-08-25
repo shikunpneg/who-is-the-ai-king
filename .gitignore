@@ -10,3 +10,6 @@ out
 data/snapshots.log.json
 
 .vercel
+.vc-cache
+.vercel-cache
+*.tsbuildinfo
