@@ -1,0 +1,62 @@
+name: Deploy static demo to GitHub Pages
+
+# 用途：把 docs/ 下的静态报告部署到 GitHub Pages，
+# 让 PR 立即可见，不依赖 Vercel / Supabase。
+# 启用方法：仓库 Settings → Pages → Source = "GitHub Actions"
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "docs/**"
+      - "data/deep-dives/**"
+      - ".github/workflows/gh-pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Assemble _site from docs/ + data/deep-dives/
+        shell: bash
+        run: |
+          rm -rf _site
+          mkdir -p _site/deep-dives
+          # 复制 docs/ 全部到 _site/
+          cp -r docs/. _site/
+          # 复制 data/deep-dives/ 全部到 _site/deep-dives/
+          cp data/deep-dives/*.html _site/deep-dives/
+          # 在 _site/deep-dives/ 放一个索引页
+          cat > _site/deep-dives/index.html <<'EOF'
+          <!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><title>Deep Dives Index</title>
+          <meta http-equiv="refresh" content="0;url=../index.html">
+          </head><body><a href="../index.html">返回首页</a></body></html>
+          EOF
+          echo "Built _site:"
+          find _site -type f | sort
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

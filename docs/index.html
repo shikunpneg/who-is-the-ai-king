@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="description" content="全球 LLM 公司每日动态追踪站 · open data, open source, zero cost">
+<title>LLM Tracker · 全球大模型公司每日动态</title>
+<style>
+  :root{--bg:#f6f7fb;--card:#fff;--ink:#1c2333;--muted:#5b6478;--line:#e5e8f0;--accent:#4f46e5;--cn:#e11d48}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Noto Sans CJK SC','WenQuanYi Micro Hei','Microsoft YaHei',sans-serif;
+       background:var(--bg);color:var(--ink);line-height:1.75}
+  .wrap{max-width:980px;margin:0 auto;padding:34px 22px 80px}
+  header.hero{background:linear-gradient(135deg,#0f172a 0%,#312e81 60%,#7c3aed 100%);color:#fff;
+              border-radius:20px;padding:42px 40px;margin-bottom:30px;position:relative;overflow:hidden}
+  header.hero::after{content:"";position:absolute;right:-80px;top:-80px;width:280px;height:280px;
+    border-radius:50%;background:radial-gradient(circle,#22d3ee 0%,transparent 70%);opacity:.35}
+  .hero h1{font-size:2rem;font-weight:800;letter-spacing:.5px;line-height:1.3;position:relative;z-index:1}
+  .hero p.sub{margin-top:10px;color:#c7d2fe;font-size:.95rem;position:relative;z-index:1}
+  .hero .meta{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap;position:relative;z-index:1}
+  .hero .tag{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);
+    padding:4px 14px;border-radius:999px;font-size:.82rem}
+  h2.sec{font-size:1.4rem;font-weight:800;margin:46px 0 8px;padding-left:14px;border-left:6px solid var(--accent)}
+  p.secnote{color:var(--muted);font-size:.92rem;margin-bottom:18px;padding-left:20px}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:18px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+  .card .num{font-size:1.6rem;font-weight:800;color:var(--accent);line-height:1.1}
+  .card .lbl{font-size:.83rem;color:var(--muted);margin-top:6px}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:22px 26px;margin-bottom:18px;overflow-x:auto}
+  table{width:100%;border-collapse:collapse;font-size:.88rem;min-width:580px}
+  th{background:#eef0fa;color:#312e81;text-align:left;padding:9px 12px;font-weight:700;
+     border-bottom:2px solid #dde1f2;white-space:nowrap}
+  td{padding:8px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  tr:hover td{background:#fafbff}
+  td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .pill{display:inline-block;padding:2px 10px;border-radius:999px;font-size:.77rem;font-weight:600}
+  .pill-cn{background:#ffe4e9;color:#be123c}
+  .pill-open{background:#d1fae5;color:#047857}
+  .pill-closed{background:#fef3c7;color:#92400e}
+  .links{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin:18px 0}
+  .link-card{display:block;background:var(--card);border:2px solid var(--line);border-radius:14px;
+    padding:22px;text-decoration:none;color:var(--ink);transition:all .2s}
+  .link-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 6px 18px rgba(79,70,229,.1)}
+  .link-card h3{font-size:1.05rem;font-weight:700;margin-bottom:6px;color:#312e81}
+  .link-card p{color:var(--muted);font-size:.88rem}
+  .link-card .arrow{margin-top:10px;font-size:.85rem;color:var(--accent);font-weight:600}
+  .bar-row{display:flex;align-items:center;gap:8px;margin:6px 0;font-size:.85rem}
+  .bar-name{width:190px;flex:none;text-align:right;color:var(--muted);
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .bar-track{flex:1;background:#eef0fa;border-radius:6px;height:20px;position:relative}
+  .bar-fill{height:100%;border-radius:6px;display:flex;align-items:center;
+    justify-content:flex-end;padding-right:8px;color:#fff;font-size:.72rem;font-weight:700;min-width:48px}
+  .note{background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:14px 18px;font-size:.88rem;color:#78350f;margin:14px 0}
+  .good{background:#ecfdf5;border:1px solid #a7f3d0;border-radius:12px;padding:14px 18px;font-size:.88rem;color:#065f46;margin:14px 0}
+  pre{background:#0f172a;color:#e2e8f0;border-radius:10px;padding:14px 18px;font-size:.82rem;
+    overflow-x:auto;margin:10px 0;line-height:1.6;font-family:'JetBrains Mono','Consolas',monospace}
+  code{background:#eef0fa;padding:1px 6px;border-radius:5px;font-size:.85em;font-family:'JetBrains Mono','Consolas',monospace}
+  ol.num{counter-reset:s;padding-left:24px}
+  ol.num li{counter-increment:s;margin:5px 0}
+  ol.num li::marker{content:counter(s) ".";font-weight:700;color:var(--accent)}
+  footer{margin-top:60px;color:var(--muted);font-size:.82rem;text-align:center;
+    border-top:1px solid var(--line);padding-top:22px}
+  .badge{display:inline-block;font-size:.72rem;font-weight:700;background:#fef3c7;color:#92400e;
+    padding:1px 6px;border-radius:4px;margin-left:6px;vertical-align:middle}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <h1>🤖 LLM Tracker · 全球大模型公司每日动态</h1>
+  <p class="sub">Open data · Open source · Zero cost · MIT license</p>
+  <div class="meta">
+    <span class="tag">📅 数据时点：2026-08-25</span>
+    <span class="tag">🤗 HF 一手数据</span>
+    <span class="tag">🌍 25 家公司 / 11 国家</span>
+    <span class="tag">⭐ 全部 GitHub 高星工具采集</span>
+  </div>
+</header>
+
+<!-- ============ 4 个深度档案链接 ============ -->
+<div class="panel">
+  <h3 style="margin-top:0">📚 深度公司档案（首批 · 中国大模型两极）</h3>
+  <p class="secnote" style="padding-left:0">每份档案 6-7 节：背景 + 模型矩阵 + benchmark + 用户量 + 时间线 + 战略 + 风险。</p>
+  <div class="links">
+    <a class="link-card" href="./data/deep-dives/bytedance-doubao.html">
+      <h3>🟢 豆包大模型 Doubao / Seed</h3>
+      <p>字节跳动 Seed 团队。20+ 模型矩阵 · Seed 2.1 Pro 在 MCP-Atlas 83.8 / SciCode 59.8 领先全场 · 3.24 亿 MAU · 180 万亿日均 token</p>
+      <div class="arrow">→ 阅读深度档案</div>
+    </a>
+    <a class="link-card" href="./data/deep-dives/deepseek.html">
+      <h3>🔵 DeepSeek 深度求索</h3>
+      <p>幻方量化旗下。V4-Pro 1.6T/49B · 首个完全跑在华为昇腾上的前沿大模型 · 55 页技术报告全公开 · OpenRouter 周 Token 全球第一</p>
+      <div class="arrow">→ 阅读深度档案</div>
+    </a>
+    <a class="link-card" href="./data/deep-dives/doubao-vs-deepseek.html">
+      <h3>⚖️ 豆包 vs DeepSeek 横向对比</h3>
+      <p>12 项关键指标对照 · 4 赛道赢家预测 · 「守流量 vs 攻生态」</p>
+      <div class="arrow">→ 阅读对比分析</div>
+    </a>
+    <a class="link-card" href="https://github.com/shikunpneg/who-is-the-ai-king">
+      <h3>📦 完整代码与 Vercel 部署版</h3>
+      <p>25 家公司每日自动更新版 + 趋势图 + RSS + 7 国国家视图 · 部署到 Vercel / Supabase</p>
+      <div class="arrow">→ 访问 GitHub 仓库</div>
+    </a>
+  </div>
+</div>
+
+<!-- ============ 数据快照（从静态种子数据读） ============ -->
+<div class="panel">
+  <h3>公司快照（来自 data/companies.seed.json 静态版）</h3>
+  <table>
+    <tr><th>公司</th><th>国家</th><th>旗舰模型</th><th>许可证</th><th>参数量</th><th>AA Index</th><th>MAU</th></tr>
+    <tr><td><b>OpenAI</b></td><td><span class="pill pill-cn">US</span></td><td>GPT-5.6 Sol</td><td><span class="pill pill-closed">闭源</span></td><td>未公开</td><td class="num">61</td><td class="num">1100M</td></tr>
+    <tr><td><b>Anthropic</b></td><td><span class="pill pill-cn">US</span></td><td>Claude Opus 5</td><td><span class="pill pill-closed">闭源</span></td><td>未公开</td><td class="num">63</td><td class="num">245M</td></tr>
+    <tr><td><b>Google DeepMind</b></td><td><span class="pill pill-cn">US</span></td><td>Gemini 3.7 Flash</td><td><span class="pill pill-closed">闭源</span></td><td>未公开</td><td class="num">56</td><td class="num">900M</td></tr>
+    <tr><td><b>Meta</b></td><td><span class="pill pill-cn">US</span></td><td>Muse Spark 1.2</td><td>Llama Community</td><td>~1T</td><td class="num">57</td><td class="num">1000M</td></tr>
+    <tr><td><b>xAI</b></td><td><span class="pill pill-cn">US</span></td><td>Grok 4.6</td><td><span class="pill pill-closed">闭源</span></td><td>2T 训练中</td><td class="num">61</td><td class="num">50M</td></tr>
+    <tr><td><b>阿里 Qwen</b></td><td><span class="pill pill-cn">CN</span></td><td>Qwen3.8-Max</td><td><span class="pill pill-open">Apache 2.0</span></td><td>2.4T</td><td class="num">58</td><td class="num">251M</td></tr>
+    <tr><td><b>豆包 字节跳动</b></td><td><span class="pill pill-cn">CN</span></td><td>Doubao Seed 2.1 Pro</td><td><span class="pill pill-closed">闭源</span></td><td>未公开</td><td>—</td><td class="num">324M</td></tr>
+    <tr><td><b>DeepSeek</b></td><td><span class="pill pill-cn">CN</span></td><td>DeepSeek-V4-Pro</td><td><span class="pill pill-open">MIT</span></td><td>1.6T / 49B</td><td class="num">53</td><td class="num">139M</td></tr>
+    <tr><td><b>智谱 GLM</b></td><td><span class="pill pill-cn">CN</span></td><td>GLM-5.3</td><td><span class="pill pill-open">MIT</span></td><td>753B / 40B</td><td class="num">60</td><td class="num">14M</td></tr>
+    <tr><td><b>月之暗面 Kimi</b></td><td><span class="pill pill-cn">CN</span></td><td>Kimi K3</td><td>Modified MIT</td><td>2.8T</td><td class="num">60</td><td class="num">15.37M</td></tr>
+    <tr><td><b>MiniMax</b></td><td><span class="pill pill-cn">CN</span></td><td>MiniMax-M3</td><td>Custom</td><td>428B / 23B</td><td>—</td><td class="num">120M</td></tr>
+    <tr><td><b>百度 文心</b></td><td><span class="pill pill-cn">CN</span></td><td>文心 5.0</td><td><span class="pill pill-closed">闭源</span></td><td>未公开</td><td>—</td><td class="num">200M</td></tr>
+    <tr><td><b>腾讯 混元</b></td><td><span class="pill pill-cn">CN</span></td><td>混元 Turbo</td><td><span class="pill pill-closed">闭源</span></td><td>未公开</td><td>—</td><td class="num">104M</td></tr>
+    <tr><td><b>阶跃星辰</b></td><td><span class="pill pill-cn">CN</span></td><td>Step-2</td><td><span class="pill pill-closed">闭源</span></td><td>万亿级 MoE</td><td>—</td><td class="num">0.568M</td></tr>
+    <tr><td><b>商汤</b></td><td><span class="pill pill-cn">CN</span></td><td>SenseChat 5.5</td><td><span class="pill pill-closed">闭源</span></td><td>未公开</td><td>—</td><td>—</td></tr>
+    <tr><td><b>科大讯飞</b></td><td><span class="pill pill-cn">CN</span></td><td>星火 4.0 Ultra</td><td><span class="pill pill-closed">闭源</span></td><td>未公开</td><td>—</td><td>—</td></tr>
+    <tr><td><b>Mistral AI</b></td><td><span class="pill pill-cn">FR</span></td><td>Mistral Large 3</td><td><span class="pill pill-open">Apache 2.0</span></td><td>数百 B</td><td>—</td><td>—</td></tr>
+    <tr><td><b>Black Forest Labs</b></td><td><span class="pill pill-cn">DE</span></td><td>FLUX.1-dev</td><td>FLUX NC</td><td>12B</td><td>—</td><td>—</td></tr>
+    <tr><td><b>Stability AI</b></td><td><span class="pill pill-cn">GB</span></td><td>Stable Diffusion XL</td><td>OpenRAIL++</td><td>3.5B</td><td>—</td><td>—</td></tr>
+    <tr><td><b>Cohere</b></td><td><span class="pill pill-cn">CA</span></td><td>Command R+</td><td>CC-BY-NC</td><td>104B</td><td>—</td><td>—</td></tr>
+    <tr><td><b>Sakana AI</b></td><td><span class="pill pill-cn">JP</span></td><td>Sakana-1</td><td><span class="pill pill-open">Apache 2.0</span></td><td>10B</td><td>—</td><td>—</td></tr>
+    <tr><td><b>Naver Clova</b></td><td><span class="pill pill-cn">KR</span></td><td>HyperCLOVA X</td><td><span class="pill pill-closed">闭源</span></td><td>未公开</td><td>—</td><td>—</td></tr>
+    <tr><td><b>Sarvam AI</b></td><td><span class="pill pill-cn">IN</span></td><td>Sarvam-1</td><td><span class="pill pill-open">Apache 2.0</span></td><td>70B</td><td>—</td><td>—</td></tr>
+    <tr><td><b>TII Falcon</b></td><td><span class="pill pill-cn">AE</span></td><td>Falcon 3 180B</td><td><span class="pill pill-open">Apache 2.0</span></td><td>180B</td><td>—</td><td>—</td></tr>
+    <tr><td><b>Lightricks</b></td><td><span class="pill pill-cn">IL</span></td><td>LTX-2.3</td><td>LTX Community</td><td>20B</td><td>—</td><td>—</td></tr>
+  </table>
+  <p class="note" style="margin-top:12px">📊 以上 25 家公司数据来自 <code>data/companies.seed.json</code> 种子文件（人工整理，2026-08-25）。部署完整版后会自动每日 8:00 UTC 通过 GitHub Actions cron 抓取最新数据。</p>
+</div>
+
+<!-- ============ GitHub 高星工具栈 ============ -->
+<div class="panel">
+  <h3>🛠 数据管线（GitHub 高星工具）</h3>
+  <table>
+    <tr><th>环节</th><th>使用工具（★数）</th><th>用途</th></tr>
+    <tr><td>HTTP 请求</td><td>Python <code>urllib.request</code>（标准库）</td><td>HF / GitHub / AA 公开 API</td></tr>
+    <tr><td>数据源：HuggingFace</td><td><a href="https://huggingface.co/api/models">huggingface.co/api/models</a></td><td>Top 300 模型下载 / 点赞 / 模态</td></tr>
+    <tr><td>数据源：GitHub</td><td>GitHub Search API</td><td>每家公司在 GitHub 上的开源仓库 / star</td></tr>
+    <tr><td>数据源：AA Index</td><td><a href="https://artificialanalysis.ai">Artificial Analysis</a></td><td>10 项综合 benchmark 指数</td></tr>
+    <tr><td>数据库</td><td><a href="https://supabase.com">Supabase Postgres</a></td><td>4 张表 + RLS，500MB 免费</td></tr>
+    <tr><td>前端</td><td>Next.js 14 (App Router) + Tailwind + Recharts</td><td>静态 + ISR</td></tr>
+    <tr><td>调度</td><td>GitHub Actions cron / Vercel Cron</td><td>每日 8:00 UTC 自动抓取</td></tr>
+    <tr><td>部署</td><td>Vercel Hobby + GitHub Pages</td><td>个人项目免费</td></tr>
+  </table>
+</div>
+
+<!-- ============ 部署步骤 ============ -->
+<div class="panel">
+  <h3>🚀 3 步上线（0 月成本）</h3>
+  <ol class="num">
+    <li><b>Supabase 建项目：</b>supabase.com → New Project → 复制 URL + Service Key；SQL Editor 粘贴运行 <code>supabase/schema.sql</code></li>
+    <li><b>Vercel 导入：</b>vercel.com → New Project → Import <code>shikunpneg/who-is-the-ai-king</code> → 配环境变量 <code>SUPABASE_URL</code> / <code>SUPABASE_KEY</code> → Deploy</li>
+    <li><b>启用 GitHub Actions cron：</b>仓库 Settings → Secrets and variables → Actions → 配同样的两个密钥</li>
+  </ol>
+  <pre>完整复现命令：
+
+# 1. clone
+git clone https://github.com/shikunpneg/who-is-the-ai-king
+cd who-is-the-ai-king
+
+# 2. install
+npm install
+
+# 3. 本地跑（用 seed 数据，无数据库）
+npm run dev   # 打开 http://localhost:3000
+
+# 4. 手动跑一次 cron
+npm run cron</pre>
+</div>
+
+<footer>
+  LLM Tracker · MIT License · 数据时点 2026-08-25<br>
+  仓库：<a href="https://github.com/shikunpneg/who-is-the-ai-king">github.com/shikunpneg/who-is-the-ai-king</a>
+</footer>
+
+</div>
+</body>
+</html>
