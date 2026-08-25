@@ -4,7 +4,7 @@
   "buildCommand": "npm run build",
   "installCommand": "npm install",
   "outputDirectory": ".next",
-  "regions": ["sin1", "hnd1", "fra1"],
+  "regions": ["hnd1"],
   "crons": [
     {
       "path": "/api/cron/daily",

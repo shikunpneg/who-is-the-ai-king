@@ -22,7 +22,7 @@ export async function listCompanies(): Promise<Company[]> {
   if (!c) {
     // 本地兜底：从 seed 文件读
     const seed = await import("../data/companies.seed.json");
-    return seed.companies;
+    return seed.companies as unknown as Company[];
   }
   const { data, error } = await c
     .from("companies")
@@ -52,7 +52,7 @@ export async function listCountries(): Promise<Country[]> {
   const c = getClient();
   if (!c) {
     const seed = await import("../data/companies.seed.json");
-    return seed.countries as Country[];
+    return seed.countries as unknown as Country[];
   }
   const { data, error } = await c
     .from("country_snapshots")

@@ -8,3 +8,5 @@ out
 .vercel
 .turbo
 data/snapshots.log.json
+
+.vercel
