@@ -104,7 +104,17 @@ export async function getTrend(
   days = 30
 ): Promise<DailySnapshot[]> {
   const c = getClient();
-  if (!c) return [];
+  if (!c) {
+    // 本地/无数据库：读仓库内快照日志
+    const { readSnapshotsFromRepo } = await import("./snapshot-store");
+    const all = await readSnapshotsFromRepo();
+    const since = new Date(Date.now() - days * 86_400_000)
+      .toISOString()
+      .slice(0, 10);
+    return all
+      .filter((r) => r.company_id === companyId && r.snapshot_date >= since)
+      .sort((a, b) => a.snapshot_date.localeCompare(b.snapshot_date));
+  }
   const since = new Date(Date.now() - days * 86_400_000)
     .toISOString()
     .slice(0, 10);

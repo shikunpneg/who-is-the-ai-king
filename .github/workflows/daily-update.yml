@@ -14,6 +14,10 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # 关键：允许 push 写回
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
@@ -25,16 +29,17 @@ jobs:
 
       - name: Run daily cron
         env:
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm run cron
 
       - name: Commit snapshot log
-        if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/snapshots.log.json || true
-          git diff --staged --quiet || git commit -m "chore: daily snapshot $(date -u +%Y-%m-%d)"
-          git push
+          if git diff --staged --quiet; then
+            echo "No snapshot changes"
+          else
+            git commit -m "chore: daily snapshot $(date -u +%Y-%m-%d)"
+            git push
+          fi
