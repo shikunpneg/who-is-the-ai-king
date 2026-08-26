@@ -1,24 +1,32 @@
-node_modules
-.next
-out
+# Next.js / Vercel
+node_modules/
+.next/
+.vercel/
+out/
+build/
+dist/
+
+# 本地环境与日志
 .env
 .env.local
-.DS_Store
+.env.*.local
 *.log
-.vercel
-.turbo
 
-.vercel
-.vc-cache
-.vercel-cache
+# Turbo
+.turbo/
+
+# Vercel CLI 本地缓存（不影响仓库）
+.vc-cache/
+.vercel-cache/
+
+# TypeScript 构建
 *.tsbuildinfo
-.run-logs
-.run-logs2
-.run-logs3
-.run-log.zip
-.run-log2.zip
-.run-log3.zip
-.run-logs-job.txt
-download-log.ts
-download-log3.ts
-debug-cron.ts
+next-env.d.ts
+
+# OS
+.DS_Store
+Thumbs.db
+
+# 调试 / 临时
+.tmp/
+*.tmp
