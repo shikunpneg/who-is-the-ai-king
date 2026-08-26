@@ -2,11 +2,14 @@ name: Daily LLM Tracker Update
 
 on:
   schedule:
-    # 每天 08:00 UTC（北京时间 16:00）跑一次
     - cron: "0 8 * * *"
-  workflow_dispatch:        # 允许手动触发
+  workflow_dispatch:
   push:
-    paths: ["data/companies.seed.json"]  # 改种子数据立即跑
+    paths: ["data/companies.seed.json"]
+
+# 关键：允许 workflow 写回仓库
+permissions:
+  contents: write
 
 jobs:
   update:
@@ -16,7 +19,6 @@ jobs:
       - uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          # 关键：允许 push 写回
           fetch-depth: 0
 
       - uses: actions/setup-node@v4
