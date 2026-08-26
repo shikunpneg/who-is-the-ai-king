@@ -7,9 +7,18 @@ out
 *.log
 .vercel
 .turbo
-data/snapshots.log.json
 
 .vercel
 .vc-cache
 .vercel-cache
 *.tsbuildinfo
+.run-logs
+.run-logs2
+.run-logs3
+.run-log.zip
+.run-log2.zip
+.run-log3.zip
+.run-logs-job.txt
+download-log.ts
+download-log3.ts
+debug-cron.ts
