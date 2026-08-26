@@ -16,8 +16,29 @@ async function main() {
     console.log(`  - ${s.name}: ${s.ok ? "✓" : "✗"} ${s.count}${s.error ? ` (${s.error})` : ""}`);
   }
 
-  await writeSnapshotsToRepo(snapshots);
-  console.log(`[cron] 写入 ${snapshots.length} 条 snapshot`);
+  // 兜底：即使所有数据源失败，仍用 seed 数据生成 25 条 snapshot
+  // 让 commit 一定发生（确保仓库有变化 → workflow 会真推一次）
+  let rows = snapshots;
+  if (rows.length === 0) {
+    const today = new Date().toISOString().slice(0, 10);
+    rows = companies.map((c) => ({
+      company_id: c.id,
+      model_id: c.flag_model.id,
+      snapshot_date: today,
+      hf_total_downloads: null,
+      hf_total_likes: null,
+      hf_model_count: null,
+      aa_index: c.metrics.aa_index ?? null,
+      aa_rank: c.metrics.aa_rank ?? null,
+      lmarena_elo: c.metrics.lmarena_elo ?? null,
+      mau_millions: c.metrics.mau_millions ?? null,
+      mau_source: c.metrics.mau_source ?? null,
+    }));
+    console.log(`[cron] 所有源失败，fallback 到 ${rows.length} 条 seed snapshot`);
+  }
+
+  await writeSnapshotsToRepo(rows);
+  console.log(`[cron] 写入 ${rows.length} 条 snapshot`);
 
   const sec = ((Date.now() - t0) / 1000).toFixed(1);
   console.log(`[cron] 完成，耗时 ${sec}s @ ${fetched_at}`);
