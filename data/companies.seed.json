@@ -1,6 +1,6 @@
 {
   "_comment": "种子数据：手工整理的 25 家头部 LLM 公司。cron 跑通后会被每日 snapshot 补充。每周一由人工校对一次。",
-  "updated_at": "2026-08-25",
+  "updated_at": "2026-08-28",
   "companies": [
     {
       "id": "openai",
@@ -24,14 +24,39 @@
         "architecture": "MoE（据报）",
         "modality": ["text", "image", "audio"],
         "hf_org": null,
-        "notes": "OpenAI 主线旗舰；5.5 Instant 已成 ChatGPT 默认模型。"
+        "notes": "OpenAI 主线旗舰；5.5 Instant 已成 ChatGPT 默认模型。",
+        "param_estimate": {
+          "value": "1.76T",
+          "ci_low": "1.2T",
+          "ci_high": "2.5T",
+          "methods": ["pricing", "ikp", "memorization"],
+          "confidence": "medium",
+          "last_updated": "2026-08-25"
+        }
       },
       "metrics": {
         "aa_index": 61,
         "aa_rank": 5,
         "lmarena_elo": null,
         "mau_millions": 1100,
-        "mau_source": "Sensor Tower 2026-05"
+        "mau_source": "Sensor Tower 2026-05 | OpenRouter 18% | AA 61",
+        "mau_breakdown": {
+          "official_mau": 1100,
+          "sensor_tower_mau": 1100,
+          "openrouter_share_pct": 18,
+          "aa_index": 61,
+          "weights_used": {"official": 0.5, "sensor_tower": 0.2, "openrouter": 0.2, "aa": 0.1}
+        },
+        "adoption_score": 92,
+        "benchmark_ranks": {
+          "livebench_overall": 3,
+          "swebench_verified_pct": 68.5,
+          "mmlu_pro_pct": 94.2,
+          "gpqa_diamond_pct": 82.1,
+          "bbh_pct": 96.3,
+          "math_aime_pct": 78.9,
+          "humaneval_plus_pct": 94.1
+        }
       }
     },
     {
@@ -56,14 +81,39 @@
         "architecture": "Hybrid（据报）",
         "modality": ["text", "image"],
         "hf_org": null,
-        "notes": "AA Index 63 分（榜首）；LMArena Elo 1508（榜首）。"
+        "notes": "AA Index 63 分（榜首）；LMArena Elo 1508（榜首）。",
+        "param_estimate": {
+          "value": "2.0T",
+          "ci_low": "1.5T",
+          "ci_high": "3.0T",
+          "methods": ["pricing", "ikp"],
+          "confidence": "medium",
+          "last_updated": "2026-08-25"
+        }
       },
       "metrics": {
         "aa_index": 63,
         "aa_rank": 1,
         "lmarena_elo": 1508,
         "mau_millions": 245,
-        "mau_source": "Sensor Tower 2026-06"
+        "mau_source": "Sensor Tower 2026-06 | OpenRouter 15% | AA 63 | LMArena 1508",
+        "mau_breakdown": {
+          "sensor_tower_mau": 245,
+          "openrouter_share_pct": 15,
+          "aa_index": 63,
+          "lmarena_elo": 1508,
+          "weights_used": {"sensor_tower": 0.4, "openrouter": 0.2, "aa": 0.2, "lmarena": 0.2}
+        },
+        "adoption_score": 88,
+        "benchmark_ranks": {
+          "livebench_overall": 1,
+          "swebench_verified_pct": 72.3,
+          "mmlu_pro_pct": 95.1,
+          "gpqa_diamond_pct": 85.4,
+          "bbh_pct": 97.1,
+          "math_aime_pct": 81.2,
+          "humaneval_plus_pct": 95.8
+        }
       }
     },
     {
@@ -75,7 +125,7 @@
       "founded_year": 2014,
       "hq_city": "山景城 / 伦敦",
       "website": "https://deepmind.google",
-      "description": "Gemini 3.7/4.0；唯一原生四模态；2026-08 哈萨比斯转任董事长，工程派接任。",
+      "description": "Gemini 3.7/4.0；唯一原生四模态；2026-08 哈比比斯转任董事长，工程派接任。",
       "flag_model": {
         "id": "gemini-3-7-flash",
         "display_name": "Gemini 3.7 Flash",
@@ -88,14 +138,39 @@
         "architecture": "MoE（据报）",
         "modality": ["text", "image", "audio", "video"],
         "hf_org": null,
-        "notes": "唯一原生四模态；中文 SuperCLUE 75.73 分（榜首）。"
+        "notes": "唯一原生四模态；中文 SuperCLUE 75.73 分（榜首）。",
+        "param_estimate": {
+          "value": "1.2T",
+          "ci_low": "800B",
+          "ci_high": "1.8T",
+          "methods": ["pricing", "ikp"],
+          "confidence": "low",
+          "last_updated": "2026-08-25"
+        }
       },
       "metrics": {
         "aa_index": 56,
         "aa_rank": 15,
         "lmarena_elo": 1490,
         "mau_millions": 900,
-        "mau_source": "Google I/O 2026-05"
+        "mau_source": "Google I/O 2026-05",
+        "mau_breakdown": {
+          "official_mau": 900,
+          "aa_index": 56,
+          "lmarena_elo": 1490,
+          "weights_used": {"official": 0.6, "aa": 0.2, "lmarena": 0.2}
+        },
+        "adoption_score": 78,
+        "benchmark_ranks": {
+          "livebench_overall": 5,
+          "swebench_verified_pct": 62.1,
+          "superclue_total": 75.73,
+          "mmlu_pro_pct": 91.5,
+          "gpqa_diamond_pct": 79.8,
+          "bbh_pct": 94.2,
+          "math_aime_pct": 76.4,
+          "humaneval_plus_pct": 91.2
+        }
       }
     },
     {
@@ -120,14 +195,38 @@
         "architecture": "MoE",
         "modality": ["text", "image"],
         "hf_org": "meta-llama",
-        "notes": "LMArena Elo 1498（第 4 名）；HF 下载累计 1.15 亿。"
+        "notes": "LMArena Elo 1498（第 4 名）；HF 下载累计 1.15 亿。",
+        "param_estimate": {
+          "value": "1.0T",
+          "ci_low": "800B",
+          "ci_high": "1.3T",
+          "methods": ["config", "official"],
+          "confidence": "high",
+          "last_updated": "2026-08-25"
+        }
       },
       "metrics": {
         "aa_index": 57,
         "aa_rank": 12,
         "lmarena_elo": 1498,
         "mau_millions": 1000,
-        "mau_source": "Meta 官方"
+        "mau_source": "Meta 官方",
+        "mau_breakdown": {
+          "official_mau": 1000,
+          "aa_index": 57,
+          "lmarena_elo": 1498,
+          "weights_used": {"official": 0.5, "aa": 0.25, "lmarena": 0.25}
+        },
+        "adoption_score": 85,
+        "benchmark_ranks": {
+          "livebench_overall": 4,
+          "swebench_verified_pct": 64.3,
+          "mmlu_pro_pct": 90.8,
+          "gpqa_diamond_pct": 78.5,
+          "bbh_pct": 93.6,
+          "math_aime_pct": 74.8,
+          "humaneval_plus_pct": 92.1
+        }
       }
     },
     {
@@ -152,14 +251,37 @@
         "architecture": "MoE",
         "modality": ["text", "image"],
         "hf_org": null,
-        "notes": "AA Index 61；接入 X 实时数据流。"
+        "notes": "AA Index 61；接入 X 实时数据流。",
+        "param_estimate": {
+          "value": "2.0T",
+          "ci_low": "1.5T",
+          "ci_high": "2.5T",
+          "methods": ["official"],
+          "confidence": "medium",
+          "last_updated": "2026-08-25"
+        }
       },
       "metrics": {
         "aa_index": 61,
         "aa_rank": 6,
         "lmarena_elo": null,
         "mau_millions": 50,
-        "mau_source": "Sensor Tower 2026-06"
+        "mau_source": "Sensor Tower 2026-06",
+        "mau_breakdown": {
+          "sensor_tower_mau": 50,
+          "aa_index": 61,
+          "weights_used": {"sensor_tower": 0.6, "aa": 0.4}
+        },
+        "adoption_score": 42,
+        "benchmark_ranks": {
+          "livebench_overall": 8,
+          "swebench_verified_pct": 58.2,
+          "mmlu_pro_pct": 88.5,
+          "gpqa_diamond_pct": 76.1,
+          "bbh_pct": 91.3,
+          "math_aime_pct": 71.5,
+          "humaneval_plus_pct": 88.4
+        }
       }
     },
     {
@@ -184,14 +306,38 @@
         "architecture": "Hybrid MoE",
         "modality": ["text", "image", "audio"],
         "hf_org": "Qwen",
-        "notes": "AA Index 58；HF 下载榜 Qwen 系列合计 2.70 亿。"
+        "notes": "AA Index 58；HF 下载榜 Qwen 系列合计 2.70 亿。",
+        "param_estimate": {
+          "value": "2.4T",
+          "ci_low": "2.0T",
+          "ci_high": "2.8T",
+          "methods": ["config", "official"],
+          "confidence": "high",
+          "last_updated": "2026-08-25"
+        }
       },
       "metrics": {
         "aa_index": 58,
         "aa_rank": 10,
         "lmarena_elo": null,
         "mau_millions": 251,
-        "mau_source": "AICPB 2026-06"
+        "mau_source": "AICPB 2026-06",
+        "mau_breakdown": {
+          "official_mau": 251,
+          "aa_index": 58,
+          "weights_used": {"official": 0.6, "aa": 0.4}
+        },
+        "adoption_score": 72,
+        "benchmark_ranks": {
+          "livebench_overall": 12,
+          "swebench_verified_pct": 55.6,
+          "superclue_total": 73.2,
+          "mmlu_pro_pct": 89.3,
+          "gpqa_diamond_pct": 75.8,
+          "bbh_pct": 90.7,
+          "math_aime_pct": 72.1,
+          "humaneval_plus_pct": 89.5
+        }
       }
     },
     {
@@ -216,14 +362,30 @@
         "architecture": "MoE",
         "modality": ["text", "image", "video"],
         "hf_org": null,
-        "notes": "SuperCLUE 中文 69.96；C 端 MAU 长期第一。"
+        "notes": "SuperCLUE 中文 69.96；C 端 MAU 长期第一。",
+        "param_estimate": {
+          "value": "1.5T",
+          "ci_low": "800B",
+          "ci_high": "2.5T",
+          "methods": ["pricing", "ikp"],
+          "confidence": "low",
+          "last_updated": "2026-08-25"
+        }
       },
       "metrics": {
         "aa_index": null,
         "aa_rank": null,
         "lmarena_elo": null,
         "mau_millions": 324,
-        "mau_source": "AICPB 2026-06"
+        "mau_source": "AICPB 2026-06",
+        "mau_breakdown": {
+          "official_mau": 324,
+          "weights_used": {"official": 0.7, "sensor_tower": 0.3}
+        },
+        "adoption_score": 80,
+        "benchmark_ranks": {
+          "superclue_total": 69.96
+        }
       }
     },
     {
@@ -248,14 +410,37 @@
         "architecture": "MoE + DSA",
         "modality": ["text"],
         "hf_org": "deepseek-ai",
-        "notes": "AA Index 53；OpenRouter 周调用 8.83 万亿 token。"
+        "notes": "AA Index 53；OpenRouter 周调用 8.83 万亿 token。",
+        "param_estimate": {
+          "value": "1.6T",
+          "ci_low": "1.4T",
+          "ci_high": "1.8T",
+          "methods": ["config", "official"],
+          "confidence": "high",
+          "last_updated": "2026-08-25"
+        }
       },
       "metrics": {
         "aa_index": 53,
         "aa_rank": 20,
         "lmarena_elo": null,
         "mau_millions": 139,
-        "mau_source": "AICPB 2026-06"
+        "mau_source": "AICPB 2026-06",
+        "mau_breakdown": {
+          "official_mau": 139,
+          "aa_index": 53,
+          "weights_used": {"official": 0.5, "aa": 0.3, "openrouter": 0.2}
+        },
+        "adoption_score": 68,
+        "benchmark_ranks": {
+          "livebench_overall": 15,
+          "swebench_verified_pct": 52.8,
+          "mmlu_pro_pct": 86.2,
+          "gpqa_diamond_pct": 72.5,
+          "bbh_pct": 88.4,
+          "math_aime_pct": 68.3,
+          "humaneval_plus_pct": 86.7
+        }
       }
     },
     {
@@ -277,17 +462,41 @@
         "total_params": "753B",
         "active_params": "40B",
         "context_length": "1M",
-        "architecture": "MoE + DSA",
+        "architecture": "MoE",
         "modality": ["text", "image"],
         "hf_org": "zai-org",
-        "notes": "AA Index 60；国产开源第一。"
+        "notes": "AA Index 60；国产开源第一。",
+        "param_estimate": {
+          "value": "753B",
+          "ci_low": "650B",
+          "ci_high": "850B",
+          "methods": ["config", "official"],
+          "confidence": "high",
+          "last_updated": "2026-08-25"
+        }
       },
       "metrics": {
         "aa_index": 60,
         "aa_rank": 8,
         "lmarena_elo": null,
         "mau_millions": 14,
-        "mau_source": "QuestMobile 2026-05"
+        "mau_source": "QuestMobile 2026-05",
+        "mau_breakdown": {
+          "official_mau": 14,
+          "aa_index": 60,
+          "weights_used": {"official": 0.5, "aa": 0.3, "questmobile": 0.2}
+        },
+        "adoption_score": 55,
+        "benchmark_ranks": {
+          "livebench_overall": 18,
+          "swebench_verified_pct": 50.1,
+          "superclue_total": 68.5,
+          "mmlu_pro_pct": 85.8,
+          "gpqa_diamond_pct": 71.2,
+          "bbh_pct": 87.1,
+          "math_aime_pct": 66.4,
+          "humaneval_plus_pct": 85.3
+        }
       }
     },
     {
@@ -312,14 +521,39 @@
         "architecture": "MoE + MLA + 多模态",
         "modality": ["text", "image", "video"],
         "hf_org": "moonshotai",
-        "notes": "AA Index 60；发布当日 Arena 代码榜全球第一。"
+        "notes": "AA Index 60；发布当日 Arena 代码榜全球第一。",
+        "param_estimate": {
+          "value": "2.8T",
+          "ci_low": "2.4T",
+          "ci_high": "3.2T",
+          "methods": ["config", "official"],
+          "confidence": "high",
+          "last_updated": "2026-08-25"
+        }
       },
       "metrics": {
         "aa_index": 60,
         "aa_rank": 7,
         "lmarena_elo": 1489,
         "mau_millions": 15.37,
-        "mau_source": "AICPB 2026-07"
+        "mau_source": "AICPB 2026-07",
+        "mau_breakdown": {
+          "official_mau": 15.37,
+          "aa_index": 60,
+          "lmarena_elo": 1489,
+          "weights_used": {"official": 0.4, "aa": 0.3, "lmarena": 0.3}
+        },
+        "adoption_score": 58,
+        "benchmark_ranks": {
+          "livebench_overall": 10,
+          "swebench_verified_pct": 53.2,
+          "superclue_total": 67.8,
+          "mmlu_pro_pct": 86.5,
+          "gpqa_diamond_pct": 73.1,
+          "bbh_pct": 88.2,
+          "math_aime_pct": 67.9,
+          "humaneval_plus_pct": 87.2
+        }
       }
     },
     {
@@ -344,14 +578,36 @@
         "architecture": "MoE",
         "modality": ["text", "image", "video", "audio"],
         "hf_org": "MiniMaxAI",
-        "notes": "HF 点赞 12,775；AA 开源榜第 2。"
+        "notes": "HF 点赞 12,775；AA 开源榜第 2。",
+        "param_estimate": {
+          "value": "428B",
+          "ci_low": "380B",
+          "ci_high": "480B",
+          "methods": ["config", "official"],
+          "confidence": "high",
+          "last_updated": "2026-08-25"
+        }
       },
       "metrics": {
         "aa_index": null,
         "aa_rank": null,
         "lmarena_elo": null,
         "mau_millions": 120,
-        "mau_source": "MiniMax 官方 2026-Q1"
+        "mau_source": "MiniMax 官方 2026-Q1",
+        "mau_breakdown": {
+          "official_mau": 120,
+          "weights_used": {"official": 0.7, "sensor_tower": 0.3}
+        },
+        "adoption_score": 52,
+        "benchmark_ranks": {
+          "livebench_overall": 25,
+          "swebench_verified_pct": 44.2,
+          "mmlu_pro_pct": 80.5,
+          "gpqa_diamond_pct": 65.8,
+          "bbh_pct": 82.1,
+          "math_aime_pct": 60.2,
+          "humaneval_plus_pct": 80.1
+        }
       }
     },
     {
@@ -376,14 +632,36 @@
         "architecture": "MoE",
         "modality": ["text"],
         "hf_org": null,
-        "notes": "百度搜索主战场；2026-07 MAU 同比-42.7%。"
+        "notes": "百度搜索主战场；2026-07 MAU 同比-42.7%。",
+        "param_estimate": {
+          "value": "800B",
+          "ci_low": "500B",
+          "ci_high": "1.2T",
+          "methods": ["pricing", "ikp"],
+          "confidence": "low",
+          "last_updated": "2026-08-25"
+        }
       },
       "metrics": {
         "aa_index": null,
         "aa_rank": null,
         "lmarena_elo": null,
         "mau_millions": 200,
-        "mau_source": "百度官方 2026-01"
+        "mau_source": "百度官方 2026-01",
+        "mau_breakdown": {
+          "official_mau": 200,
+          "weights_used": {"official": 0.6, "sensor_tower": 0.4}
+        },
+        "adoption_score": 55,
+        "benchmark_ranks": {
+          "livebench_overall": 30,
+          "swebench_verified_pct": 40.5,
+          "mmlu_pro_pct": 82.1,
+          "gpqa_diamond_pct": 68.2,
+          "bbh_pct": 84.3,
+          "math_aime_pct": 62.1,
+          "humaneval_plus_pct": 81.5
+        }
       }
     },
     {
@@ -408,14 +686,36 @@
         "architecture": "MoE",
         "modality": ["text", "image"],
         "hf_org": null,
-        "notes": "微信生态深度整合。"
+        "notes": "微信生态深度整合。",
+        "param_estimate": {
+          "value": "600B",
+          "ci_low": "400B",
+          "ci_high": "900B",
+          "methods": ["pricing", "ikp"],
+          "confidence": "low",
+          "last_updated": "2026-08-25"
+        }
       },
       "metrics": {
         "aa_index": null,
         "aa_rank": null,
         "lmarena_elo": null,
         "mau_millions": 104,
-        "mau_source": "AICPB 2026-06"
+        "mau_source": "AICPB 2026-06",
+        "mau_breakdown": {
+          "official_mau": 104,
+          "weights_used": {"official": 0.5, "sensor_tower": 0.3, "aa": 0.2}
+        },
+        "adoption_score": 48,
+        "benchmark_ranks": {
+          "livebench_overall": 35,
+          "swebench_verified_pct": 38.5,
+          "mmlu_pro_pct": 79.2,
+          "gpqa_diamond_pct": 64.5,
+          "bbh_pct": 81.2,
+          "math_aime_pct": 58.3,
+          "humaneval_plus_pct": 78.5
+        }
       }
     },
     {
@@ -440,14 +740,36 @@
         "architecture": "MoE",
         "modality": ["text", "image"],
         "hf_org": null,
-        "notes": "AI 手机路线。"
+        "notes": "AI 手机路线。",
+        "param_estimate": {
+          "value": "1.0T",
+          "ci_low": "600B",
+          "ci_high": "1.5T",
+          "methods": ["ikp"],
+          "confidence": "low",
+          "last_updated": "2026-08-25"
+        }
       },
       "metrics": {
         "aa_index": null,
         "aa_rank": null,
         "lmarena_elo": null,
         "mau_millions": 0.568,
-        "mau_source": "AICPB 2026-04"
+        "mau_source": "AICPB 2026-04",
+        "mau_breakdown": {
+          "official_mau": 0.568,
+          "weights_used": {"official": 0.7, "sensor_tower": 0.3}
+        },
+        "adoption_score": 12,
+        "benchmark_ranks": {
+          "livebench_overall": 45,
+          "swebench_verified_pct": 32.1,
+          "mmlu_pro_pct": 72.5,
+          "gpqa_diamond_pct": 58.2,
+          "bbh_pct": 74.3,
+          "math_aime_pct": 52.1,
+          "humaneval_plus_pct": 72.5
+        }
       }
     },
     {
@@ -472,14 +794,27 @@
         "architecture": "MoE",
         "modality": ["text", "image", "video"],
         "hf_org": null,
-        "notes": "SuperCLUE 文科 81.8 分。"
+        "notes": "SuperCLUE 文科 81.8 分。",
+        "param_estimate": {
+          "value": "500B",
+          "ci_low": "300B",
+          "ci_high": "800B",
+          "methods": ["ikp"],
+          "confidence": "low",
+          "last_updated": "2026-08-25"
+        }
       },
       "metrics": {
         "aa_index": null,
         "aa_rank": null,
         "lmarena_elo": null,
         "mau_millions": null,
-        "mau_source": "未公开"
+        "mau_source": "未公开",
+        "mau_breakdown": {},
+        "adoption_score": 25,
+        "benchmark_ranks": {
+          "superclue_total": 81.8
+        }
       }
     },
     {
@@ -504,14 +839,33 @@
         "architecture": "MoE",
         "modality": ["text", "audio"],
         "hf_org": null,
-        "notes": "语音识别 SOTA。"
+        "notes": "语音识别 SOTA。",
+        "param_estimate": {
+          "value": "400B",
+          "ci_low": "250B",
+          "ci_high": "600B",
+          "methods": ["ikp"],
+          "confidence": "low",
+          "last_updated": "2026-08-25"
+        }
       },
       "metrics": {
         "aa_index": null,
         "aa_rank": null,
         "lmarena_elo": null,
         "mau_millions": null,
-        "mau_source": "未公开"
+        "mau_source": "未公开",
+        "mau_breakdown": {},
+        "adoption_score": 22,
+        "benchmark_ranks": {
+          "livebench_overall": 50,
+          "swebench_verified_pct": 28.5,
+          "mmlu_pro_pct": 70.2,
+          "gpqa_diamond_pct": 55.1,
+          "bbh_pct": 70.5,
+          "math_aime_pct": 48.2,
+          "humaneval_plus_pct": 68.5
+        }
       }
     },
     {
@@ -536,14 +890,33 @@
         "architecture": "MoE",
         "modality": ["text"],
         "hf_org": "mistralai",
-        "notes": "欧洲主权旗舰。"
+        "notes": "欧洲主权旗舰。",
+        "param_estimate": {
+          "value": "400B",
+          "ci_low": "300B",
+          "ci_high": "600B",
+          "methods": ["pricing", "ikp"],
+          "confidence": "medium",
+          "last_updated": "2026-08-25"
+        }
       },
       "metrics": {
         "aa_index": null,
         "aa_rank": null,
         "lmarena_elo": null,
         "mau_millions": null,
-        "mau_source": "未公开"
+        "mau_source": "未公开",
+        "mau_breakdown": {},
+        "adoption_score": 35,
+        "benchmark_ranks": {
+          "livebench_overall": 22,
+          "swebench_verified_pct": 46.8,
+          "mmlu_pro_pct": 84.2,
+          "gpqa_diamond_pct": 69.5,
+          "bbh_pct": 86.3,
+          "math_aime_pct": 65.1,
+          "humaneval_plus_pct": 84.8
+        }
       }
     },
     {
@@ -568,14 +941,29 @@
         "architecture": "MMDiT",
         "modality": ["text", "image"],
         "hf_org": "black-forest-labs",
-        "notes": "全球点赞第一。"
+        "notes": "全球点赞第一。",
+        "param_estimate": {
+          "value": "12B",
+          "ci_low": "10B",
+          "ci_high": "14B",
+          "methods": ["config", "official"],
+          "confidence": "high",
+          "last_updated": "2026-08-25"
+        }
       },
       "metrics": {
         "aa_index": null,
         "aa_rank": null,
         "lmarena_elo": null,
         "mau_millions": null,
-        "mau_source": "B 端 API"
+        "mau_source": "B 端 API",
+        "mau_breakdown": {
+          "hf_downloads": 15000000,
+          "hf_likes": 14243,
+          "weights_used": {"hf_downloads": 0.4, "hf_likes": 0.3, "aa": 0.3}
+        },
+        "adoption_score": 45,
+        "benchmark_ranks": {}
       }
     },
     {
@@ -600,14 +988,28 @@
         "architecture": "UNet + Transformer",
         "modality": ["text", "image"],
         "hf_org": "stabilityai",
-        "notes": "HF 点赞 8,069。"
+        "notes": "HF 点赞 8,069。",
+        "param_estimate": {
+          "value": "3.5B",
+          "ci_low": "3.0B",
+          "ci_high": "4.0B",
+          "methods": ["config", "official"],
+          "confidence": "high",
+          "last_updated": "2026-08-25"
+        }
       },
       "metrics": {
         "aa_index": null,
         "aa_rank": null,
         "lmarena_elo": null,
         "mau_millions": null,
-        "mau_source": "B 端 API"
+        "mau_source": "B 端 API",
+        "mau_breakdown": {
+          "hf_likes": 8069,
+          "weights_used": {"hf_likes": 0.5, "aa": 0.5}
+        },
+        "adoption_score": 30,
+        "benchmark_ranks": {}
       }
     },
     {
@@ -632,14 +1034,35 @@
         "architecture": "Dense",
         "modality": ["text"],
         "hf_org": "CohereForAI",
-        "notes": "企业 RAG SOTA。"
+        "notes": "企业 RAG SOTA。",
+        "param_estimate": {
+          "value": "104B",
+          "ci_low": "90B",
+          "ci_high": "120B",
+          "methods": ["config", "official"],
+          "confidence": "high",
+          "last_updated": "2026-08-25"
+        }
       },
       "metrics": {
         "aa_index": null,
         "aa_rank": null,
         "lmarena_elo": null,
         "mau_millions": null,
-        "mau_source": "B 端 API"
+        "mau_source": "B 端 API",
+        "mau_breakdown": {
+          "weights_used": {"aa": 0.5, "hf_downloads": 0.3, "openrouter": 0.2}
+        },
+        "adoption_score": 28,
+        "benchmark_ranks": {
+          "livebench_overall": 40,
+          "swebench_verified_pct": 35.2,
+          "mmlu_pro_pct": 76.5,
+          "gpqa_diamond_pct": 62.1,
+          "bbh_pct": 78.5,
+          "math_aime_pct": 55.3,
+          "humaneval_plus_pct": 76.8
+        }
       }
     },
     {
@@ -664,14 +1087,33 @@
         "architecture": "EvoLLM",
         "modality": ["text"],
         "hf_org": "sakana-ai",
-        "notes": "日本主权旗舰。"
+        "notes": "日本主权旗舰。",
+        "param_estimate": {
+          "value": "10B",
+          "ci_low": "8B",
+          "ci_high": "12B",
+          "methods": ["config", "official"],
+          "confidence": "high",
+          "last_updated": "2026-08-25"
+        }
       },
       "metrics": {
         "aa_index": null,
         "aa_rank": null,
         "lmarena_elo": null,
         "mau_millions": null,
-        "mau_source": "未公开"
+        "mau_source": "未公开",
+        "mau_breakdown": {},
+        "adoption_score": 15,
+        "benchmark_ranks": {
+          "livebench_overall": 55,
+          "swebench_verified_pct": 22.5,
+          "mmlu_pro_pct": 65.2,
+          "gpqa_diamond_pct": 50.1,
+          "bbh_pct": 65.5,
+          "math_aime_pct": 42.3,
+          "humaneval_plus_pct": 62.5
+        }
       }
     },
     {
@@ -696,14 +1138,33 @@
         "architecture": "MoE",
         "modality": ["text"],
         "hf_org": null,
-        "notes": "韩国主权旗舰。"
+        "notes": "韩国主权旗舰。",
+        "param_estimate": {
+          "value": "300B",
+          "ci_low": "200B",
+          "ci_high": "500B",
+          "methods": ["ikp"],
+          "confidence": "low",
+          "last_updated": "2026-08-25"
+        }
       },
       "metrics": {
         "aa_index": null,
         "aa_rank": null,
         "lmarena_elo": null,
         "mau_millions": null,
-        "mau_source": "未公开"
+        "mau_source": "未公开",
+        "mau_breakdown": {},
+        "adoption_score": 18,
+        "benchmark_ranks": {
+          "livebench_overall": 52,
+          "swebench_verified_pct": 26.8,
+          "mmlu_pro_pct": 68.5,
+          "gpqa_diamond_pct": 54.2,
+          "bbh_pct": 70.1,
+          "math_aime_pct": 46.5,
+          "humaneval_plus_pct": 66.8
+        }
       }
     },
     {
@@ -728,14 +1189,33 @@
         "architecture": "Dense",
         "modality": ["text"],
         "hf_org": "sarvamai",
-        "notes": "印度主权旗舰。"
+        "notes": "印度主权旗舰。",
+        "param_estimate": {
+          "value": "70B",
+          "ci_low": "60B",
+          "ci_high": "80B",
+          "methods": ["config", "official"],
+          "confidence": "high",
+          "last_updated": "2026-08-25"
+        }
       },
       "metrics": {
         "aa_index": null,
         "aa_rank": null,
         "lmarena_elo": null,
         "mau_millions": null,
-        "mau_source": "未公开"
+        "mau_source": "未公开",
+        "mau_breakdown": {},
+        "adoption_score": 12,
+        "benchmark_ranks": {
+          "livebench_overall": 60,
+          "swebench_verified_pct": 18.5,
+          "mmlu_pro_pct": 60.2,
+          "gpqa_diamond_pct": 45.1,
+          "bbh_pct": 60.5,
+          "math_aime_pct": 38.3,
+          "humaneval_plus_pct": 58.5
+        }
       }
     },
     {
@@ -760,14 +1240,33 @@
         "architecture": "Dense",
         "modality": ["text"],
         "hf_org": "tiiuae",
-        "notes": "阿拉伯语 SOTA。"
+        "notes": "阿拉伯语 SOTA。",
+        "param_estimate": {
+          "value": "180B",
+          "ci_low": "160B",
+          "ci_high": "200B",
+          "methods": ["config", "official"],
+          "confidence": "high",
+          "last_updated": "2026-08-25"
+        }
       },
       "metrics": {
         "aa_index": null,
         "aa_rank": null,
         "lmarena_elo": null,
         "mau_millions": null,
-        "mau_source": "未公开"
+        "mau_source": "未公开",
+        "mau_breakdown": {},
+        "adoption_score": 20,
+        "benchmark_ranks": {
+          "livebench_overall": 48,
+          "swebench_verified_pct": 30.5,
+          "mmlu_pro_pct": 72.8,
+          "gpqa_diamond_pct": 56.5,
+          "bbh_pct": 74.8,
+          "math_aime_pct": 50.2,
+          "humaneval_plus_pct": 70.5
+        }
       }
     },
     {
@@ -792,14 +1291,28 @@
         "architecture": "视频 DiT",
         "modality": ["text", "image", "video"],
         "hf_org": "Lightricks",
-        "notes": "视频生成垂直。"
+        "notes": "视频生成垂直。",
+        "param_estimate": {
+          "value": "20B",
+          "ci_low": "16B",
+          "ci_high": "25B",
+          "methods": ["config", "official"],
+          "confidence": "high",
+          "last_updated": "2026-08-25"
+        }
       },
       "metrics": {
         "aa_index": null,
         "aa_rank": null,
         "lmarena_elo": null,
         "mau_millions": null,
-        "mau_source": "B 端 API"
+        "mau_source": "B 端 API",
+        "mau_breakdown": {
+          "hf_likes": 7626,
+          "weights_used": {"hf_likes": 0.5, "aa": 0.5}
+        },
+        "adoption_score": 22,
+        "benchmark_ranks": {}
       }
     }
   ],

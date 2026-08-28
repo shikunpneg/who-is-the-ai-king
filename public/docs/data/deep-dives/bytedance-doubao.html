@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>豆包大模型 · 深度公司档案｜ByteDance Seed</title>
+<style>
+  :root{--bg:#f6f7fb;--card:#fff;--ink:#1c2333;--muted:#5b6478;--line:#e5e8f0;--accent:#4f46e5;--cn:#e11d48}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Noto Sans CJK SC','WenQuanYi Micro Hei','Microsoft YaHei','PingFang SC',sans-serif;background:var(--bg);color:var(--ink);line-height:1.75}
+  .wrap{max-width:1080px;margin:0 auto;padding:34px 22px 90px}
+  header.hero{background:linear-gradient(135deg,#0f172a 0%,#312e81 60%,#7c3aed 100%);color:#fff;border-radius:20px;padding:42px 40px;margin-bottom:30px;position:relative;overflow:hidden}
+  header.hero::after{content:"";position:absolute;right:-80px;top:-80px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,#22d3ee 0%,transparent 70%);opacity:.35}
+  .hero h1{font-size:1.9rem;font-weight:800;letter-spacing:.5px;line-height:1.35;position:relative;z-index:1}
+  .hero p.sub{margin-top:10px;color:#c7d2fe;font-size:.95rem;position:relative;z-index:1}
+  .hero .meta{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap;position:relative;z-index:1}
+  .hero .tag{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);padding:4px 14px;border-radius:999px;font-size:.82rem}
+  h2.sec{font-size:1.45rem;font-weight:800;margin:48px 0 8px;padding-left:14px;border-left:6px solid var(--cn)}
+  p.secnote{color:var(--muted);font-size:.92rem;margin-bottom:18px;padding-left:20px}
+  h3{font-size:1.05rem;font-weight:700;margin:24px 0 10px;color:#312e81}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 26px;margin-bottom:18px;overflow-x:auto}
+  table{width:100%;border-collapse:collapse;font-size:.88rem;min-width:600px}
+  th{background:#eef0fa;color:#312e81;text-align:left;padding:9px 12px;font-weight:700;border-bottom:2px solid #dde1f2;white-space:nowrap}
+  td{padding:8px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  tr:hover td{background:#fafbff}
+  td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .pill{display:inline-block;padding:2px 10px;border-radius:999px;font-size:.77rem;font-weight:600;white-space:nowrap}
+  .pill-cn{background:#ffe4e9;color:#be123c}
+  .pill-open{background:#d1fae5;color:#047857}
+  .pill-closed{background:#fef3c7;color:#92400e}
+  .pill-pri{background:#ede9fe;color:#6d28d9}
+  .note{background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:14px 18px;font-size:.88rem;color:#78350f;margin:14px 0}
+  .info{background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:14px 18px;font-size:.88rem;color:#1e3a8a;margin:14px 0}
+  pre{background:#0f172a;color:#e2e8f0;border-radius:10px;padding:14px 18px;font-size:.82rem;overflow-x:auto;margin:10px 0;line-height:1.6;font-family:'JetBrains Mono','Consolas',monospace}
+  code{background:#eef0fa;padding:1px 6px;border-radius:5px;font-size:.85em;font-family:'JetBrains Mono','Consolas',monospace}
+  .src{font-size:.82rem;color:var(--muted)}
+  .src a{color:var(--accent);text-decoration:none;border-bottom:1px dashed #c7d2fe}
+  .cite{color:var(--accent);text-decoration:none;font-weight:600}
+  .cite::after{content:"\2197";font-size:.7em;margin-left:2px}
+  ol.num{counter-reset:s;padding-left:24px}
+  ol.num li{counter-increment:s;margin:5px 0}
+  ol.num li::marker{content:counter(s) ".";font-weight:700;color:var(--accent)}
+  ul.flat{padding-left:22px}
+  ul.flat li{margin:4px 0}
+  .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:18px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+  .card .num{font-size:1.55rem;font-weight:800;color:var(--cn);line-height:1.1}
+  .card .lbl{font-size:.83rem;color:var(--muted);margin-top:6px}
+  footer{margin-top:60px;color:var(--muted);font-size:.82rem;text-align:center;border-top:1px solid var(--line);padding-top:22px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <h1>豆包大模型 Doubao / Seed<br>深度公司档案</h1>
+  <p class="sub">字节跳动 ByteDance Seed 团队 · 火山引擎 MaaS · 中国大模型调用量第一</p>
+  <div class="meta">
+    <span class="tag">🇨🇳 北京 / 杭州</span>
+    <span class="tag">⏱ 档案更新：2026-08-25</span>
+    <span class="tag">📦 Seed 2.1 Pro 最新</span>
+    <span class="tag">📊 180 万亿 日均 token</span>
+  </div>
+</header>
+
+<div class="grid3">
+  <div class="card"><div class="num">3.24 亿</div><div class="lbl">豆包 App MAU（2026-06，AICPB）</div></div>
+  <div class="card"><div class="num">180 万亿</div><div class="lbl">日均 Token 调用量（中国 MaaS 49.5% 份额）</div></div>
+  <div class="card"><div class="num">1.5 亿+</div><div class="lbl">日活 DAU，长期 C 端第一</div></div>
+  <div class="card"><div class="num">0.008 元</div><div class="lbl">每千 tokens 输入价（Seed 2.1 Pro）</div></div>
+</div>
+
+<!-- ===== 公司概况 ===== -->
+<h2 class="sec">一、公司概况</h2>
+<div class="panel">
+  <table>
+    <tr><th>项目</th><th>详情</th></tr>
+    <tr><td>公司</td><td>字节跳动（ByteDance）旗下大模型团队 <b>ByteDance Seed</b></td></tr>
+    <tr><td>原名</td><td>云雀大模型（2024-04 备案）</td></tr>
+    <tr><td>首次发布</td><td>2024-05-15（火山引擎 Force 春季大会）</td></tr>
+    <tr><td>总部</td><td>北京 / 杭州</td></tr>
+    <tr><td>母公司</td><td>字节跳动（2025 估值 3,000 亿美元）</td></tr>
+    <tr><td>商业化平台</td><td>火山引擎（ark.volcengine.com）</td></tr>
+    <tr><td>战略定位</td><td>「全模态 + 强推理 + 极低 token 价」的企业级 MaaS</td></tr>
+    <tr><td>国家</td><td><span class="pill pill-cn">中国 🇨🇳</span></td></tr>
+  </table>
+  <div class="info">📌 <b>核心事实：</b>豆包不是独立公司，是字节跳动 Seed 团队的产品；商业化由<b>火山引擎</b>承载。该团队 2023 年才成立，但 2024 年后月活、收入、token 调用量均冲上中国第一[$TRAE_REF](https://m.baike.com/wiki/%E8%B1%86%E5%8C%85%E5%A4%A7%E6%A8%A1%E5%9E%8B/7369048140970475559)。</div>
+</div>
+
+<!-- ===== 模型矩阵 ===== -->
+<h2 class="sec">二、模型矩阵（截至 2026-08）</h2>
+<p class="secnote">覆盖语言、视觉、视频生成、图像创作、语音、音乐、向量 7 大类共 20+ 个模型。</p>
+
+<div class="panel">
+  <h3>2.1 语言模型（主力）</h3>
+  <table>
+    <tr>
+      <th>模型</th><th>定位</th><th>上下文</th><th>输入价</th><th>输出价</th><th>特点</th>
+    </tr>
+    <tr><td><b>Seed-Evolving</b></td><td>最新 Coding & Agent</td><td>256K</td><td class="num">6 元/M</td><td class="num">30 元/M</td><td>高频迭代</td></tr>
+    <tr><td><b>Seed-2.1-Pro</b></td><td>生产级旗舰</td><td>256K</td><td class="num">6 元/M</td><td class="num">30 元/M</td><td>2026-06-23；Terminal Bench 71、SWE-Pro 57.5</td></tr>
+    <tr><td><b>Seed-2.1-Turbo</b></td><td>性价比版</td><td>256K</td><td class="num">3 元/M</td><td class="num">15 元/M</td><td>大规模批量化部署</td></tr>
+    <tr><td><b>Seed-2.0-Pro</b></td><td>上一代旗舰</td><td>256K</td><td class="num">3.2 元/M</td><td class="num">16 元/M</td><td>2026-02-14；EgoTempo 71.8 超人类</td></tr>
+    <tr><td><b>Seed-2.0-Lite</b></td><td>均衡</td><td>256K</td><td class="num">0.6-1.8 元/M</td><td class="num">3.6-10.8 元/M</td><td>全模态理解（音视图文）</td></tr>
+    <tr><td><b>Seed-2.0-Mini</b><span class="pill pill-pri">新</span></td><td>极小</td><td>256K</td><td class="num">0.2-0.8 元/M</td><td class="num">2-8 元/M</td><td>四档思考长度；低时延高并发</td></tr>
+    <tr><td><b>Seed-2.0-Code</b></td><td>编程增强</td><td>—</td><td class="num">3.2 元/M</td><td class="num">16 元/M</td><td>适配 Claude Code / Cursor / TRAE</td></tr>
+    <tr><td><b>Seed-Character</b></td><td>角色扮演</td><td>—</td><td>—</td><td>—</td><td>虚拟陪伴场景</td></tr>
+  </table>
+  <p class="src">价格来源：<a class="cite" href="https://ai.volcengine.com/model">火山引擎模型广场</a>。注：所有报价以「≤32K 输入」为基准；超过 32K 输入部分通常按 1.5-2 倍单价计算。</p>
+</div>
+
+<div class="panel">
+  <h3>2.2 多模态与生成模型</h3>
+  <table>
+    <tr><th>模型</th><th>类型</th><th>特性</th></tr>
+    <tr><td>Doubao-Seed-Vision</td><td>视觉理解</td><td>通用多模态理解与推理；支持 128K 长上下文</td></tr>
+    <tr><td>Doubao-Seedream-5.0-Pro</td><td>图像生成</td><td>0.02 元/张输入 + 0.3 元/张输出；精准图像编辑 + 图层</td></tr>
+    <tr><td>Doubao-Seedream-5.0-Lite</td><td>图像生成</td><td>0.22 元/张；文生图 / 图生图统一</td></tr>
+    <tr><td>Doubao-Seedream-4.5</td><td>图像生成</td><td>多图稳定融合、4K 超高清、0.25 元/张</td></tr>
+    <tr><td><b>Doubao-Seedance-2.0</b></td><td>视频生成</td><td>480P-4K；16-31 元/M 输入；2026 央视春晚指定技术</td></tr>
+    <tr><td>Doubao-Seedance-2.0-fast</td><td>视频生成</td><td>14 元/M；480P-720P；30 秒超长叙事</td></tr>
+    <tr><td>Doubao-Seedance-2.0-mini</td><td>视频生成</td><td>22 元/M；音视图文参考；高性价比</td></tr>
+    <tr><td>SeedAudio 1.0</td><td>音频生成</td><td>全要素影视级</td></tr>
+    <tr><td>Doubao-Seed-TTS-2.0</td><td>语音合成</td><td>高保真个性化</td></tr>
+    <tr><td>Doubao-Seed-RealtimeVoice</td><td>实时语音</td><td>80 元/M；端到端超拟人</td></tr>
+    <tr><td>Doubao-Seed-ICL-2.0</td><td>声音复刻</td><td>快速定制专属 AI 音色</td></tr>
+    <tr><td>Doubao-Seed-LiveInterpret</td><td>同声传译</td><td>端到端低延迟</td></tr>
+    <tr><td>Doubao-Seed-ASR-2.0</td><td>语音识别</td><td>4.5 元/小时（流式）/ 0.8 元/小时（录音）</td></tr>
+    <tr><td>Doubao-Seed-Music</td><td>音乐生成</td><td>让每个用户成为作曲家</td></tr>
+    <tr><td>Doubao-Seed-Embedding</td><td>向量模型</td><td>文本+图像+视频统一检索</td></tr>
+  </table>
+</div>
+
+<!-- ===== 性能 benchmark ===== -->
+<h2 class="sec">三、Benchmark 表现（Seed 2.1 Pro，2026-06-23）</h2>
+<div class="panel">
+  <table>
+    <tr><th>基准</th><th>类型</th><th>Seed 2.1 Pro</th><th>对标模型</th><th>说明</th></tr>
+    <tr><td>Terminal Bench 2.1</td><td>终端代码</td><td class="num">71.0</td><td>Claude Opus 4.7: 71.7 / GPT-5.5: 73.8</td><td>与 Claude 持平，差距 GPT 仅 2.8</td></tr>
+    <tr><td>SWE-Pro</td><td>长程软件工程</td><td class="num">57.5</td><td>GPT-5.5: 58.6 / Gemini 3.1: 54.2</td><td>接近 GPT，超越 Gemini</td></tr>
+    <tr><td>SciCode</td><td>科学计算编程</td><td class="num"><b>59.8</b></td><td>Claude Opus 4.7: 56.4 / GPT-5.5: 58.4</td><td>超越 Claude 与 GPT</td></tr>
+    <tr><td>NL2Repo-Bench</td><td>仓库级代码</td><td class="num">47.0</td><td>GPT-5.5: 45.1 / Gemini 3.1: 33.4</td><td>领先 GPT 1.9 分</td></tr>
+    <tr><td>MCP-Atlas</td><td>工具调用 Agent</td><td class="num"><b>83.8</b></td><td>Claude Opus 4.7: 79.1 / GPT-5.5: 81.6</td><td>Agent 工具调用 SOTA</td></tr>
+    <tr><td>MMMU-Pro</td><td>多模态</td><td class="num">82.7</td><td>—</td><td>多模态世界前列</td></tr>
+    <tr><td>MathVision</td><td>数学视觉</td><td class="num">94.5</td><td>—</td><td>Top 3</td></tr>
+    <tr><td>CharXiv RQ</td><td>科学图表</td><td class="num">86.4</td><td>—</td><td>Top 5</td></tr>
+    <tr><td>GDPVal</td><td>真实世界任务</td><td class="num"><b>最高分</b></td><td>—</td><td>衡量经济价值</td></tr>
+    <tr><td>Code Arena 前端</td><td>用户盲测 Elo</td><td class="num">1539</td><td>—</td><td>排名第 8（7 前端子类 5 个 Top10）</td></tr>
+  </table>
+  <p class="src">数据来源：<a class="cite" href="https://www.datalearner.com/ai-models/pretrained-models/seed-2-1-pro">DataLearner 官方页</a>、<a class="cite" href="https://post.m.smzdm.com/p/a26n9wkn/">智东西详细评测</a>。火山引擎官方：综合使用成本较 Claude Opus 4.6 降 80%，较 GPT-5.5 降 83%。</p>
+  <div class="info">📊 <b>关键观察：</b>豆包 2.1 Pro 是中国模型中<b>代码 Agent 能力最强</b>之一，与 Claude Opus 4.7 处于同一档；MCP-Atlas 与 SciCode 领先全场。Code Arena 实际用户盲测 1539 分验证了官方说法。</div>
+</div>
+
+<!-- ===== 产品矩阵 ===== -->
+<h2 class="sec">四、产品矩阵（C 端 + B 端）</h2>
+<div class="panel">
+  <h3>4.1 C 端 App：豆包（Doubao App）</h3>
+  <table>
+    <tr><th>指标</th><th>2026 数据</th><th>来源</th></tr>
+    <tr><td>月活 MAU</td><td class="num">3.24 亿（全球 App 第 2）</td><td>AICPB 2026-06</td></tr>
+    <tr><td>日活 DAU</td><td class="num">1.5 亿+</td><td>量子位智库 2026-06</td></tr>
+    <tr><td>累计下载</td><td class="num">3 亿+</td><td>2026 累计</td></tr>
+    <tr><td>赛道份额</td><td class="num">50%</td><td>2026 上半年</td></tr>
+    <tr><td>专业版定价</td><td class="num">68 元/月起</td><td>含 Seed 2.1 Pro 额度</td></tr>
+    <tr><td>学生权益</td><td class="num">认证后享折扣 + 额外免费额度</td><td>—</td></tr>
+  </table>
+  <p class="src">来源：<a class="cite" href="https://caifuhao.eastmoney.com/news/20260804163513862045520">东方财富 8 月盘点</a>、<a class="cite" href="https://www.dcodingmax.com/news/8963">dcodingmax MAU 全景</a>。</p>
+  <div class="note">⚠️ <b>2026-05 转折：</b>豆包推出付费订阅后，月活从 3.36 亿降至 3.24 亿，流失约 610 万；5 月推出后已连续 3 月下滑。但 DAU 仍超 1.5 亿，国内第一地位未动摇。</div>
+</div>
+
+<div class="panel">
+  <h3>4.2 B 端：火山引擎 Ark 平台</h3>
+  <table>
+    <tr><th>指标</th><th>数据</th></tr>
+    <tr><td>日均 Token 调用量</td><td class="num"><b>180 万亿</b></td></tr>
+    <tr><td>中国 MaaS 市场份额</td><td class="num">49.5%（中国第一）</td></tr>
+    <tr><td>对外发布时间</td><td>2024-05-15</td></tr>
+    <tr><td>首批个人免费额度</td><td>10 元体验金（2026-Q1）</td></tr>
+    <tr><td>新开发者增长</td><td>环比 +120%（2026-Q1 新政后）</td></tr>
+    <tr><td>Seed 2.1 Pro 上线首月</td><td>API 调用量环比 +87%</td></tr>
+  </table>
+  <p class="src">来源：<a class="cite" href="https://www.volcengine.com/product/doubao">火山引擎产品页</a>、<a class="cite" href="https://www.volcengine.com/article/2606939">试用政策分析</a>。</p>
+</div>
+
+<div class="panel">
+  <h3>4.3 嵌入字节全系 App</h3>
+  <p class="src">豆包能力已嵌入字节跳动旗下几乎所有 C 端 / B 端产品：</p>
+  <ul class="flat">
+    <li><b>抖音 / TikTok</b>：AI 视频创作、AIGC 特效</li>
+    <li><b>今日头条 / 西瓜视频</b>：智能推荐 + 内容生成</li>
+    <li><b>剪映 / CapCut</b>：AI 视频剪辑 + 一键成片</li>
+    <li><b>飞书 / Lark</b>：AI 办公助手（与钉钉 / 企微竞争）</li>
+    <li><b>即梦 AI / Dreamina</b>：图像 + 视频生成独立产品（MAU 8736 万，全球第 9）</li>
+    <li><b>番茄小说 / 番茄畅听</b>：AI 辅助写作 + 有声书</li>
+  </ul>
+  <div class="info">📌 <b>战略意义：</b>「豆包 = 字节全系 App 的 AI 引擎」是字节相较于 OpenAI 的最大优势——OpenAI 是独立产品，字节是把 AI <b>内化到 10+ 个亿级用户产品</b>中[$TRAE_REF](https://www.163.com/dy/article/L12QGJRM0511N33R.html)。</div>
+</div>
+
+<!-- ===== 发展时间线 ===== -->
+<h2 class="sec">五、发展时间线</h2>
+<div class="panel">
+  <table>
+    <tr><th>日期</th><th>事件</th></tr>
+    <tr><td>2024-04-02</td><td>云雀大模型通过国家网信办备案（首批）</td></tr>
+    <tr><td>2024-05-15</td><td>「豆包」品牌正式发布；定价 0.0008 元/千 tokens（行业低 99%）</td></tr>
+    <tr><td>2025-04-17</td><td>豆包 1.5 深度思考模型发布；AIME 2024 86.7 分（AIME 上超 R1）</td></tr>
+    <tr><td>2025-06-11</td><td>1.6 系列 + Seedance 1.0 pro；海淀模拟卷比 2024 提分 154</td></tr>
+    <tr><td>2025-10</td><td>1.6 升级版（4 档思考长度）+ 智能路由</td></tr>
+    <tr><td>2026-02-14</td><td><b>Seed 2.0 全系发布</b>（Pro / Lite / Mini / Code），79 页 Model Card</td></tr>
+    <tr><td>2026-02-15</td><td>豆包与央视春晚合作 Seedance 2.0；除夕 AI 互动 19 亿次</td></tr>
+    <tr><td>2026-06-23</td><td><b>Seed 2.1 Pro / Turbo 发布</b>（FORCE 大会）；代码能力跻身全球第一梯队</td></tr>
+    <tr><td>2026-08</td><td>豆包 C 端专业版开放 Seed 2.1 Pro；学生认证享额外免费额度</td></tr>
+  </table>
+</div>
+
+<!-- ===== 战略 ===== -->
+<h2 class="sec">六、公司战略</h2>
+<div class="panel">
+  <h3>6.1 战略关键词：嵌入 + 全模态 + 极致性价比</h3>
+  <ol class="num">
+    <li><b>嵌入字节全产品</b>：将 AI 能力下沉到抖音 / 今日头条 / 飞书 / 即梦 / 剪映等 10+ 个亿级产品；不依赖独立 C 端</li>
+    <li><b>全模态矩阵</b>：语言 + 视觉 + 视频 + 图像 + 语音 + 音乐 + 向量共 7 大类 20+ 个模型；为不同场景提供最适配 SKU</li>
+    <li><b>极致 token 价</b>：Seed 2.1 Pro 输入 6 元/百万 = Claude Opus 4.6 的 1/5；Seed 2.0-Mini 输入 0.2 元/百万 = 行业最低</li>
+    <li><b>流量 + 企业 + 硬件三引擎</b>：C 端 App 走量 / B 端 MaaS 走 API / 智能体平台 + 智能眼镜等多端入口</li>
+  </ol>
+</div>
+
+<div class="panel">
+  <h3>6.2 战略五大阵营（公司战略维度）</h3>
+  <table>
+    <tr><th>维度</th><th>字节豆包 / Seed 打法</th></tr>
+    <tr><td>开源 / 闭源</td><td><span class="pill pill-closed">完全闭源</span>（参数、训练数据全部不公开）</td></tr>
+    <tr><td>目标客户</td><td>C 端（豆包 App）+ B 端（火山引擎）+ 字节全系嵌入</td></tr>
+    <tr><td>核心壁垒</td><td>字节系 10+ 亿级 App 流量 + 数据闭环 + 工程优化</td></tr>
+    <tr><td>商业模式</td><td>API 按量 + 专业版订阅 + 广告 / 电商接入</td></tr>
+    <tr><td>国际化</td><td>通过 TikTok 间接覆盖海外；豆包本身未主推海外</td></tr>
+  </table>
+</div>
+
+<div class="panel">
+  <h3>6.3 风险与挑战</h3>
+  <ul class="flat">
+    <li><b>闭源压力：</b>完全不开放权重，难以吸引研究社区和独立开发者（与 DeepSeek / GLM / Qwen 路线相反）</li>
+    <li><b>C 端付费转型阵痛：</b>2026-05 付费后 MAU 流失 1173 万（豆包 + 元宝 + Kimi 三家合计）</li>
+    <li><b>海外封锁：</b>中美科技摩擦下，对外商业化渠道受限</li>
+    <li><b>开源阵营竞争：</b>DeepSeek V4-Flash 输出价 0.28 美元/百万 token = 豆包的一半；开源 + 极低价双重压力</li>
+  </ul>
+</div>
+
+<!-- ===== 局限声明 ===== -->
+<h2 class="sec">七、数据声明</h2>
+<div class="panel">
+  <ol class="num">
+    <li>豆包模型参数、训练数据全部未公开（与闭源策略一致）</li>
+    <li>MAU / DAU 来自 AICPB / QuestMobile / 量子位智库 / dcodingmax 多源，存在 10-30% 口径差异</li>
+    <li>2026-05 后豆包月活连续下滑趋势需持续跟踪</li>
+    <li>Token 价格随市场调节（如 2026-07 后多轮涨价），最新值以火山引擎官网为准</li>
+    <li>豆包团队与字节 Seed 团队架构关系，部分信息来自媒体披露</li>
+  </ol>
+</div>
+
+<footer>
+  资料来源：
+  <a class="cite" href="https://www.volcengine.com/product/doubao">火山引擎官方</a> ·
+  <a class="cite" href="https://ai.volcengine.com/model">火山引擎模型广场</a> ·
+  <a class="cite" href="https://www.datalearner.com/ai-models/pretrained-models/seed-2-1-pro">DataLearner Seed 2.1 Pro</a> ·
+  <a class="cite" href="https://post.m.smzdm.com/p/a26n9wkn/">智东西 2.1 Pro 评测</a> ·
+  <a class="cite" href="https://xmsumi.com/detail/2467">Seed 2.0 全系发布</a> ·
+  <a class="cite" href="https://m.baike.com/wiki/%E8%B1%86%E5%8C%85%E5%A4%A7%E6%A8%A1%E5%9E%8B/7369048140970475559">百科条目</a> ·
+  <a class="cite" href="https://caifuhao.eastmoney.com/news/20260804163513862045520">东方财富 8 月盘点</a> ·
+  <a class="cite" href="https://www.volcengine.com/article/2606939">试用政策分析</a><br>
+  报告生成：2026-08-25 · 数据时点：2026-08
+</footer>
+
+</div>
+</body>
+</html>

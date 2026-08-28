@@ -31,6 +31,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </header>
         <main className="mx-auto max-w-6xl px-4 py-6">{children}</main>
         <footer className="mx-auto max-w-6xl px-4 py-10 text-center text-xs text-slate-500 border-t mt-12">
+          <div className="mb-4">
+            <a href="/docs/index.html" className="hover:text-slate-900 mx-2">📋 概览与部署</a>
+            <a href="/docs/report/index.html" className="hover:text-slate-900 mx-2">📊 研究报告</a>
+            <a href="/docs/architecture.html" className="hover:text-slate-900 mx-2">🧬 架构参考</a>
+            <a href="/docs/pm-glossary.html" className="hover:text-slate-900 mx-2">🤖 术语手册</a>
+          </div>
           Data: HuggingFace + Artificial Analysis + LMArena + 媒体公开数据
           · Source: open-source under MIT · Last updated: {new Date().toISOString().slice(0,10)}
         </footer>

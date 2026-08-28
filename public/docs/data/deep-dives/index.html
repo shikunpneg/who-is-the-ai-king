@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>深度公司档案 · 豆包 / DeepSeek 横向对比</title>
+<style>
+  :root{--bg:#f6f7fb;--card:#fff;--ink:#1c2333;--muted:#5b6478;--line:#e5e8f0;--accent:#4f46e5}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Noto Sans CJK SC','WenQuanYi Micro Hei','Microsoft YaHei','PingFang SC',sans-serif;background:var(--bg);color:var(--ink);line-height:1.75}
+  .wrap{max-width:960px;margin:0 auto;padding:34px 22px 90px}
+  header.hero{background:linear-gradient(135deg,#0f172a 0%,#312e81 60%,#7c3aed 100%);color:#fff;border-radius:20px;padding:42px 40px;margin-bottom:30px}
+  .hero h1{font-size:1.9rem;font-weight:800}
+  .hero p.sub{margin-top:10px;color:#c7d2fe;font-size:.95rem}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-top:20px}
+  .card{display:block;background:var(--card);border:2px solid var(--line);border-radius:16px;padding:28px 26px;text-decoration:none;color:var(--ink);transition:all .2s}
+  .card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 8px 24px rgba(79,70,229,.1)}
+  .card .icon{font-size:2.5rem;margin-bottom:8px}
+  .card h2{font-size:1.3rem;font-weight:800;margin-bottom:6px}
+  .card p{color:var(--muted);font-size:.92rem}
+  .card .meta{margin-top:14px;font-size:.82rem;color:var(--accent);font-weight:600}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px 28px;margin-bottom:18px}
+  ul.flat{padding-left:22px}
+  ul.flat li{margin:4px 0}
+  footer{margin-top:60px;color:var(--muted);font-size:.82rem;text-align:center;border-top:1px solid var(--line);padding-top:22px}
+  code{background:#eef0fa;padding:1px 6px;border-radius:5px;font-size:.85em;font-family:'JetBrains Mono','Consolas',monospace}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <h1>深度公司档案 Deep Dives</h1>
+  <p class="sub">每家头部 LLM 公司的完整画像：背景 + 模型矩阵 + benchmark + 用户量 + 战略 + 风险</p>
+</header>
+
+<div class="panel">
+  <h3 style="margin-top:0">📚 已收录的深度档案</h3>
+  <p>首批聚焦「中国大模型两极」——闭源流量王 vs 开源技术王：</p>
+</div>
+
+<div class="cards">
+  <a class="card" href="./bytedance-doubao.html">
+    <div class="icon">🟢</div>
+    <h2>豆包大模型 Doubao / Seed</h2>
+    <p>字节跳动 ByteDance Seed 团队。中国 MaaS 49.5% 份额、日均 180 万亿 token、3.24 亿 MAU。Seed 2.1 Pro 在 MCP-Atlas / SciCode 领先全场。</p>
+    <div class="meta">→ 阅读深度档案</div>
+  </a>
+
+  <a class="card" href="./deepseek.html">
+    <div class="icon">🔵</div>
+    <h2>DeepSeek 深度求索</h2>
+    <p>幻方量化旗下 AGI 公司。V4-Pro 1.6T/49B、首个完全跑在华为昇腾上的前沿大模型。OpenRouter 周 Token 调用全球第一。</p>
+    <div class="meta">→ 阅读深度档案</div>
+  </a>
+
+  <a class="card" href="./doubao-vs-deepseek.html" style="border-color:var(--accent)">
+    <div class="icon">⚖️</div>
+    <h2>豆包 vs DeepSeek 横向对比</h2>
+    <p>两家公司 12 项关键指标对照。用户量、价格、benchmark、算力、商业模式、风险一目了然；最后给出四个赛道的赢家预测。</p>
+    <div class="meta">→ 阅读对比分析</div>
+  </a>
+</div>
+
+<div class="panel">
+  <h3>🔧 下一批深度档案（Roadmap）</h3>
+  <ul class="flat">
+    <li>OpenAI · GPT-5.6 系列深度档案</li>
+    <li>Anthropic · Claude Opus 5 深度档案</li>
+    <li>Google DeepMind · Gemini 3.7/4.0 深度档案</li>
+    <li>阿里 · Qwen3.8-Max 深度档案</li>
+    <li>智谱 · GLM-5.3 深度档案</li>
+    <li>月之暗面 · Kimi K3 深度档案</li>
+    <li>MiniMax · M3 深度档案</li>
+  </ul>
+  <p style="margin-top:14px;color:var(--muted);font-size:.9rem">如需添加新公司深度档案，请在 <code>data/deep-dives/</code> 目录下新建 <code>{company-slug}.html</code> 文件，并在本 <code>index.html</code> 添加对应卡片即可。</p>
+</div>
+
+<div class="panel">
+  <h3>📊 深度档案的统一结构</h3>
+  <ol style="padding-left:24px">
+    <li><b>公司概况</b>：团队、地点、母公司、注册信息</li>
+    <li><b>模型矩阵</b>：所有在售模型 + 上下文 + 定价</li>
+    <li><b>Benchmark 表现</b>：5+ 个核心基准的得分与对标</li>
+    <li><b>产品矩阵</b>：C 端 App + B 端 MaaS + 嵌入产品</li>
+    <li><b>发展时间线</b>：从成立至今的关键事件</li>
+    <li><b>公司战略</b>：战略关键词 + 5 维度对照 + 风险</li>
+    <li><b>数据声明</b>：单源标注 + 二手来源警示</li>
+  </ol>
+</div>
+
+<footer>
+  LLM Tracker · Deep Dives · 2026-08
+</footer>
+
+</div>
+</body>
+</html>

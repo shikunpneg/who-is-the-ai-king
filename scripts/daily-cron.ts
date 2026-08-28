@@ -33,6 +33,20 @@ async function main() {
       lmarena_elo: c.metrics.lmarena_elo ?? null,
       mau_millions: c.metrics.mau_millions ?? null,
       mau_source: c.metrics.mau_source ?? null,
+      adoption_score: c.metrics.adoption_score ?? null,
+      livebench_rank: c.metrics.benchmark_ranks?.livebench_overall ?? null,
+      swebench_verified_pct: c.metrics.benchmark_ranks?.swebench_verified_pct ?? null,
+      superclue_score: c.metrics.benchmark_ranks?.superclue_total ?? null,
+      mmlu_pro_pct: c.metrics.benchmark_ranks?.mmlu_pro ?? null,
+      gpqa_diamond_pct: c.metrics.benchmark_ranks?.gpqa_diamond ?? null,
+      bbh_pct: c.metrics.benchmark_ranks?.bbh ?? null,
+      math_aime_pct: c.metrics.benchmark_ranks?.math_aime ?? null,
+      humaneval_plus_pct: c.metrics.benchmark_ranks?.humaneval_plus ?? null,
+      param_estimate_value: c.flag_model.param_estimate?.value ?? null,
+      param_estimate_ci_low: c.flag_model.param_estimate?.ci_low ?? null,
+      param_estimate_ci_high: c.flag_model.param_estimate?.ci_high ?? null,
+      param_estimate_methods: c.flag_model.param_estimate?.methods ? JSON.stringify(c.flag_model.param_estimate.methods) : null,
+      param_estimate_confidence: c.flag_model.param_estimate?.confidence ?? null,
     }));
     console.log(`[cron] 所有源失败，fallback 到 ${rows.length} 条 seed snapshot`);
   }

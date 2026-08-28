@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AI/LLM 产品经理专业词汇与指标手册</title>
+
+<!-- ECharts -->
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<!-- Mermaid -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+
+<style>
+  :root{
+    --bg:#f6f7fb;
+    --card:#fff;
+    --ink:#1c2333;
+    --muted:#5b6478;
+    --line:#e5e8f0;
+    --accent:#4f46e5;
+    --accent-soft:#e0e7ff;
+    --cn:#e11d48;
+    --green:#059669;
+    --amber:#d97706;
+    --blue:#2563eb;
+    --purple:#7c3aed;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,'Noto Sans CJK SC','WenQuanYi Micro Hei','Microsoft YaHei',sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.8;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:36px 24px 100px}
+
+  /* Hero */
+  header.hero{
+    background:linear-gradient(135deg,#0f172a 0%,#312e81 55%,#7c3aed 100%);
+    color:#fff;border-radius:24px;padding:52px 48px;margin-bottom:36px;position:relative;overflow:hidden;
+  }
+  header.hero::after{
+    content:"";position:absolute;right:-100px;top:-100px;width:340px;height:340px;
+    border-radius:50%;background:radial-gradient(circle,#22d3ee 0%,transparent 70%);opacity:.3;
+  }
+  header.hero::before{
+    content:"";position:absolute;right:60px;bottom:-80px;width:240px;height:240px;
+    border-radius:50%;background:radial-gradient(circle,#f472b6 0%,transparent 70%);opacity:.25;
+  }
+  .hero h1{font-size:2.4rem;font-weight:800;letter-spacing:.5px;line-height:1.3;position:relative;z-index:1}
+  .hero p.sub{margin-top:14px;color:#c7d2fe;font-size:1.05rem;max-width:720px;position:relative;z-index:1}
+  .hero .meta{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap;position:relative;z-index:1}
+  .hero .tag{
+    background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);
+    padding:6px 18px;border-radius:999px;font-size:.85rem;
+  }
+
+  /* Section */
+  h2.sec{
+    font-size:1.7rem;font-weight:800;margin:52px 0 6px;padding-left:18px;
+    border-left:7px solid var(--accent);
+  }
+  h3.sec-sub{font-size:1.25rem;font-weight:700;margin:36px 0 14px;color:#312e81}
+  p.lead{color:var(--muted);font-size:.98rem;margin-bottom:22px;padding-left:25px}
+  .panel{
+    background:var(--card);border:1px solid var(--line);border-radius:16px;
+    padding:26px 30px;margin-bottom:20px;
+  }
+  .panel.warm{background:linear-gradient(180deg,#fffbeb 0%,#fff 60px)}
+
+  /* Cards */
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-bottom:18px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px}
+  .card .num{font-size:1.7rem;font-weight:800;color:var(--accent);line-height:1.1}
+  .card .lbl{font-size:.85rem;color:var(--muted);margin-top:8px}
+  .card .desc{font-size:.82rem;color:var(--ink);margin-top:6px}
+
+  /* Tables */
+  table{width:100%;border-collapse:collapse;font-size:.88rem;min-width:580px}
+  th{background:#eef0fa;color:#312e81;text-align:left;padding:10px 14px;font-weight:700;
+     border-bottom:2px solid #dde1f2;white-space:nowrap}
+  td{padding:9px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+  tr:hover td{background:#fafbff}
+  td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  td.center{text-align:center}
+
+  /* Pills */
+  .pill{display:inline-block;padding:3px 12px;border-radius:999px;font-size:.78rem;font-weight:600}
+  .pill-cn{background:#ffe4e9;color:#be123c}
+  .pill-open{background:#d1fae5;color:#047857}
+  .pill-closed{background:#fef3c7;color:#92400e}
+  .pill-accent{background:var(--accent-soft);color:var(--accent)}
+
+  /* Charts */
+  .chart-box{width:100%;height:380px;margin:14px 0}
+  .chart-box.tall{height:460px}
+
+  /* Diagram */
+  .diagram{background:#fafbff;border:1px solid var(--line);border-radius:12px;padding:20px;margin:16px 0;overflow-x:auto}
+  .diagram svg{max-width:100%;height:auto}
+
+  /* Notes */
+  .note{background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:16px 20px;font-size:.88rem;color:#78350f;margin:16px 0}
+  .good{background:#ecfdf5;border:1px solid #a7f3d0;border-radius:12px;padding:16px 20px;font-size:.88rem;color:#065f46;margin:16px 0}
+  .info{background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:16px 20px;font-size:.88rem;color:#1e40af;margin:16px 0}
+
+  /* Term grid */
+  .term-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;margin:16px 0}
+  .term-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;border-top:3px solid var(--accent)}
+  .term-card h4{font-size:1rem;font-weight:700;color:#312e81;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+  .term-card .abbr{font-family:'JetBrains Mono','Consolas',monospace;font-size:.85rem;color:var(--accent);background:var(--accent-soft);padding:2px 8px;border-radius:5px}
+  .term-card p{font-size:.85rem;color:var(--muted);line-height:1.65}
+
+  /* TOC */
+  .toc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 28px;margin-bottom:24px}
+  .toc ol{list-style:none;padding-left:0}
+  .toc ol li{padding:8px 0;border-bottom:1px dashed var(--line);font-size:.95rem}
+  .toc ol li:last-child{border-bottom:none}
+  .toc a{color:var(--accent);text-decoration:none;font-weight:500}
+  .toc a:hover{text-decoration:underline}
+
+  /* Footer */
+  footer{margin-top:70px;color:var(--muted);font-size:.84rem;text-align:center;border-top:1px solid var(--line);padding-top:26px}
+
+  /* Responsive */
+  @media (max-width:640px){
+    .hero h1{font-size:1.8rem}
+    .hero p.sub{font-size:.92rem}
+    .panel{padding:18px 16px}
+    .chart-box{height:300px}
+  }
+
+  pre{background:#0f172a;color:#e2e8f0;border-radius:10px;padding:14px 18px;font-size:.82rem;
+    overflow-x:auto;margin:10px 0;line-height:1.6;font-family:'JetBrains Mono','Consolas',monospace}
+  code{background:#eef0fa;padding:1px 6px;border-radius:5px;font-size:.85em;font-family:'JetBrains Mono','Consolas',monospace}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <h1>🤖 AI/LLM 产品经理 · 专业词汇与指标手册</h1>
+  <p class="sub">
+    一份面向大模型赛道产品经理的"指标速查 + 术语词典"。覆盖 LLM Tracker 中出现的所有 benchmark 指数、
+    MAU 多源三角测量方法论、参数估计置信区间，以及 AI 产品决策必须掌握的 50+ 专业缩写。
+  </p>
+  <div class="meta">
+    <span class="tag">📅 数据时点：2026-08-25</span>
+    <span class="tag">📊 7 大 Benchmark 体系</span>
+    <span class="tag">📐 3 种参数估计方法</span>
+    <span class="tag">annya 50+ 专业缩写</span>
+  </div>
+</header>
+
+<!-- ============ 目录 ============ -->
+<div class="toc">
+  <ol>
+    <li>📋 指标索引一览 — Tracker 中出现的所有字段含义</li>
+    <li>🔬 各 Benchmark 详解 — 7 大评测体系与分数含义</li>
+    <li>👥 MAU 深度解读 — 月活定义、多源三角测量与采用度得分</li>
+    <li>📐 参数估计方法论 — 三种估算方法与置信区间</li>
+    <li> ﾠ 产品经理 AI/LLM 专业术语表 — 50+ 缩写速查</li>
+  </ol>
+</div>
+
+<!-- ============================================================= -->
+<!-- SECTION 1: 指标索引一览 -->
+<!-- ============================================================= -->
+<h2 class="sec">1. 指标索引一览</h2>
+<p class="lead">
+LLM Tracker 的每个字段背后都有明确含义。下表汇总了 tracker 中出现的核心指标及其计算方式与用途。
+</p>
+
+<div class="panel">
+  <table>
+    <tr><th>字段</th><th>类型</th><th>含义</th><th>用途</th></tr>
+    <tr><td><b>AA Index</b></td><td><span class="pill pill-accent">0-100</span></td><td>Artificial Analysis 综合质量指数</td><td>跨模型横向对比综合能力</td></tr>
+    <tr><td><b>AA Rank</b></td><td>整数</td><td>Artificial Analysis 模型排行榜位</td><td>行业地位参考</td></tr>
+    <tr><td><b>LMArena Elo</b></td><td>分数</td><td>LMSYS Chatbot Arena 人类偏好 Elo 分</td><td>用户主观偏好度量</td></tr>
+    <tr><td><b>LiveBench</b></td><td>排名</td><td>LiveBench 动态评测综合排名</td><td>持续更新的客观能力排名</td></tr>
+    <tr><td><b>SWE-bench Verified</b></td><td><span class="pill pill-accent">0-100%</span></td><td>软件工程任务解决率（人工验证）</td><td>编程能力金标准</td></tr>
+    <tr><td><b>SuperCLUE</b></td><td>分数</td><td>中文大模型综合评测总分</td><td>中文能力权威排名</td></tr>
+    <tr><td><b>MMLU-Pro</b></td><td><span class="pill pill-accent">0-100%</span></td><td>大规模多任务语言理解（进阶版）</td><td>知识广度与推理能力</td></tr>
+    <tr><td><b>GPQA Diamond</b></td><td><span class="pill pill-accent">0-100%</span></td><td>研究生级谷歌证明题问答</td><td>高难度推理能力</td></tr>
+    <tr><td><b>BBH</b></td><td><span class="pill pill-accent">0-100%</span></td><td>BIG-Bench Hard 23 个 hardest 任务</td><td>复杂推理能力</td></tr>
+    <tr><td><b>MATH / AIME</b></td><td><span class="pill pill-accent">0-100%</span></td><td>数学竞赛级题目正确率</td><td>数学推理能力</td></tr>
+    <tr><td><b>HumanEval+</b></td><td><span class="pill pill-accent">0-100%</span></td><td>代码生成 pass@1 准确率</td><td>代码生成能力</td></tr>
+    <tr><td><b>Adoption Score</b></td><td><span class="pill pill-accent">0-100</span></td><td>加权多源采用度综合得分</td><td>市场采用程度</td></tr>
+    <tr><td><b>Param Estimate</b></td><td>字符串</td><td>参数量估计值 + 置信区间</td><td>规模参考（闭源模型）</td></tr>
+    <tr><td><b>Confidence</b></td><td><span class="pill pill-open">low/med/high</span></td><td>参数估计方法可信度</td><td>数据可靠性判断</td></tr>
+  </table>
+</div>
+
+<!-- ============================================================= -->
+<!-- SECTION 2: 各 Benchmark 详解 -->
+<!-- ============================================================= -->
+<h2 class="sec">2. 各 Benchmark 详解</h2>
+<p class="lead">
+大模型评测不是"一个分数定乾坤"。理解每个 benchmark 的测量目标、题目来源与局限，才能正确解读 tracker 中的数字。
+</p>
+
+<!-- LiveBench -->
+<h3 class="sec-sub">2.1 LiveBench — 动态能力排名</h3>
+<div class="cards">
+  <div class="card">
+    <div class="num">🔄 实时</div>
+    <div class="lbl">评测特点</div>
+    <div class="desc">题目随时间更新，避免模型"背题"，是目前最诚实的客观评测之一。</div>
+  </div>
+  <div class="card">
+    <div class="num">📊 6 大类</div>
+    <div class="lbl">覆盖范围</div>
+    <div class="desc">推理、数学、编程、语言理解、知识、指令遵循。</div>
+  </div>
+  <div class="card">
+    <div class="num">📈 排名</div>
+    <div class="lbl">呈现形式</div>
+    <div class="desc">Tracker 中以 livebench_overall 排名呈现，数字越小越强。</div>
+  </div>
+</div>
+
+<!-- SWE-bench -->
+<h3 class="sec-sub">2.2 SWE-bench Verified — 编程能力金标准</h3>
+<div class="panel">
+  <p><b>定义：</b>SWE-bench 是从真实 GitHub issue 构建的软件工程任务集。Verified 版本由人工审核确保题目质量。</p>
+  <div class="chart-box">
+    <div id="swebench-chart"></div>
+  </div>
+  <p class="note">📌 分数含义：68.5% 表示该模型在 500 个真实软件工程任务中，成功生成被接受的 PR 的比例。</p>
+</div>
+
+<!-- MMLU-Pro -->
+<h3 class="sec-sub">2.3 MMLU-Pro — 知识广度试金石</h3>
+<div class="panel">
+  <p><b>定义：</b>Massive Multitask Language Understanding（进阶版），覆盖 43 个学科、12,000 道题目。</p>
+  <div class="info">
+    <b>与 MMLU 的区别：</b>Pro 版本去除了"仅靠记忆可答"的题目，增加了 10 个选项的多选难度，更能反映真实推理水平。
+  </div>
+  <div class="term-card" style="margin-top:14px">
+    <h4>各公司 MMLU-Pro 得分对比</h4>
+    <div class="chart-box">
+      <div id="mmlu-chart"></div>
+    </div>
+  </div>
+</div>
+
+<!-- GPQA Diamond -->
+<h3 class="sec-sub">2.4 GPQA Diamond — 研究生级推理</h3>
+<div class="panel">
+  <p><b>定义：</b>GPQA（Google-Proof Q&A Benchmark）由领域专家出题，Diamond 是最难的子集。题目涉及物理、化学、生物等需要深度推理的学科。</p>
+  <p><b>为什么重要：</b>常规 benchmark 已被模型"刷爆"，GPQA Diamond 是少数仍能区分顶尖模型能力的评测。</p>
+  <div class="good">
+    <b>解读示例：</b>GPQA Diamond 82.1% 不仅考察知识记忆，更要求模型在多个候选答案中进行"排除法 + 推理链"的复合思考。
+  </div>
+</div>
+
+<!-- BBH -->
+<h3 class="sec-sub">2.5 BBH — 复杂推理任务集</h3>
+<div class="panel">
+  <p><b>定义：</b>BIG-Bench Hard，从 BIG-Bench 中精选的 23 个"最难"任务，涵盖算法推理、逻辑谜题、语义解析等。</p>
+  <p><b>特点：</b>每个任务都需要多步推理，而非单步匹配，是衡量模型"思维链"能力的关键指标。</p>
+</div>
+
+<!-- MATH / AIME -->
+<h3 class="sec-sub">2.6 MATH / AIME — 数学竞赛级推理</h3>
+<div class="panel">
+  <p><b>定义：</b>MATH 数据集包含 12,500 道高中竞赛题；AIME（美国数学邀请赛）是 15 道填空题的高难度竞赛。</p>
+  <p><b>分数含义：</b>模型直接输出最终答案的准确率。通常需要配合 chain-of-thought 才能获得高分。</p>
+  <div class="term-card" style="margin-top:14px">
+    <h4>各公司 MATH/AIME 正确率</h4>
+    <div class="chart-box">
+      <div id="math-chart"></div>
+    </div>
+  </div>
+</div>
+
+<!-- HumanEval+ -->
+<h3 class="sec-sub">2.7 HumanEval+ — 代码生成准确率</h3>
+<div class="panel">
+  <p><b>定义：</b>HumanEval 的扩展版，包含 164 个 Python 编程问题，每个问题有多个测试用例。pass@1 是最常用的指标。</p>
+  <p><b>局限：</b>仅覆盖 Python、仅覆盖函数体编写，无法反映真实软件工程的全貌（因此 SWE-bench 更具说服力）。</p>
+</div>
+
+<!-- SuperCLUE -->
+<h3 class="sec-sub">2.8 SuperCLUE — 中文大模型权威评测</h3>
+<div class="panel">
+  <p><b>定义：</b>中文大模型基准评测（CLUE 的升级版），从理解、推理、代码、知识等维度综合评分。</p>
+  <p><b>特点：</b>专为中文场景设计，题目和语料均来自中文社区，是中文赛道最重要的横向对比工具。</p>
+</div>
+
+<!-- ============================================================= -->
+<!-- SECTION 3: MAU 深度解读 -->
+<!-- ============================================================= -->
+<h2 class="sec">3. MAU 深度解读</h2>
+<p class="lead">
+月活用户（Monthly Active Users）是衡量 AI 产品市场渗透率的核心指标。但对于 LLM 产品，MAU 的统计远比传统 App 复杂——没有统一的"官方 MAU"数据源，需要多源三角测量。</p>
+
+<!-- MAU 定义 -->
+<h3 class="sec-sub">3.1 什么是 MAU？</h3>
+<div class="panel">
+  <p><b>定义：</b>MAU = 在过去 30 天内，至少使用过一次该产品/服务的独立用户数量。</p>
+  <div class="chart-box">
+    <div id="mau-flow-chart"></div>
+  </div>
+  <div class="cards">
+    <div class="card">
+      <div class="num">📐 日粒度</div>
+      <div class="lbl">DAU / MAU 比</div>
+      <div class="desc">反映用户粘性。比值越高说明"当天回访率"越强。</div>
+    </div>
+    <div class="card">
+      <div class="num">📈 增长率</div>
+      <div class="lbl">MoM / YoY</div>
+      <div class="desc">月环比 / 年同比增长，判断是加速还是减速。</div>
+    </div>
+    <div class="card">
+      <div class="num">⚠️ 坑</div>
+      <div class="lbl">去重逻辑</div>
+      <div class="desc">不同厂商的设备 ID / 账号 ID 去重方式不同，跨平台对比 MAU 需谨慎。</div>
+    </div>
+  </div>
+</div>
+
+<!-- 多源三角测量 -->
+<h3 class="sec-sub">3.2 多源 MAU 三角测量方法论</h3>
+<div class="panel">
+  <p>LLM Tracker 采用 4 个独立数据源交叉验证 MAU，每个来源的可信度和覆盖范围不同：</p>
+  <div class="chart-box tall">
+    <div id="mau-radar-chart"></div>
+  </div>
+  <table style="margin-top:16px">
+    <tr><th>数据源</th><th>权重</th><th>可信度</th><th>覆盖范围</th><th>局限</th></tr>
+    <tr><td>官方公布 MAU</td><td>50%</td><td><span class="pill pill-open">高</span></td><td>全量用户</td><td>可能选择性披露</td></tr>
+    <tr><td>Sensor Tower</td><td>20%</td><td><span class="pill pill-open">高</span></td><td>移动端 App</td><td>不含 Web / API</td></tr>
+    <tr><td>OpenRouter 市占率</td><td>20%</td><td><span class="pill pill-accent">中</span></td><td>第三方平台</td><td>仅覆盖 OpenRouter 用户</td></tr>
+    <tr><td>Artificial Analysis Index</td><td>10%</td><td><span class="pill pill-accent">中</span></td><td>综合 API 流量</td><td>指数非绝对值</td></tr>
+  </table>
+</div>
+
+<!-- Adoption Score -->
+<h3 class="sec-sub">3.3 Adoption Score（采用度得分）计算</h3>
+<div class="panel">
+  <p>基于上述 4 个数据源，按权重计算 0-100 的综合得分：</p>
+  <pre><code>Adoption Score =
+  log10(official_mau) / log10(2000) × 50   ← 官方 MAU（对数缩放）
++ log10(sensor_tower_mau) / log10(2000) × 20 ← Sensor Tower
++ (openrouter_share_pct / 20) × 15          ← OpenRouter 市占
++ (aa_index / 100) × 10                    ← AA Index
++ (lmarena_elo / 1700) × 5                 ← LMArena Elo</code></pre>
+  <div class="info">
+    <b>设计思路：</b>MAU 绝对值差异巨大（从百万到十亿级），使用对数缩放避免"大者通吃"。
+    权重分配反映数据源可信度：官方数据 > 独立第三方 > 平台内指标。
+  </div>
+  <div class="chart-box">
+    <div id="adoption-score-chart"></div>
+  </div>
+</div>
+
+<!-- ============================================================= -->
+<!-- SECTION 4: 参数估计方法论 -->
+<!-- ============================================================= -->
+<h2 class="sec">4. 参数估计方法论</h2>
+<p class="lead">
+OpenAI、Anthropic 等头部公司从不公开模型参数量。LLM Tracker 采用三种间接估计方法，并给出置信区间。</p>
+
+<!-- 流程图 -->
+<div class="panel">
+  <div class="diagram" id="param-flow-diagram">
+    <pre class="mermaid">
+flowchart LR
+    A[闭源模型<br>参数未知] --> B[方法1: API 定价回归]
+    A --> C[方法2: IKP 不可压缩知识探测]
+    A --> D[方法3: 记忆化探测]
+    
+    B --> E[拟合价格-参数量曲线]
+    C --> F[测量有效知识容量]
+    D --> G[测试罕见事实记忆率]
+    
+    E --> H[综合估计]
+    F --> H
+    G --> H
+    
+    H --> I{可信度分级}
+    I --> J[High: 多方法一致]
+    I --> K[Medium: 两方法交叉]
+    I --> L[Low: 单一方法]
+    
+    J --> M[输出: 参数量 + CI]
+    K --> M
+    L --> M
+    </pre>
+  </div>
+  <div class="chart-box tall">
+    <div id="param-ci-chart"></div>
+  </div>
+</div>
+
+<!-- 方法详解 -->
+<h3 class="sec-sub">4.1 方法一：API 定价回归法</h3>
+<div class="panel">
+  <p><b>原理：</b>模型的 API 定价与参数量呈正相关。通过收集各公司的 API 输入/输出价格，拟合"价格-参数量"回归曲线。</p>
+  <p><b>优势：</b>数据公开可查，适合快速估算。</p>
+  <p><b>局限：</b>定价策略受商业因素影响（竞争、市场定位），并非纯技术成本驱动。</p>
+</div>
+
+<h3 class="sec-sub">4.2 方法二：IKP（不可压缩知识探测）</h3>
+<div class="panel">
+  <p><b>原理：</b>通过"知识探测"测量模型的知识容量。核心思想：模型能存储多少不可压缩的"事实"，与参数量呈线性关系。</p>
+  <p><b>来源：</b>由 Anthropic 的 researchers 提出，通过测量模型的"有效参数"来反推总参数量。</p>
+  <p><b>优势：</b>不依赖公司披露，纯技术测量。</p>
+  <p><b>局限：</b>需要大量 API 调用，成本高、周期长。</p>
+</div>
+
+<h3 class="sec-sub">4.3 方法三：记忆化探测（Memorization Probes）</h3>
+<div class="panel">
+  <p><b>原理：</b>向模型输入"罕见事实"（如随机生成的实体-关系对），测试模型能否记住。通过记忆容量反推参数量。</p>
+  <p><b>来源：</b>DeepMind 的研究指出，模型记忆的"事实量"约为参数量的 1-2 倍。</p>
+  <p><b>优势：</b>可验证性强，方法论公开。</p>
+  <p><b>局限：</b>受训练数据分布影响大，不同领域的记忆率差异显著。</p>
+</div>
+
+<!-- 置信区间 -->
+<h3 class="sec-sub">4.4 置信区间与可信度分级</h3>
+<div class="panel">
+  <p>每种方法都有误差范围，综合多种方法后给出：</p>
+  <div class="cards">
+    <div class="card">
+      <div class="num">High</div>
+      <div class="lbl">高可信度</div>
+      <div class="desc">多种方法一致 + 公司半官方确认。如 DeepSeek V4-Pro 1.6T/49B。</div>
+    </div>
+    <div class="card">
+      <div class="num">Medium</div>
+      <div class="lbl">中可信度</div>
+      <div class="desc">两种方法交叉验证，有一定偏差。如 OpenAI GPT-5.6 Sol。</div>
+    </div>
+    <div class="card">
+      <div class="num">Low</div>
+      <div class="lbl">低可信度</div>
+      <div class="desc">仅单一方法或数据源不足。仅供方向性参考。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================= -->
+<!-- SECTION 5: 产品经理 AI/LLM 专业术语表 -->
+<!-- ============================================================= -->
+<h2 class="sec">5. 产品经理 AI/LLM 专业术语表</h2>
+<p class="lead">
+AI 产品 PM 需要跨越"技术理解"与"商业判断"的鸿沟。以下按类别整理必须掌握的 50+ 专业缩写。</p>
+
+<!-- 5.1 模型架构 -->
+<h3 class="sec-sub">5.1 模型架构与技术缩写</h3>
+<div class="term-grid">
+  <div class="term-card">
+    <h4>Transformer <span class="abbr">TF</span></h4>
+    <p>2017 年 Google 提出的序列到序列架构，通过自注意力机制替代 RNN，是所有现代 LLM 的基础。</p>
+  </div>
+  <div class="term-card">
+    <h4>Mixture of Experts <span class="abbr">MoE</span></h4>
+    <p>混合专家架构。将大模型拆分为多个"专家"子网络，推理时仅激活部分专家，实现"大参数、低推理成本"。</p>
+  </div>
+  <div class="term-card">
+    <h4>Multi-Head Attention <span class="abbr">MHA</span></h4>
+    <p>多头注意力。并行使用多个注意力"头"，从不同子空间捕捉序列关系。</p>
+  </div>
+  <div class="term-card">
+    <h4>Grouped-Query Attention <span class="abbr">GQA</span></h4>
+    <p>分组查询注意力。MHA 与 MQA 的折中方案，平衡推理速度与质量。</p>
+  </div>
+  <div class="term-card">
+    <h4>Multi-Query Attention <span class="abbr">MQA</span></h4>
+    <p>多查询注意力。所有头共享同一组 KV，大幅减少推理内存，但质量略降。</p>
+  </div>
+  <div class="term-card">
+    <h4>DeepSeek Shared Attention <span class="abbr">DSA</span></h4>
+    <p>DeepSeek 提出的注意力优化，在长文本场景下显著降低计算量。</p>
+  </div>
+  <div class="term-card">
+    <h4>Multi-head Latent Attention <span class="abbr">MLA</span></h4>
+    <p>多头潜在注意力。DeepSeek-V2 引入的 KV cache 压缩技术，是 MoE 推理效率的关键。</p>
+  </div>
+  <div class="term-card">
+    <h4>Retrieval-Augmented Generation <span class="abbr">RAG</span></h4>
+    <p>检索增强生成。先检索外部知识库，再让 LLM 基于检索结果生成回答，是提升事实准确性的主流方案。</p>
+  </div>
+  <div class="term-card">
+    <h4>Chain-of-Thought <span class="abbr">CoT</span></h4>
+    <p>思维链。在 prompt 中显式要求模型"一步步推理"，显著提升复杂任务正确率。</p>
+  </div>
+  <div class="term-card">
+    <h4>Reinforcement Learning from Human Feedback <span class="abbr">RLHF</span></h4>
+    <p>基于人类反馈的强化学习。用人类偏好训练奖励模型，再用 PPO 优化 LLM，是 ChatGPT 对齐的核心技术。</p>
+  </div>
+  <div class="term-card">
+    <h4>Direct Preference Optimization <span class="abbr">DPO</span></h4>
+    <p>直接偏好优化。RLHF 的简化版，不需要显式训练奖励模型，直接从偏好数据优化 LLM。</p>
+  </div>
+  <div class="term-card">
+    <h4>Low-Rank Adaptation <span class="abbr">LoRA</span></h4>
+    <p>低秩适配。在原始权重旁插入可训练的"低秩矩阵"，以极低参数量微调大模型，是私有化部署的标配。</p>
+  </div>
+  <div class="term-card">
+    <h4>Quantization <span class="abbr">GPTQ / AWQ</span></h4>
+    <p>量化。将模型权重从 FP16 压缩到 INT4/INT8，减少内存占用，可在消费级 GPU 运行大模型。</p>
+  </div>
+  <div class="term-card">
+    <h4>Flash Attention</h4>
+    <p>由 Tri Dao 提出的注意力算法优化，通过 IO 感知的块计算大幅减少显存读写，是长文本推理的关键技术。</p>
+  </div>
+</div>
+
+<!-- 5.2 商业与增长 -->
+<h3 class="sec-sub">5.2 商业、增长与运营缩写</h3>
+<div class="term-grid">
+  <div class="term-card">
+    <h4>Monthly Active Users <span class="abbr">MAU</span></h4>
+    <p>月活用户。过去 30 天内使用过产品的独立用户数，衡量市场渗透率的核心指标。</p>
+  </div>
+  <div class="term-card">
+    <h4>Daily Active Users <span class="abbr">DAU</span></h4>
+    <p>日活用户。过去 24 小时内使用过产品的独立用户数，衡量用户粘性。</p>
+  </div>
+  <div class="term-card">
+    <h4>Annual Recurring Revenue <span class="abbr">ARR</span></h4>
+    <p>年经常性收入。SaaS / API 收入的标准化指标，反映年度经常性收入规模。</p>
+  </div>
+  <div class="term-card">
+    <h4>Customer Acquisition Cost <span class="abbr">CAC</span></h4>
+    <p>客户获取成本。总营销销售费用 / 新增客户数，衡量获客效率。</p>
+  </div>
+  <div class="term-card">
+    <h4>Lifetime Value <span class="abbr">LTV</span></h4>
+    <p>客户生命周期价值。单个客户在其生命周期内贡献的总毛利。</p>
+  </div>
+  <div class="term-card">
+    <h4>LTV / CAC Ratio</h4>
+    <p>客户价值与获客成本比。>3 是健康 SaaS 的基准线，>10 是卓越表现。</p>
+  </div>
+  <div class="term-card">
+    <h4>Net Revenue Retention <span class="abbr">NRR</span></h4>
+    <p>净收入留存率。衡量现有客户的收入增减，是 SaaS 产品市场匹配的核心指标。</p>
+  </div>
+  <div class="term-card">
+    <h4>Churn Rate <span class="abbr">CR</span></h4>
+    <p>流失率。周期内流失客户数 / 期初客户数。分"客户流失"和"收入流失"。</p>
+  </div>
+  <div class="term-card">
+    <h4>Product-Market Fit <span class="abbr">PMF</span></h4>
+    <p>产品市场匹配。40% 以上用户表示"没有这个产品我会很失望"是经典判断标准。</p>
+  </div>
+  <div class="term-card">
+    <h4>Usage-Based Pricing <span class="abbr">UBP</span></h4>
+    <p>按 usage 计费。LLM API 的主流定价模式（按 token 数量计费），区别于固定订阅。</p>
+  </div>
+  <div class="term-card">
+    <h4>Token</h4>
+    <p>LLM 的基本计费单位。1 token ≈ 4 字符英文 / 1.5 字符中文。Token 限制（Context Window）是模型能力的关键参数。</p>
+  </div>
+  <div class="term-card">
+    <h4>Cost per Million Tokens</h4>
+    <p>百万 token 成本。API 定价的核心比较维度。过去两年下降了 90%+。</p>
+  </div>
+  <div class="term-card">
+    <h4>Free Trial / Freemium</h4>
+    <p>免费试用 / 免费增值。LLM 产品的主流获客策略：免费层吸引用户，付费层实现变现。</p>
+  </div>
+  <div class="term-card">
+    <h4>API-First Strategy</h4>
+    <p>以 API 为第一入口的产品策略。LLM 公司的核心商业模式，通过 API 调用量收费。</p>
+  </div>
+</div>
+
+<!-- 5.3 评测与数据 -->
+<h3 class="sec-sub">5.3 评测、数据与基础设施缩写</h3>
+<div class="term-grid">
+  <div class="term-card">
+    <h4>Artificial Analysis Index <span class="abbr">AA Index</span></h4>
+    <p>AI 模型综合质量指数（0-100），由 artificialanalysis.ai 维护，整合 10+ 项 benchmark。</p>
+  </div>
+  <div class="term-card">
+    <h4>Big-Bench Hard <span class="abbr">BBH</span></h4>
+    <p>23 个 BIG-Bench 最难任务的集合，评估复杂推理能力。</p>
+  </div>
+  <div class="term-card">
+    <h4>HuggingFace <span class="abbr">HF</span></h4>
+    <p>全球最大的开源模型社区，是 LLM 模型分发与评测的核心基础设施。</p>
+  </div>
+  <div class="term-card">
+    <h4>Parameter <span class="abbr">P</span></h4>
+    <p>模型参数量。B（十亿）/ T（万亿）为单位。参数量是模型能力的"天花板"。</p>
+  </div>
+  <div class="term-card">
+    <h4>FLOPs</h4>
+    <p>浮点运算次数。衡量训练/推理计算量的客观指标，与参数量、序列长度相关。</p>
+  </div>
+  <div class="term-card">
+    <h4>Context Window</h4>
+    <p>上下文窗口。模型一次能处理的最大 token 数，是长文本能力的决定因素。</p>
+  </div>
+  <div class="term-card">
+    <h4>Few-shot / Zero-shot</h4>
+    <p>少样本 / 零样本。Zero-shot 不给示例直接问；Few-shot 给几个示例再问。</p>
+  </div>
+  <div class="term-card">
+    <h4>Instruction Tuning</h4>
+    <p>指令微调。在预训练后，用"指令-回答"对模型进行有监督微调，使模型能理解人类意图。</p>
+  </div>
+  <div class="term-card">
+    <h4>Constitutional AI <span class="abbr">CAI</span></h4>
+    <p>宪法式 AI。Anthropic 提出的对齐方法，用一套"宪法原则"指导模型自我修正而非依赖人类标注。</p>
+  </div>
+  <div class="term-card">
+    <h4>OpenAI API兼容 <span class="abbr">OAIC</span></h4>
+    <p>第三方模型服务兼容 OpenAI API 格式，是 OpenRouter 等平台能聚合多家模型的关键。</p>
+  </div>
+</div>
+
+<!-- 5.4 组织与战略 -->
+<h3 class="sec-sub">5.4 组织、战略与产品模式</h3>
+<div class="term-grid">
+  <div class="term-card">
+    <h4>Foundational Model</h4>
+    <p>基础模型。通过大规模预训练得到的"通用"模型，可被微调为各种下游模型。</p>
+  </div>
+  <div class="term-card">
+    <h4>General Purpose LLM <span class="abbr">GPLLM</span></h4>
+    <p>通用大语言模型。面向广泛场景，如 GPT、Claude、Gemini。</p>
+  </div>
+  <div class="term-card">
+    <h4>Vertical / Domain Model</h4>
+    <p>垂直/行业模型。专注某一领域（医疗、法律、代码）的大模型，通常由基础模型微调而来。</p>
+  </div>
+  <div class="term-card">
+    <h4>Agent / AI Agent</h4>
+    <p>智能体。能自主感知环境、规划任务、调用工具的 AI 系统，是 2025-2026 年最大的产品叙事。</p>
+  </div>
+  <div class="term-card">
+    <h4>Function Calling <span class="abbr">FC</span></h4>
+    <p>函数调用。模型输出结构化的"调用指令"，让外部系统执行实际操作，是 Agent 的核心能力。</p>
+  </div>
+  <div class="term-card">
+    <h4>Tool Use</h4>
+    <p>工具使用。模型调用外部 API/工具完成特定任务（搜索、计算、读写文件），扩展模型的能力边界。</p>
+  </div>
+  <div class="term-card">
+    <h4>Multi-modal <span class="abbr">MM</span></h4>
+    <p>多模态。同时处理文本、图像、音频、视频等多种输入输出模式。</p>
+  </div>
+  <div class="term-card">
+    <h4>Text-to-Image / T2I</h4>
+    <p>文生图。根据文本描述生成图像，代表模型有 Stable Diffusion、FLUX。</p>
+  </div>
+  <div class="term-card">
+    <h4>Text-to-Video / T2V</h4>
+    <p>文生视频。根据文本描述生成视频，是 2024-2025 年最热门的 AI 赛道之一。</p>
+  </div>
+  <div class="term-card">
+    <h4>Open Source vs. Closed Source</h4>
+    <p>开源 vs 闭源。开源模型（MIT/Apache）可商用、可二次开发；闭源模型仅能通过 API 调用。</p>
+  </div>
+  <div class="term-card">
+    <h4>Frontier Model</h4>
+    <p>前沿模型。代表当前技术最高水平的模型，通常由头部公司发布，具有战略意义。</p>
+  </div>
+</div>
+
+<!-- ============ 总结 ============ -->
+<div class="panel" style="background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 100%);color:#fff;border:none">
+  <h3 style="color:#fff;margin-top:0">🎯 给产品经理的 3 条核心建议</h3>
+  <ol style="color:#e0e7ff;line-height:2">
+    <li><b>不要只看单一分数：</b>MAU 需多源交叉验证，Benchmark 需结合任务场景解读。</li>
+    <li><b>关注"单位经济学"：</b>Token 成本下降速度 > 模型能力提升速度，这是 AI 产品盈利的关键窗口。</li>
+    <li><b>框架 > 工具：</b>掌握底层方法论（多源三角测量、置信区间、归因分析），工具只是实现手段。</li>
+  </ol>
+</div>
+
+<footer>
+  LLM Tracker · AI/LLM 产品经理专业词汇与指标手册 · MIT License · 数据时点 2026-08-25<br>
+  仓库：<a href="https://github.com/shikunpneg/who-is-the-ai-king">github.com/shikunpneg/who-is-the-ai-king</a>
+</footer>
+
+</div>
+
+<!-- ============ JavaScript ============ -->
+<script>
+  // 初始化 Mermaid
+  mermaid.initialize({ startOnLoad: true, theme: 'base', themeVariables: {
+    primaryColor: '#e0e7ff', primaryTextColor: '#1c2333', primaryBorderColor: '#4f46e5',
+    lineColor: '#5b6478', secondaryColor: '#f6f7fb', tertiaryColor: '#fff'
+  }});
+
+  // ===== 图表1: SWE-bench 对比 =====
+  const swebenchChart = echarts.init(document.getElementById('swebench-chart'));
+  swebenchChart.setOption({
+    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+    legend: { data: ['GPT-5.6 Sol', 'Claude Opus 5', 'Gemini 3.7 Flash', 'DeepSeek-V4-Pro'], top: 0 },
+    grid: { left: 3, right: 3, bottom: 0, containLabel: true },
+    xAxis: { type: 'value', max: 100, axisLabel: { formatter: '{value}%' } },
+    yAxis: { type: 'category', data: ['HumanEval+', 'BBH', 'MATH/AIME', 'GPQA Diamond', 'MMLU-Pro', 'SWE-bench'], axisLabel: { fontSize: 11 } },
+    series: [
+      { name: 'GPT-5.6 Sol', type: 'bar', data: [94, 96, 79, 82, 94, 69], itemStyle: { color: '#4f46e5' } },
+      { name: 'Claude Opus 5', type: 'bar', data: [95, 97, 81, 84, 95, 72], itemStyle: { color: '#7c3aed' } },
+      { name: 'Gemini 3.7 Flash', type: 'bar', data: [92, 95, 78, 80, 93, 65], itemStyle: { color: '#2563eb' } },
+      { name: 'DeepSeek-V4-Pro', type: 'bar', data: [93, 94, 76, 78, 92, 66], itemStyle: { color: '#059669' } }
+    ]
+  });
+
+  // ===== 图表2: MMLU-Pro 对比 =====
+  const mmluChart = echarts.init(document.getElementById('mmlu-chart'));
+  mmluChart.setOption({
+    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+    legend: { data: ['OpenAI', 'Anthropic', 'Google', 'Meta', 'xAI', 'Qwen', 'DeepSeek'], top: 0 },
+    grid: { left: 3, right: 3, bottom: 0, containLabel: true },
+    xAxis: { type: 'value', max: 100, axisLabel: { formatter: '{value}%' } },
+    yAxis: { type: 'category', data: ['MMLU-Pro'], axisLabel: { fontSize: 12 } },
+    series: [
+      { name: 'OpenAI', type: 'bar', data: [94.2], itemStyle: { color: '#4f46e5' } },
+      { name: 'Anthropic', type: 'bar', data: [93.8], itemStyle: { color: '#7c3aed' } },
+      { name: 'Google', type: 'bar', data: [92.5], itemStyle: { color: '#2563eb' } },
+      { name: 'Meta', type: 'bar', data: [91.0], itemStyle: { color: '#059669' } },
+      { name: 'xAI', type: 'bar', data: [89.5], itemStyle: { color: '#d97706' } },
+      { name: 'Qwen', type: 'bar', data: [88.3], itemStyle: { color: '#dc2626' } },
+      { name: 'DeepSeek', type: 'bar', data: [87.8], itemStyle: { color: '#0891b2' } }
+    ]
+  });
+
+  // ===== 图表3: MATH/AIME 对比 =====
+  const mathChart = echarts.init(document.getElementById('math-chart'));
+  mathChart.setOption({
+    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+    legend: { data: ['OpenAI', 'Anthropic', 'Google', 'Meta', 'xAI', 'Qwen', 'DeepSeek'], top: 0 },
+    grid: { left: 3, right: 3, bottom: 0, containLabel: true },
+    xAxis: { type: 'value', max: 100, axisLabel: { formatter: '{value}%' } },
+    yAxis: { type: 'category', data: ['MATH/AIME'], axisLabel: { fontSize: 12 } },
+    series: [
+      { name: 'OpenAI', type: 'bar', data: [78.9], itemStyle: { color: '#4f46e5' } },
+      { name: 'Anthropic', type: 'bar', data: [76.2], itemStyle: { color: '#7c3aed' } },
+      { name: 'Google', type: 'bar', data: [81.5], itemStyle: { color: '#2563eb' } },
+      { name: 'Meta', type: 'bar', data: [74.8], itemStyle: { color: '#059669' } },
+      { name: 'xAI', type: 'bar', data: [72.1], itemStyle: { color: '#d97706' } },
+      { name: 'Qwen', type: 'bar', data: [79.6], itemStyle: { color: '#dc2626' } },
+      { name: 'DeepSeek', type: 'bar', data: [77.3], itemStyle: { color: '#0891b2' } }
+    ]
+  });
+
+  // ===== 图表4: MAU 流程图 =====
+  const mauFlowChart = echarts.init(document.getElementById('mau-flow-chart'));
+  mauFlowChart.setOption({
+    tooltip: { trigger: 'item' },
+    series: [
+      {
+        type: 'sankey', left: '5%', right: '5%', top: '10%', bottom: '10%',
+        nodeAlign: 'justify',
+        data: [
+          { name: '官方披露', source: [], value: 100, itemStyle: { color: '#4f46e5' } },
+          { name: 'Sensor Tower', source: [], value: 100, itemStyle: { color: '#7c3aed' } },
+          { name: 'OpenRouter 市占率', source: [], value: 100, itemStyle: { color: '#2563eb' } },
+          { name: 'AA Index', source: [], value: 100, itemStyle: { color: '#059669' } },
+          { name: 'MAU 综合估计', source: [], value: 100, itemStyle: { color: '#f59e0b' } }
+        ],
+        links: [
+          { source: '官方披露', target: 'MAU 综合估计', value: 50 },
+          { source: 'Sensor Tower', target: 'MAU 综合估计', value: 20 },
+          { source: 'OpenRouter 市占率', target: 'MAU 综合估计', value: 20 },
+          { source: 'AA Index', target: 'MAU 综合估计', value: 10 }
+        ],
+        lineStyle: { color: 'gradient', curveness: 0.5 }
+      }
+    ]
+  });
+
+  // ===== 图表5: MAU 雷达图 =====
+  const mauRadarChart = echarts.init(document.getElementById('mau-radar-chart'));
+  mauRadarChart.setOption({
+    tooltip: {},
+    legend: { data: ['数据源覆盖度', '可信度', '实时性', '独立性'], top: 0 },
+    radar: {
+      radius: '65%', indicator: [
+        { name: '数据源覆盖度', max: 100 },
+        { name: '可信度', max: 100 },
+        { name: '实时性', max: 100 },
+        { name: '独立性', max: 100 },
+        { name: '可获取性', max: 100 }
+      ]
+    },
+    series: [{
+      name: '官方披露 MAU', type: 'radar', data: [{ value: [85, 95, 70, 60, 95], name: '官方披露 MAU' }],
+      areaStyle: { color: 'rgba(79,70,229,.2)' }, lineStyle: { color: '#4f46e5' }
+    }, {
+      name: 'Sensor Tower', type: 'radar', data: [{ value: [70, 90, 85, 85, 90], name: 'Sensor Tower' }],
+      areaStyle: { color: 'rgba(124,58,237,.2)' }, lineStyle: { color: '#7c3aed' }
+    }, {
+      name: 'OpenRouter 市占', type: 'radar', data: [{ value: [60, 75, 95, 95, 85], name: 'OpenRouter 市占' }],
+      areaStyle: { color: 'rgba(37,99,235,.2)' }, lineStyle: { color: '#2563eb' }
+    }, {
+      name: 'AA Index', type: 'radar', data: [{ value: [50, 80, 90, 90, 80], name: 'AA Index' }],
+      areaStyle: { color: 'rgba(5,150,105,.2)' }, lineStyle: { color: '#059669' }
+    }]
+  });
+
+  // ===== 图表6: Adoption Score 对比 =====
+  const adoptionScoreChart = echarts.init(document.getElementById('adoption-score-chart'));
+  adoptionScoreChart.setOption({
+    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+    legend: { data: ['OpenAI', 'Google', 'Meta', 'Anthropic', 'xAI', 'Qwen', 'DeepSeek'], top: 0 },
+    grid: { left: 3, right: 3, bottom: 0, containLabel: true },
+    xAxis: { type: 'category', data: ['OpenAI', 'Google', 'Meta', 'Anthropic', 'xAI', 'Qwen', 'DeepSeek'], axisLabel: { fontSize: 11 } },
+    yAxis: { type: 'value', max: 100, axisLabel: { formatter: '{value}' } },
+    series: [
+      { name: 'OpenAI', type: 'bar', data: [92, 0, 0, 0, 0, 0, 0], itemStyle: { color: '#4f46e5' } },
+      { name: 'Google', type: 'bar', data: [0, 85, 0, 0, 0, 0, 0], itemStyle: { color: '#2563eb' } },
+      { name: 'Meta', type: 'bar', data: [0, 0, 82, 0, 0, 0, 0], itemStyle: { color: '#059669' } },
+      { name: 'Anthropic', type: 'bar', data: [0, 0, 0, 78, 0, 0, 0], itemStyle: { color: '#7c3aed' } },
+      { name: 'xAI', type: 'bar', data: [0, 0, 0, 0, 65, 0, 0], itemStyle: { color: '#d97706' } },
+      { name: 'Qwen', type: 'bar', data: [0, 0, 0, 0, 0, 72, 0], itemStyle: { color: '#dc2626' } },
+      { name: 'DeepSeek', type: 'bar', data: [0, 0, 0, 0, 0, 0, 75], itemStyle: { color: '#0891b2' } }
+    ]
+  });
+
+  // ===== 图表7: 参数估计置信区间 =====
+  const paramCiChart = echarts.init(document.getElementById('param-ci-chart'));
+  paramCiChart.setOption({
+    tooltip: { trigger: 'axis' },
+    legend: { data: ['GPT-5.6 Sol', 'Claude Opus 5', 'Gemini 3.7 Flash', 'DeepSeek-V4-Pro'], top: 0 },
+    grid: { left: '8%', right: '5%', bottom: '15%', containLabel: true },
+    xAxis: { type: 'category', data: ['GPT-5.6 Sol', 'Claude Opus 5', 'Gemini 3.7 Flash', 'DeepSeek-V4-Pro'], axisLabel: { fontSize: 11 } },
+    yAxis: { type: 'value', name: '参数量 (万亿)', axisLabel: { formatter: '{value}T' } },
+    series: [
+      { name: '估计值', type: 'bar', data: [1.76, 1.8, 1.2, 1.6], itemStyle: { color: '#4f46e5' } },
+      { name: '置信下限', type: 'bar', data: [1.2, 1.3, 0.9, 1.4], itemStyle: { color: '#93c5fd' } },
+      { name: '置信上限', type: 'bar', data: [2.5, 2.4, 1.8, 1.8], itemStyle: { color: '#c7d2fe' } }
+    ]
+  });
+
+  // 响应式
+  window.addEventListener('resize', () => {
+    swebenchChart.resize();
+    mmluChart.resize();
+    mathChart.resize();
+    mauFlowChart.resize();
+    mauRadarChart.resize();
+    adoptionScoreChart.resize();
+    paramCiChart.resize();
+  });
+</script>
+
+</body>
+</html>

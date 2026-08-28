@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>LLM 模型架构参考 · LLM Tracker</title>
+
+<!-- ECharts -->
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+
+<style>
+  :root{
+    --bg:#f6f7fb;
+    --card:#fff;
+    --ink:#1c2333;
+    --muted:#5b6478;
+    --line:#e5e8f0;
+    --accent:#4f46e5;
+    --accent-soft:#e0e7ff;
+    --cn:#e11d48;
+    --green:#059669;
+    --amber:#d97706;
+    --blue:#2563eb;
+    --purple:#7c3aed;
+    --pink:#db2777;
+    --teal:#0d9488;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,'Noto Sans CJK SC','WenQuanYi Micro Hei','Microsoft YaHei',sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.8;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:36px 24px 100px}
+
+  /* Hero */
+  header.hero{
+    background:linear-gradient(135deg,#0f172a 0%,#312e81 55%,#7c3aed 100%);
+    color:#fff;border-radius:24px;padding:52px 48px;margin-bottom:36px;position:relative;overflow:hidden;
+  }
+  header.hero::after{
+    content:"";position:absolute;right:-100px;top:-100px;width:340px;height:340px;
+    border-radius:50%;background:radial-gradient(circle,#22d3ee 0%,transparent 70%);opacity:.3;
+  }
+  header.hero::before{
+    content:"";position:absolute;right:60px;bottom:-80px;width:240px;height:240px;
+    border-radius:50%;background:radial-gradient(circle,#f472b6 0%,transparent 70%);opacity:.25;
+  }
+  .hero h1{font-size:2.4rem;font-weight:800;letter-spacing:.5px;line-height:1.3;position:relative;z-index:1}
+  .hero p.sub{margin-top:14px;color:#c7d2fe;font-size:1.05rem;max-width:720px;position:relative;z-index:1}
+  .hero .meta{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap;position:relative;z-index:1}
+  .hero .tag{
+    background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);
+    padding:6px 18px;border-radius:999px;font-size:.85rem;
+  }
+
+  /* Section */
+  h2.sec{
+    font-size:1.7rem;font-weight:800;margin:52px 0 6px;padding-left:18px;
+    border-left:7px solid var(--accent);
+  }
+  h3.sec-sub{font-size:1.25rem;font-weight:700;margin:36px 0 14px;color:#312e81}
+  h4.sec-sub{font-size:1.05rem;font-weight:700;margin:24px 0 10px;color:#4f46e5}
+  p.lead{color:var(--muted);font-size:.98rem;margin-bottom:22px;padding-left:25px}
+  .panel{
+    background:var(--card);border:1px solid var(--line);border-radius:16px;
+    padding:26px 30px;margin-bottom:20px;
+  }
+  .panel.warm{background:linear-gradient(180deg,#fffbeb 0%,#fff 60px)}
+
+  /* Cards */
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-bottom:18px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px}
+  .card .num{font-size:1.7rem;font-weight:800;color:var(--accent);line-height:1.1}
+  .card .lbl{font-size:.85rem;color:var(--muted);margin-top:8px}
+  .card .desc{font-size:.82rem;color:var(--ink);margin-top:6px}
+
+  /* Tables */
+  table{width:100%;border-collapse:collapse;font-size:.88rem;min-width:580px}
+  th{background:#eef0fa;color:#312e81;text-align:left;padding:10px 14px;font-weight:700;
+     border-bottom:2px solid #dde1f2;white-space:nowrap}
+  td{padding:9px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+  tr:hover td{background:#fafbff}
+  td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  td.center{text-align:center}
+
+  /* Pills */
+  .pill{display:inline-block;padding:3px 12px;border-radius:999px;font-size:.78rem;font-weight:600}
+  .pill-cn{background:#ffe4e9;color:#be123c}
+  .pill-open{background:#d1fae5;color:#047857}
+  .pill-closed{background:#fef3c7;color:#92400e}
+  .pill-accent{background:var(--accent-soft);color:var(--accent)}
+  .pill-pink{background:#fce7f3;color:#be1260}
+  .pill-teal{background:#ccfbf1;color:#0f766e}
+
+  /* Charts */
+  .chart-box{width:100%;height:380px;margin:14px 0}
+  .chart-box.tall{height:460px}
+
+  /* Diagram */
+  .diagram{background:#fafbff;border:1px solid var(--line);border-radius:12px;padding:20px;margin:16px 0;overflow-x:auto}
+  .diagram svg{max-width:100%;height:auto}
+
+  /* Notes */
+  .note{background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:16px 20px;font-size:.88rem;color:#78350f;margin:16px 0}
+  .good{background:#ecfdf5;border:1px solid #a7f3d0;border-radius:12px;padding:16px 20px;font-size:.88rem;color:#065f46;margin:16px 0}
+  .info{background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:16px 20px;font-size:.88rem;color:#1e40af;margin:16px 0}
+  .highlight{background:#fef2f2;border:1px solid #fecaca;border-radius:12px;padding:16px 20px;font-size:.88rem;color:#991b1b;margin:16px 0}
+
+  /* TOC */
+  .toc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 28px;margin-bottom:24px}
+  .toc ol{list-style:none;padding-left:0}
+  .toc ol li{padding:8px 0;border-bottom:1px dashed var(--line);font-size:.95rem}
+  .toc ol li:last-child{border-bottom:none}
+  .toc a{color:var(--accent);text-decoration:none;font-weight:500}
+  .toc a:hover{text-decoration:underline}
+
+  /* Formula */
+  pre{background:#0f172a;color:#e2e8f0;border-radius:10px;padding:14px 18px;font-size:.82rem;
+    overflow-x:auto;margin:10px 0;line-height:1.6;font-family:'JetBrains Mono','Consolas',monospace}
+  code{background:#eef0fa;padding:1px 6px;border-radius:5px;font-size:.85em;font-family:'JetBrains Mono','Consolas',monospace}
+
+  /* Architecture diagram */
+  .arch-diagram{background:#fafbff;border:1px solid var(--line);border-radius:12px;padding:20px;margin:16px 0;overflow-x:auto}
+  .arch-diagram svg{max-width:100%;height:auto}
+
+  /* Footer */
+  footer{margin-top:70px;color:var(--muted);font-size:.84rem;text-align:center;border-top:1px solid var(--line);padding-top:26px}
+
+  /* Responsive */
+  @media (max-width:640px){
+    .hero h1{font-size:1.8rem}
+    .hero p.sub{font-size:.92rem}
+    .panel{padding:18px 16px}
+    .chart-box{height:300px}
+  }
+
+  /* Side-by-side */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media (max-width:768px){.split{grid-template-columns:1fr}}
+
+  /* Comparison highlight */
+  .tag-attn{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.72rem;font-weight:600;margin:0 2px}
+  .tag-mha{background:#e0e7ff;color:#4f46e5}
+  .tag-mqa{background:#ede9fe;color:#7c3aed}
+  .tag-gqa{background:#dbeafe;color:#2563eb}
+  .tag-mla{background:#fce7f3;color:#db2777}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <h1>🧬 LLM 模型架构参考手册</h1>
+  <p class="sub">
+    一份面向产品经理/技术决策者的"模型架构速览"。覆盖 Transformer 三大范式、
+    注意力机制演进（MHA→MQA→GQA→MLA）、FFN 变体、归一化方法、位置编码、
+    以及 RWKV/Mamba/Hyena 等新型架构。所有内容均可与 LLM Tracker 数据交叉对照。
+  </p>
+  <div class="meta">
+    <span class="tag">📅 数据时点：2026-08-25</span>
+    <span class="tag">📐 3 大范式</span>
+    <span class="tag">⚡ 4 种注意力</span>
+    <span class="tag">🔬 6 种位置编码</span>
+    <span class="tag">🚀 3 种新型架构</span>
+  </div>
+</header>
+
+<!-- ============ 目录 ============ -->
+<div class="toc">
+  <ol>
+    <li>🏗️ Transformer 三大范式 — Encoder-only / Decoder-only / Encoder-Decoder</li>
+    <li>⚡ 注意力机制演进 — MHA → MQA → GQA → MLA（含 KV Cache 对比）</li>
+    <li>🔧 前馈网络变体 — Standard FFN / SwiGLU / GeGLU / Gated MLP</li>
+    <li>📐 归一化方法 — LayerNorm / RMSNorm / DeepNorm / Sandwich Norm / QK-Norm</li>
+    <li>📍 位置编码 — RoPE / ALiBi / YaRN / NoPE（含外推能力对比）</li>
+    <li>🚀 新型架构 — RWKV / Mamba / Hyena / 混合架构</li>
+    <li>🎯 架构选择黄金标准 — 当前工业界的"最优配方"</li>
+  </ol>
+</div>
+
+<!-- ============================================================= -->
+<!-- SECTION 1: Transformer 三大范式 -->
+<!-- ============================================================= -->
+<h2 class="sec">1. Transformer 三大范式</h2>
+<p class="lead">
+2017 年 Google 在《Attention Is All You Need》中提出 Transformer 后，社区逐渐分化为三条技术路线。它们的核心差异在于"如何堆叠编码器和解码器"。
+</p>
+
+<div class="panel">
+  <div class="arch-diagram">
+    <svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
+      <rect x="20" y="20" width="760" height="160" rx="12" fill="#fafbff" stroke="#e5e8f0"/>
+      <text x="400" y="50" text-anchor="middle" font-size="16" font-weight="700" fill="#312e81">Transformer 三大范式</text>
+
+      <!-- Encoder-only -->
+      <g transform="translate(40, 70)">
+        <rect x="0" y="0" width="220" height="100" rx="10" fill="#e0e7ff" stroke="#4f46e5" stroke-width="2"/>
+        <text x="110" y="25" text-anchor="middle" font-size="14" font-weight="700" fill="#312e81">Encoder-only</text>
+        <text x="110" y="48" text-anchor="middle" font-size="12" fill="#5b6478">双向注意力</text>
+        <text x="110" y="68" text-anchor="middle" font-size="12" fill="#5b6478">→ 理解任务</text>
+        <text x="110" y="88" text-anchor="middle" font-size="11" fill="#7c3aed">BERT / RoBERTa</text>
+      </g>
+
+      <!-- Decoder-only -->
+      <g transform="translate(290, 70)">
+        <rect x="0" y="0" width="220" height="100" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+        <text x="110" y="25" text-anchor="middle" font-size="14" font-weight="700" fill="#312e81">Decoder-only</text>
+        <text x="110" y="48" text-anchor="middle" font-size="12" fill="#5b6478">因果（单向）注意力</text>
+        <text x="110" y="68" text-anchor="middle" font-size="12" fill="#5b6478">→ 生成任务</text>
+        <text x="110" y="88" text-anchor="middle" font-size="11" fill="#be123c">GPT / Llama / DeepSeek</text>
+      </g>
+
+      <!-- Encoder-Decoder -->
+      <g transform="translate(540, 70)">
+        <rect x="0" y="0" width="220" height="100" rx="10" fill="#d1fae5" stroke="#059669" stroke-width="2"/>
+        <text x="110" y="25" text-anchor="middle" font-size="14" font-weight="700" fill="#312e81">Encoder-Decoder</text>
+        <text x="110" y="48" text-anchor="middle" font-size="12" fill="#5b6478">编码器 + 解码器</text>
+        <text x="110" y="68" text-anchor="middle" font-size="12" fill="#5b6478">→ 序列转换</text>
+        <text x="110" y="88" text-anchor="middle" font-size="11" fill="#047857">T5 / BART</text>
+      </g>
+    </svg>
+  </div>
+
+  <h4 class="sec-sub">1.1 Encoder-only（编码器专用）</h4>
+  <p>仅使用 Transformer 编码器，输入序列通过双向自注意力处理。适合<strong>理解类任务</strong>（分类、实体识别、语义搜索）。</p>
+  <ul>
+    <li><b>代表模型：</b>BERT（Google, 2018）、RoBERTa（Meta, 2019）、DeBERTa</li>
+    <li><b>优势：</b>双向注意力可看到完整上下文，理解精度高</li>
+    <li><b>局限：</b>无法自回归生成文本，不适合对话/写作场景</li>
+    <li><b>现状：</b>作为"特征提取器"嵌入到 RAG pipeline 或分类系统中，仍是搜索和推荐的核心组件</li>
+  </ul>
+
+  <h4 class="sec-sub">1.2 Decoder-only（解码器专用）</h4>
+  <p>仅使用 Transformer 解码器，通过因果（单向）注意力逐 token 生成。是当前 LLM 的<strong>绝对主流</strong>，占据 90%+ 以上的旗舰模型。</p>
+  <ul>
+    <li><b>代表模型：</b>GPT 系列（OpenAI）、Llama（Meta）、DeepSeek、Qwen、Claude</li>
+    <li><b>优势：</b>天然支持自回归生成，统一架构处理所有任务</li>
+    <li><b>关键设计：</b>因果注意力掩码 + KV Cache 实现高效推理</li>
+    <li><b>规模：</b>从 1B 到 1.6T 参数，覆盖端侧到数据中心</li>
+  </ul>
+
+  <h4 class="sec-sub">1.3 Encoder-Decoder（编码器-解码器）</h4>
+  <p>同时使用编码器和解码器，编码器处理输入序列，解码器生成输出序列。适合<strong>序列到序列转换</strong>任务。</p>
+  <ul>
+    <li><b>代表模型：</b>T5（Google, 2020）、BART（Meta, 2019）</li>
+    <li><b>优势：</b>在翻译、摘要等任务上精度最高</li>
+    <li><b>局限：</b>架构复杂，推理成本高，难以规模化到千亿参数</li>
+    <li><b>现状：</b>在垂直场景（翻译、DNA 序列分析）仍有使用，但在通用 LLM 赛道已被 Decoder-only 取代</li>
+  </ul>
+</div>
+
+<!-- ============================================================= -->
+<!-- SECTION 2: 注意力机制演进 -->
+<!-- ============================================================= -->
+<h2 class="sec">2. 注意力机制演进</h2>
+<p class="lead">
+自注意力是 Transformer 的核心。但"如何计算 Q、K、V"的工程选择，直接决定了推理成本。过去 5 年的演进主线只有一条：<strong>在保持模型质量的前提下，压缩 KV Cache。</strong></p>
+
+<div class="panel">
+  <h4 class="sec-sub">2.1 四种注意力变体对比</h4>
+  <table>
+    <tr>
+      <th>变体</th>
+      <th>Q 投影</th>
+      <th>K 投影</th>
+      <th>V 投影</th>
+      <th>KV Cache 大小</th>
+      <th>推理速度</th>
+      <th>模型质量</th>
+      <th>代表模型</th>
+    </tr>
+    <tr>
+      <td><b>MHA</b> <span class="tag-attn tag-mha">多头</span></td>
+      <td class="center">h 个头</td>
+      <td class="center">h 个头</td>
+      <td class="center">h 个头</td>
+      <td class="num">100%</td>
+      <td class="num">4/10</td>
+      <td class="num">9.5/10</td>
+      <td>原始 Transformer、BERT</td>
+    </tr>
+    <tr>
+      <td><b>MQA</b> <span class="tag-attn tag-mqa">共享</span></td>
+      <td class="center">h 个头</td>
+      <td class="center">1 组</td>
+      <td class="center">1 组</td>
+      <td class="num">~17%</td>
+      <td class="num">8/10</td>
+      <td class="num">6.5/10</td>
+      <td>PaLM、Gemini Flash</td>
+    </tr>
+    <tr>
+      <td><b>GQA</b> <span class="tag-attn tag-gqa">分组</span></td>
+      <td class="center">h 个头</td>
+      <td class="center">g 组</td>
+      <td class="center">g 组</td>
+      <td class="num">~33%</td>
+      <td class="num">6.5/10</td>
+      <td class="num">8.5/10</td>
+      <td>Llama 3、Mistral、Qwen</td>
+    </tr>
+    <tr>
+      <td><b>MLA</b> <span class="tag-attn tag-mla">潜在</span></td>
+      <td class="center">h 个头</td>
+      <td class="center">低秩压缩</td>
+      <td class="center">低秩压缩</td>
+      <td class="num">~8%</td>
+      <td class="num">9.5/10</td>
+      <td class="num">9/10</td>
+      <td>DeepSeek-V2/V3/V4</td>
+    </tr>
+  </table>
+
+  <div class="chart-box">
+    <div id="attn-compare-chart"></div>
+  </div>
+
+  <div class="info">
+    <b>核心洞察：</b>MQA 虽然 KV Cache 最小，但模型质量损失明显；GQA 是当前工业界的"甜蜜点"；
+    MLA（DeepSeek 提出）则通过低秩压缩技术，同时实现了"最小 KV Cache + 最高质量"，代表了注意力优化的最新方向。
+  </div>
+
+  <h4 class="sec-sub">2.2 KV Cache 为什么重要？</h4>
+  <p>自回归推理时，每个新 token 都要与所有历史 token 做注意力计算。KV Cache 缓存了历史 token 的 K 和 V，避免重复计算。</p>
+  <pre><code>KV Cache 大小 = 2 × 层数 × 隐藏维度 × token 数 × 字节数</code></pre>
+  <p>在长文本场景（128K tokens），KV Cache 可占据 <strong>90%+ 的显存</strong>。这就是为什么注意力变体的选择，直接决定了"能跑多长的文本"和"单次推理成本"。</p>
+
+  <h4 class="sec-sub">2.3 注意力机制演进时间线</h4>
+  <div class="chart-box tall">
+    <div id="attn-timeline-chart"></div>
+  </div>
+</div>
+
+<!-- ============================================================= -->
+<!-- SECTION 3: 前馈网络变体 -->
+<!-- ============================================================= -->
+<h2 class="sec">3. 前馈网络（FFN）变体</h2>
+<p class="lead">
+Transformer 的注意力层负责"信息交互"，FFN 层负责"信息存储"。FFN 占模型总参数的 2/3，其设计直接影响模型的知识容量和推理效率。</p>
+
+<div class="panel">
+  <h4 class="sec-sub">3.1 四种 FFN 架构对比</h4>
+  <table>
+    <tr>
+      <th>变体</th>
+      <th>公式</th>
+      <th>参数效率</th>
+      <th>推理速度</th>
+      <th>代表模型</th>
+      <th>说明</th>
+    </tr>
+    <tr>
+      <td><b>Standard FFN</b></td>
+      <td><code>W₂·σ(W₁·x)</code></td>
+      <td class="num">基准</td>
+      <td class="num">基准</td>
+      <td>原始 Transformer、BERT</td>
+      <td>两层全连接 + ReLU 激活，最简单的 FFN 形式</td>
+    </tr>
+    <tr>
+      <td><b>SwiGLU</b></td>
+      <td><code>(W₁·x ⊙ Swish(W₂·x)) · W₃</code></td>
+      <td class="num">高</td>
+      <td class="num">快</td>
+      <td>Llama、PaLM、Gemini</td>
+      <td>门控机制 + Swish 激活，当前工业界标配</td>
+    </tr>
+    <tr>
+      <td><b>GeGLU</b></td>
+      <td><code>(W₁·x ⊙ GELU(W₂·x)) · W₃</code></td>
+      <td class="num">高</td>
+      <td class="num">快</td>
+      <td>PaLM、部分 BERT 变体</td>
+      <td>与 SwiGLU 类似，使用 GELU 替代 Swish</td>
+    </tr>
+    <tr>
+      <td><b>Gated MLP</b></td>
+      <td><code>(W₁·x ⊙ W₂·x) · W₃</code></td>
+      <td class="num">最高</td>
+      <td class="num">最快</td>
+      <td>部分最新模型</td>
+      <td>简化版门控，去掉了非线性激活</td>
+    </tr>
+  </table>
+
+  <div class="good">
+    <b>为什么 SwiGLU 赢了？</b>门控机制（Gating）让模型学会"选择性激活"——某些维度在特定任务上更重要。
+    实验证明：在相同参数量下，SwiGLU 的知识容量比 Standard FFN 高 15-20%。
+  </div>
+
+  <h4 class="sec-sub">3.2 门控机制的直觉</h4>
+  <p>传统 FFN 是"全有或全无"的激活模式。SwiGLU 引入了一个"门控分支"，让模型学会对不同输入动态调整激活强度：</p>
+  <pre><code># SwiGLU 伪代码
+gate = Swish(x @ W_gate)    # 门控信号：哪些维度需要激活
+up = x @ W_up               # 上投影：扩展到高维
+output = (gate * up) @ W_down  # 门控 × 投影 → 下投影</code></pre>
+  <p>这种"信息流控制"的设计理念，与注意力机制中的"信息流控制"异曲同工，构成了现代 LLM 的双层调控体系。</p>
+</div>
+
+<!-- ============================================================= -->
+<!-- SECTION 4: 归一化方法 -->
+<!-- ============================================================= -->
+<h2 class="sec">4. 归一化方法</h2>
+<p class="lead">
+归一化层虽小，但直接影响训练稳定性和最终性能。不同归一化方法的选择，反映了"训练稳定性"与"推理速度"之间的权衡。</p>
+
+<div class="panel">
+  <h4 class="sec-sub">4.1 五种归一化方法对比</h4>
+  <table>
+    <tr>
+      <th>方法</th>
+      <th>归一化维度</th>
+      <th>可学习参数</th>
+      <th>训练稳定性</th>
+      <th>推理速度</th>
+      <th>代表模型</th>
+    </tr>
+    <tr>
+      <td><b>LayerNorm</b></td>
+      <td>特征维度</td>
+      <td>有（γ, β）</td>
+      <td class="num">高</td>
+      <td class="num">慢</td>
+      <td>原始 Transformer、BERT</td>
+    </tr>
+    <tr>
+      <td><b>RMSNorm</b></td>
+      <td>特征维度</td>
+      <td>仅有 γ</td>
+      <td class="num">中</td>
+      <td class="num">快</td>
+      <td>Llama、Mistral、DeepSeek</td>
+    </tr>
+    <tr>
+      <td><b>DeepNorm</b></td>
+      <td>特征维度</td>
+      <td>有（缩放）</td>
+      <td class="num">极高</td>
+      <td class="num">中</td>
+      <td>DeepSeek（早期版本）</td>
+    </tr>
+    <tr>
+      <td><b>Sandwich Norm</b></td>
+      <td>特征维度</td>
+      <td>有（多组）</td>
+      <td class="num">极高</td>
+      <td class="num">慢</td>
+      <td>研究性质</td>
+    </tr>
+    <tr>
+      <td><b>QK-Norm</b></td>
+      <td>注意力 Q/K</td>
+      <td>有</td>
+      <td class="num">中</td>
+      <td class="num">快</td>
+      <td>Gemma、部分新模型</td>
+    </tr>
+  </table>
+
+  <h4 class="sec-sub">4.2 RMSNorm 为什么成为主流？</h4>
+  <p>RMSNorm（Root Mean Square Layer Normalization）的公式极简：</p>
+  <pre><code>RMSNorm(x) = x / sqrt(mean(x²) + ε) × γ</code></pre>
+  <p>与 LayerNorm 相比，RMSNorm <strong>去掉了均值中心化</strong>（只做方差归一化），推理速度提升显著。在大规模训练中，这种微小差异累积起来就是巨大的效率差距。</p>
+  <p>当前工业界的共识：<strong>RMSNorm + SwiGLU + RoPE</strong> 已成为 Llama 系模型的"三件套"，被绝大多数开源模型采纳。</p>
+
+  <h4 class="sec-sub">4.3 QK-Norm 的特殊价值</h4>
+  <p>QK-Norm 在注意力计算前，对 Q 和 K 分别做归一化。它的作用是<strong>防止注意力分数过大</strong>导致的梯度消失/爆炸。</p>
+  <p>Google 的 Gemini 和 Gemma 系列使用了 QK-Norm，是"训练稳定性优化"的重要补充手段。</p>
+</div>
+
+<!-- ============================================================= -->
+<!-- SECTION 5: 位置编码 -->
+<!-- ============================================================= -->
+<h2 class="sec">5. 位置编码</h2>
+<p class="lead">
+Transformer 本身没有"序列顺序"的概念——所有 token 同时处理。位置编码就是给模型注入" token 在序列中的位置信息"。如何让模型理解"第 100 万 token 和第 1 token 的相对关系"，是位置编码的核心挑战。</p>
+
+<div class="panel">
+  <h4 class="sec-sub">5.1 六种位置编码对比</h4>
+  <table>
+    <tr>
+      <th>方法</th>
+      <th>核心思想</th>
+      <th>外推能力</th>
+      <th>计算开销</th>
+      <th>实现复杂度</th>
+      <th>代表模型</th>
+    </tr>
+    <tr>
+      <td><b>Absolute PE</b></td>
+      <td>为每个绝对位置学习一个向量</td>
+      <td class="num">2/10</td>
+      <td class="num">低</td>
+      <td class="num">简单</td>
+      <td>原始 Transformer</td>
+    </tr>
+    <tr>
+      <td><b>Sinusoidal</b></td>
+      <td>三角函数生成位置编码</td>
+      <td class="num">5/10</td>
+      <td class="num">极低</td>
+      <td class="num">极简</td>
+      <td>原始 Transformer</td>
+    </tr>
+    <tr>
+      <td><b>RoPE</b></td>
+      <td>旋转位置编码，通过旋转矩阵编码相对位置</td>
+      <td class="num">7/10</td>
+      <td class="num">中</td>
+      <td class="num">中</td>
+      <td>Llama、Qwen、Mistral</td>
+    </tr>
+    <tr>
+      <td><b>ALiBi</b></td>
+      <td>线性偏置，直接在注意力分数上加距离惩罚</td>
+      <td class="num">9/10</td>
+      <td class="num">极低</td>
+      <td class="num">极简</td>
+      <td>BLOOM、MPT</td>
+    </tr>
+    <tr>
+      <td><b>YaRN</b></td>
+      <td>NTK-aware + 频率缩放，RoPE 的扩展</td>
+      <td class="num">10/10</td>
+      <td class="num">低</td>
+      <td class="num">低</td>
+      <td>Llama 2 Long、Qwen2</td>
+    </tr>
+    <tr>
+      <td><b>NoPE</b></td>
+      <td>不显式编码位置，靠注意力隐式学习</td>
+      <td class="num">3/10</td>
+      <td class="num">零</td>
+      <td class="num">零</td>
+      <td>部分研究模型</td>
+    </tr>
+  </table>
+
+  <div class="chart-box">
+    <div id="pos-encoding-chart"></div>
+  </div>
+
+  <h4 class="sec-sub">5.2 RoPE 为什么是当前主流？</h4>
+  <p>RoPE（Rotary Position Embedding）的核心思想是：<strong>将位置信息编码为向量的旋转角度</strong>。</p>
+  <pre><code># RoPE 核心公式（简化）
+# 对位置 m 和 n，它们的相对位置编码 = 旋转 (m - n) 个角度
+# 这天然编码了"相对位置"而非"绝对位置"
+
+ROPE(q_m, k_n) = (q_m · R_θ^(m-n)) · (k_n · R_θ^(m-n))^T</code></pre>
+  <p>RoPE 的优势：</p>
+  <ul>
+    <li><b>相对位置感知：</b>两个 token 的注意力分数只取决于它们的相对距离，符合直觉</li>
+    <li><b>衰减特性：</b>距离越远，旋转角度越大，注意力分数自然衰减</li>
+    <li><b>可扩展：</b>通过 YaRN 等技术，可在训练长度基础上外推 4-8 倍</li>
+  </ul>
+
+  <h4 class="sec-sub">5.3 ALiBi 的意外成功</h4>
+  <p>ALiBi（Attention with Linear Biases）在 2022 年提出时被视为"过于简单"——它只是在注意力分数上减去一个与距离成正比的偏置。</p>
+  <p>但实验表明：这个"简单"方法在短文本训练后，<strong>外推能力远超 RoPE</strong>。BLOOM（176B）使用 ALiBi 训练，可在 1024 tokens 训练后直接推理 2048+ tokens 而不损失性能。</p>
+  <p>虽然 ALiBi 最终未成为主流（RoPE 的生态更完善），但它的"简单即美"理念深刻影响了后续设计。</p>
+</div>
+
+<!-- ============================================================= -->
+<!-- SECTION 6: 新型架构 -->
+<!-- ============================================================= -->
+<h2 class="sec">6. 新型架构：超越 Transformer</h2>
+<p class="lead">
+Transformer 的核心瓶颈是 <strong>注意力的 O(n²) 复杂度</strong>——序列长度翻倍，计算量翻四倍。这催生了三类"去注意力化"的探索：状态空间模型（SSM）、长卷积、以及混合架构。</p>
+
+<div class="panel">
+  <h4 class="sec-sub">6.1 三种替代架构对比</h4>
+  <table>
+    <tr>
+      <th>架构</th>
+      <th>核心机制</th>
+      <th>复杂度</th>
+      <th>优势</th>
+      <th>局限</th>
+      <th>代表模型</th>
+    </tr>
+    <tr>
+      <td><b>RWKV</b></td>
+      <td>线性注意力 + RNN 风格并行化</td>
+      <td class="num">O(n)</td>
+      <td>推理极快、训练可并行</td>
+      <td>长程建模弱于注意力</td>
+      <td>RWKV-6/7</td>
+    </tr>
+    <tr>
+      <td><b>Mamba</b></td>
+      <td>选择性状态空间模型</td>
+      <td class="num">O(n)</td>
+      <td>线性复杂度 + 选择性遗忘</td>
+      <td>训练不稳定、生态不成熟</td>
+      <td>Mamba-2</td>
+    </tr>
+    <tr>
+      <td><b>Hyena</b></td>
+      <td>隐式长卷积 + 门控</td>
+      <td class="num">O(n log n)</td>
+      <td>FFT 加速、训练快</td>
+      <td>实现复杂</td>
+      <td>Hyena H2O</td>
+    </tr>
+  </table>
+
+  <h4 class="sec-sub">6.2 混合架构：当前最务实的选择</h4>
+  <p>纯 Transformer、纯 SSM、纯卷积各有优劣。当前最前沿的方案是<strong>层间混合</strong>——在不同层使用不同机制：</p>
+
+  <table>
+    <tr><th>模型</th><th>架构组成</th><th>总参数</th><th>活跃参数</th><th>设计理念</th></tr>
+    <tr>
+      <td><b>Jamba</b> (AI21 Labs)</td>
+      <td>Transformer + Mamba 混合</td>
+      <td class="num">398B</td>
+      <td class="num">52B</td>
+      <td>每 4 层中 3 层 Transformer + 1 层 Mamba，交替排列</td>
+    </tr>
+    <tr>
+      <td><b>StripedHydra</b> (Together)</td>
+      <td>注意力 + SSM + 卷积 混合</td>
+      <td>2.8B</td>
+      <td>2.8B</td>
+      <td>层内并行多条"专家路径"，各取所长</td>
+    </tr>
+    <tr>
+      <td><b>FG-VQA</b></td>
+      <td>Flash Attention + Gated DeltaNet</td>
+      <td>未公开</td>
+      <td>未公开</td>
+      <td>注意力层加速 + DeltaNet 替代部分 FFN</td>
+    </tr>
+  </table>
+
+  <div class="highlight">
+    <b>Jamba 的设计哲学：</b>不是所有层都需要同等强度的注意力。"关键层"用 Transformer 保证推理精度，"普通层"用 Mamba 降低计算成本。这种"按需分配"的策略，可能是下一代架构的主流方向。
+  </div>
+
+  <h4 class="sec-sub">6.3 RWKV：最成熟的 RNN 替代方案</h4>
+  <p>RWKV（Receptance Weighted Key-Value）是当前最接近"Transformer 级性能"的 RNN 架构：</p>
+  <ul>
+    <li><b>训练：</b>可在 GPU 上并行训练（通过 Transformer 风格的并行公式）</li>
+    <li><b>推理：</b>像 RNN 一样逐 token 递推，无需 KV Cache，内存占用恒定</li>
+    <li><b>性能：</b>RWKV-7 在多项 benchmark 上接近同参数的 Transformer</li>
+    <li><b>生态：</b>完全开源，社区活跃，已适配 llama.cpp、Ollama 等主流推理框架</li>
+  </ul>
+</div>
+
+<!-- ============================================================= -->
+<!-- SECTION 7: 架构选择黄金标准 -->
+<!-- ============================================================= -->
+<h2 class="sec">7. 架构选择的黄金标准</h2>
+<p class="lead">
+经历了 7 年的架构演进，工业界在 2025-2026 年形成了一个"事实标准"。这不是某个公司的独创，而是多家头部公司独立收敛到同一配方的结果。</p>
+
+<div class="panel">
+  <div class="arch-diagram">
+    <svg viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg">
+      <rect x="20" y="20" width="760" height="260" rx="12" fill="#fafbff" stroke="#e5e8f0"/>
+      <text x="400" y="55" text-anchor="middle" font-size="18" font-weight="700" fill="#312e81">LLM 架构"黄金配方"（2025-2026）</text>
+
+      <!-- Components -->
+      <g transform="translate(50, 80)">
+        <rect x="0" y="0" width="200" height="60" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+        <text x="100" y="25" text-anchor="middle" font-size="13" font-weight="700" fill="#1e40af">Decoder-only</text>
+        <text x="100" y="45" text-anchor="middle" font-size="11" fill="#5b6478">三大范式选择</text>
+      </g>
+
+      <g transform="translate(270, 80)">
+        <rect x="0" y="0" width="200" height="60" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+        <text x="100" y="25" text-anchor="middle" font-size="13" font-weight="700" fill="#92400e">GQA 注意力</text>
+        <text x="100" y="45" text-anchor="middle" font-size="11" fill="#5b6478">KV Cache 与质量的平衡</text>
+      </g>
+
+      <g transform="translate(490, 80)">
+        <rect x="0" y="0" width="200" height="60" rx="8" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
+        <text x="100" y="25" text-anchor="middle" font-size="13" font-weight="700" fill="#9b1160">SwiGLU FFN</text>
+        <text x="100" y="45" text-anchor="middle" font-size="11" fill="#5b6478">门控机制提升知识容量</text>
+      </g>
+
+      <g transform="translate(50, 160)">
+        <rect x="0" y="0" width="200" height="60" rx="8" fill="#d1fae5" stroke="#059669" stroke-width="2"/>
+        <text x="100" y="25" text-anchor="middle" font-size="13" font-weight="700" fill="#065f46">RMSNorm</text>
+        <text x="100" y="45" text-anchor="middle" font-size="11" fill="#5b6478">最快推理的归一化方案</text>
+      </g>
+
+      <g transform="translate(270, 160)">
+        <rect x="0" y="0" width="200" height="60" rx="8" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
+        <text x="100" y="25" text-anchor="middle" font-size="13" font-weight="700" fill="#5b21b6">RoPE 位置编码</text>
+        <text x="100" y="45" text-anchor="middle" font-size="11" fill="#5b6478">相对位置 + 可外推</text>
+      </g>
+
+      <g transform="translate(490, 160)">
+        <rect x="0" y="0" width="200" height="60" rx="8" fill="#ccfbf1" stroke="#0d9488" stroke-width="2"/>
+        <text x="100" y="25" text-anchor="middle" font-size="13" font-weight="700" fill="#115e59">MoE / MLA</text>
+        <text x="100" y="45" text-anchor="middle" font-size="11" fill="#5b6478">大参数 + 低推理成本</text>
+      </g>
+
+      <!-- Bottom summary -->
+      <g transform="translate(50, 240)">
+        <rect x="0" y="0" width="700" height="35" rx="8" fill="#4f46e5"/>
+        <text x="350" y="22" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">
+          采用此配方的代表模型：Llama 3 / Qwen3 / Mistral Large / DeepSeek-V3
+        </text>
+      </g>
+    </svg>
+  </div>
+
+  <div class="split">
+    <div class="card">
+      <div class="num">5 家头部公司</div>
+      <div class="lbl">独立收敛到同一配方</div>
+      <div class="desc">Meta、阿里、Mistral、DeepSeek、01.AI 均采用了 Decoder-only + GQA + SwiGLU + RMSNorm + RoPE 架构。</div>
+    </div>
+    <div class="card">
+      <div class="num">3 大优化方向</div>
+      <div class="lbl">架构差异的剩余空间</div>
+      <div class="desc">MoE vs Dense、MLA vs GQA、Attention vs SSM 混合——这是当前架构竞争的三个"未收敛"领域。</div>
+    </div>
+  </div>
+
+  <div class="good">
+    <b>为什么这个配方能赢？</b>它不是理论最优，而是<strong>工程最优</strong>——在训练稳定性、推理速度、模型质量、生态系统四个维度上达到了最佳平衡。每个组件都有成熟的开源实现和丰富的调优经验。
+  </div>
+</div>
+
+<!-- ============ 模型家族版本演进 ============ -->
+<div class="section">
+  <h2>4. 主要模型家族版本演进与参数对比</h2>
+  <p class="lead">了解各大公司模型家族的版本演进路径，可以帮助技术决策者判断行业趋势和各家的技术路线选择。</p>
+
+  <h3>4.1 模型家族概览</h3>
+  <div class="grid-2">
+    <div class="card">
+      <h4>🏢 开源/开放权重家族</h4>
+      <p>Meta、阿里、DeepSeek、Mistral 等公司选择开放模型权重，推动了技术民主化。</p>
+    </div>
+    <div class="card">
+      <h4>🔒 闭源商业家族</h4>
+      <p>OpenAI、Anthropic、Google 等公司通过 API 提供服务，注重安全对齐和商业闭环。</p>
+    </div>
+  </div>
+
+  <h3>4.2 各家族版本演进详情</h3>
+
+  <h4>GPT 家族（OpenAI）</h4>
+  <table>
+    <thead><tr><th>版本</th><th>发布日期</th><th>总参数</th><th>活跃参数</th><th>上下文</th><th>架构特征</th></tr></thead>
+    <tbody>
+      <tr><td>GPT-1</td><td>2018-06</td><td>1.17 亿</td><td>—</td><td>512</td><td>Decoder-only, 12L/768H</td></tr>
+      <tr><td>GPT-2</td><td>2019-02</td><td>15 亿</td><td>—</td><td>1,024</td><td>Decoder-only, 48L/1,600H</td></tr>
+      <tr><td>GPT-3</td><td>2020-06</td><td>1,750 亿</td><td>—</td><td>2,048</td><td>Decoder-only, 96L/12,288H, Dense</td></tr>
+      <tr><td>GPT-3.5</td><td>2022-03</td><td>1,750 亿</td><td>—</td><td>4,096</td><td>GPT-3 微调版, RLHF</td></tr>
+      <tr><td>GPT-4</td><td>2023-03</td><td>约 1.8 万亿</td><td>约 2,800 亿</td><td>8,192</td><td>MoE, 16 专家, 8×220B</td></tr>
+      <tr><td>GPT-4o</td><td>2024-05</td><td>约 2 万亿</td><td>约 3,000 亿</td><td>128,000</td><td>原生多模态, 低延迟</td></tr>
+      <tr><td>GPT-4.5</td><td>2025-03</td><td>约 2.5 万亿</td><td>约 3,500 亿</td><td>128,000</td><td>更大规模扩展</td></tr>
+      <tr><td>GPT-5</td><td>2025-08</td><td>约 5-6 万亿</td><td>约 6,000 亿</td><td>128,000</td><td>MoE, 更多专家</td></tr>
+      <tr><td>GPT-5.6 Sol</td><td>2026-08</td><td>约 7.6 万亿+</td><td>约 1.76 万亿</td><td>256,000</td><td>进一步扩展, 更强推理</td></tr>
+    </tbody>
+  </table>
+
+  <h4>Claude 家族（Anthropic）</h4>
+  <table>
+    <thead><tr><th>版本</th><th>发布日期</th><th>总参数</th><th>上下文</th><th>架构特征</th></tr></thead>
+    <tbody>
+      <tr><td>Claude 1</td><td>2023-03</td><td>未公开</td><td>9,000</td><td>Constitutional AI</td></tr>
+      <tr><td>Claude 2</td><td>2023-07</td><td>未公开</td><td>100,000</td><td>扩展上下文</td></tr>
+      <tr><td>Claude 3 (Haiku/Sonnet/Opus)</td><td>2024-03</td><td>未公开</td><td>200,000</td><td>三模型分层, 多模态</td></tr>
+      <tr><td>Claude 3.5 Sonnet</td><td>2024-06</td><td>未公开</td><td>200,000</td><td>显著提升编程与推理</td></tr>
+      <tr><td>Claude 3.7 Sonnet</td><td>2024-12</td><td>未公开</td><td>200,000</td><td>推理能力进一步提升</td></tr>
+      <tr><td>Claude 4.5</td><td>2025-06</td><td>未公开</td><td>1,000,000</td><td>百万级上下文</td></tr>
+      <tr><td>Claude Fable 5</td><td>2026-04</td><td>未公开</td><td>1,000,000</td><td>前沿推理与自主能力</td></tr>
+    </tbody>
+  </table>
+
+  <h4>Gemini 家族（Google DeepMind）</h4>
+  <table>
+    <thead><tr><th>版本</th><th>发布日期</th><th>总参数</th><th>上下文</th><th>架构特征</th></tr></thead>
+    <tbody>
+      <tr><td>Gemini 1.0 (Ultra/Nano)</td><td>2023-12</td><td>未公开</td><td>32,000</td><td>多模态, 原生</td></tr>
+      <tr><td>Gemini 1.5 (Flash/Pro)</td><td>2024-02</td><td>未公开</td><td>1,000,000+</td><td>百万级上下文</td></tr>
+      <tr><td>Gemini 2.0 Flash</td><td>2024-12</td><td>未公开</td><td>1,000,000</td><td>低延迟, 实时</td></tr>
+      <tr><td>Gemini 2.5 Pro</td><td>2025-03</td><td>未公开</td><td>1,000,000</td><td>更强推理与编程</td></tr>
+      <tr><td>Gemini 2.5 Flash</td><td>2025-04</td><td>未公开</td><td>1,000,000</td><td>高效低成本</td></tr>
+      <tr><td>Gemini 3.7 Flash</td><td>2026-03</td><td>未公开</td><td>1,000,000+</td><td>前沿多模态能力</td></tr>
+    </tbody>
+  </table>
+
+  <h4>Llama 家族（Meta）</h4>
+  <table>
+    <thead><tr><th>版本</th><th>发布日期</th><th>总参数</th><th>上下文</th><th>架构特征</th></tr></thead>
+    <tbody>
+      <tr><td>Llama 1 (7B/13B/65B)</td><td>2023-02</td><td>7B-65B</td><td>2,048</td><td>Decoder-only, SwiGLU, RMSNorm</td></tr>
+      <tr><td>Llama 2 (7B/13B/70B)</td><td>2023-07</td><td>7B-70B</td><td>4,096</td><td>GQA, 分组查询注意力</td></tr>
+      <tr><td>Llama 3 (8B/70B)</td><td>2024-04</td><td>8B/70B</td><td>8,192</td><td>15T tokens 训练</td></tr>
+      <tr><td>Llama 3.1 (8B/70B/405B)</td><td>2024-07</td><td>8B-405B</td><td>128,000</td><td>405B 首次突破 400B</td></tr>
+      <tr><td>Llama 3.2 (1B/3B/11B/90B)</td><td>2024-09</td><td>1B-90B</td><td>128,000</td><td>多模态, 小模型升级</td></tr>
+      <tr><td>Llama 3.3 (8B/70B)</td><td>2024-12</td><td>8B/70B</td><td>128,000</td><td>效率优化</td></tr>
+      <tr><td>Llama 4 Scout</td><td>2025-04</td><td>约 170 亿</td><td>10,000,000</td><td>MoE, 1,000 万上下文</td></tr>
+      <tr><td>Llama 4 Maverick</td><td>2025-04</td><td>约 4,000 亿</td><td>10,000,000</td><td>MoE, 16 专家, 17B 活跃</td></tr>
+      <tr><td>Llama 4 Behemoth</td><td>2025-07</td><td>约 2 万亿+</td><td>10,000,000</td><td>MoE, 2× Behemoth 集群</td></tr>
+    </tbody>
+  </table>
+
+  <h4>Qwen 家族（阿里）</h4>
+  <table>
+    <thead><tr><th>版本</th><th>发布日期</th><th>总参数</th><th>上下文</th><th>架构特征</th></tr></thead>
+    <tbody>
+      <tr><td>Qwen (1.8B/7B/14B)</td><td>2023-09</td><td>1.8B-14B</td><td>2,048</td><td>Decoder-only, 多语言</td></tr>
+      <tr><td>Qwen 1.5 (0.5B-72B)</td><td>2024-02</td><td>0.5B-72B</td><td>4,096</td><td>系列化, 多尺寸</td></tr>
+      <tr><td>Qwen 2 (0.5B-72B)</td><td>2024-06</td><td>0.5B-72B</td><td>32,768</td><td>32K 上下文, 多语言</td></tr>
+      <tr><td>Qwen 2.5 (0.5B-72B)</td><td>2024-09</td><td>0.5B-72B</td><td>32,768</td><td>训练数据增强</td></tr>
+      <tr><td>Qwen 2.5-Coder</td><td>2024-12</td><td>0.5B-32B</td><td>32,768</td><td>代码专用模型</td></tr>
+      <tr><td>Qwen 3 (0.6B-32B)</td><td>2025-01</td><td>0.6B-32B</td><td>32,768</td><td>MoE, 混合推理</td></tr>
+      <tr><td>Qwen 3 (235B-A22B)</td><td>2025-01</td><td>2,350 亿</td><td>32,768</td><td>MoE, 22B 活跃</td></tr>
+      <tr><td>Qwen3.7-Max</td><td>2026-05</td><td>未公开</td><td>131,072</td><td>超大规模, 更强推理</td></tr>
+    </tbody>
+  </table>
+
+  <h4>DeepSeek 家族</h4>
+  <table>
+    <thead><tr><th>版本</th><th>发布日期</th><th>总参数</th><th>活跃参数</th><th>上下文</th><th>架构特征</th></tr></thead>
+    <tbody>
+      <tr><td>DeepSeek LLM</td><td>2023-11</td><td>7B/67B</td><td>—</td><td>4,096</td><td>基础模型</td></tr>
+      <tr><td>DeepSeek-Coder</td><td>2023-12</td><td>1B-33B</td><td>—</td><td>16,384</td><td>代码专用</td></tr>
+      <tr><td>DeepSeek-V2</td><td>2024-05</td><td>2,360 亿</td><td>210 亿</td><td>128,000</td><td>MoE, MLA, 低训练成本</td></tr>
+      <tr><td>DeepSeek-V3</td><td>2024-12</td><td>6,710 亿</td><td>370 亿</td><td>128,000</td><td>MoE, MLA, FP8 训练</td></tr>
+      <tr><td>DeepSeek-R1</td><td>2025-01</td><td>6,710 亿</td><td>370 亿</td><td>128,000</td><td>推理模型, 链式思考</td></tr>
+      <tr><td>DeepSeek-V4</td><td>2026-04</td><td>约 10 万亿+</td><td>约 5,000 亿</td><td>256,000</td><td>下一代架构, 更强</td></tr>
+    </tbody>
+  </table>
+
+  <h4>Mistral 家族</h4>
+  <table>
+    <thead><tr><th>版本</th><th>发布日期</th><th>总参数</th><th>上下文</th><th>架构特征</th></tr></thead>
+    <tbody>
+      <tr><td>Mistral 7B</td><td>2023-09</td><td>73 亿</td><td>4,096</td><td>Sliding Window Attention</td></tr>
+      <tr><td>Mixtral 8×7B</td><td>2023-12</td><td>4,670 亿</td><td>4,096</td><td>MoE, 8 专家, 13B 活跃</td></tr>
+      <tr><td>Mistral Small/Large</td><td>2024-02</td><td>未公开</td><td>4,096</td><td>多模型分层</td></tr>
+      <tr><td>Mistral Large 2</td><td>2024-07</td><td>1,230 亿</td><td>128,000</td><td>多语言, 长上下文</td></tr>
+      <tr><td>Mistral Small 3.1</td><td>2025-01</td><td>240 亿</td><td>128,000</td><td>小模型, 高性价比</td></tr>
+      <tr><td>Mixtral 8×22B</td><td>2025-02</td><td>1,410 亿</td><td>128,000</td><td>MoE, 8 专家, 39B 活跃</td></tr>
+      <tr><td>Mistral Large 3</td><td>2025-06</td><td>未公开</td><td>128,000</td><td>更强推理与多模态</td></tr>
+      <tr><td>Mistral Large 3.5</td><td>2026-01</td><td>未公开</td><td>256,000</td><td>前沿性能</td></tr>
+    </tbody>
+  </table>
+
+  <h4>Grok 家族（xAI）</h4>
+  <table>
+    <thead><tr><th>版本</th><th>发布日期</th><th>总参数</th><th>上下文</th><th>架构特征</th></tr></thead>
+    <tbody>
+      <tr><td>Grok-1</td><td>2023-11</td><td>3,140 亿</td><td>8,192</td><td>MoE, 8 专家, 86B 活跃</td></tr>
+      <tr><td>Grok-1.5</td><td>2024-04</td><td>3,140 亿</td><td>128,000</td><td>长上下文扩展</td></tr>
+      <tr><td>Grok-2</td><td>2024-08</td><td>未公开</td><td>128,000</td><td>更强性能</td></tr>
+      <tr><td>Grok-3</td><td>2025-02</td><td>未公开</td><td>128,000</td><td>推理能力提升</td></tr>
+      <tr><td>Grok-4</td><td>2025-07</td><td>未公开</td><td>256,000</td><td>更强多模态</td></tr>
+      <tr><td>Grok-4.1</td><td>2025-11</td><td>未公开</td><td>256,000</td><td>效率与情感表达</td></tr>
+      <tr><td>Grok-4.6</td><td>2026-05</td><td>未公开</td><td>512,000+</td><td>前沿推理与自主</td></tr>
+    </tbody>
+  </table>
+
+  <h3>4.3 模型家族参数演进图表</h3>
+  <div class="chart-figure">
+    <figcaption>图 4.1：主要模型家族参数规模演进（对数刻度）</figcaption>
+    <div id="chart-family-params" style="width:100%;min-height:500px"></div>
+  </div>
+  <div class="chart-figure">
+    <figcaption>图 4.2：各家族上下文窗口长度演进</figcaption>
+    <div id="chart-family-context" style="width:100%;min-height:420px"></div>
+  </div>
+
+  <h3>4.4 关键洞察</h3>
+  <div class="grid-2">
+    <div class="card">
+      <div class="num">MoE 成为主流</div>
+      <div class="lbl">从 GPT-4 到 Llama 4，几乎所有大模型都采用 MoE</div>
+      <div class="desc">MoE 通过稀疏激活机制，将总参数与活跃参数解耦，在控制推理成本的同时实现规模扩展。</div>
+    </div>
+    <div class="card">
+      <div class="num">上下文竞赛</div>
+      <div class="lbl">从 4K 到百万级，上下文窗口持续扩展</div>
+      <div class="desc">Gemini 1.5 率先突破百万级，Llama 4 将其带入开源世界，长文本处理能力大幅提升。</div>
+    </div>
+    <div class="card">
+      <div class="num">开源追赶闭源</div>
+      <div class="lbl">Llama 4 Behemoth 2T 参数接近 GPT-5 规模</div>
+      <div class="desc">开源模型在参数规模上快速追赶闭源模型，性能差距不断缩小。</div>
+    </div>
+    <div class="card">
+      <div class="num">多模态成为标配</div>
+      <div class="lbl">从纯文本到图文声并茂</div>
+      <div class="desc">GPT-4o、Gemini、Llama 3.2 均支持多模态，视觉理解成为基础能力。</div>
+    </div>
+  </div>
+
+  <div class="callout info">
+    <b>给技术决策者：</b>在选择模型时，不要只看参数规模——更应关注<strong>活跃参数</strong>（推理成本的真实反映）和<strong>上下文长度</strong>（决定可处理的文本规模）。MoE 模型的总参数是"虚胖"，活跃参数才是"真金白银"。
+  </div>
+</div>
+
+<!-- ============ 总结 ============ -->
+<div class="panel" style="background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 100%);color:#fff;border:none">
+  <h3 style="color:#fff;margin-top:0">🎯 给技术决策者的 3 条核心建议</h3>
+  <ol style="color:#e0e7ff;line-height:2">
+    <li><b>先看推理成本，再看参数规模：</b>架构选择直接决定"单位 token 成本"——GQA vs MHA 的 KV Cache 差异可达 3-5 倍。</li>
+    <li><b>关注"活跃参数"而非"总参数"：</b>MoE 模型的总参数量是误导性指标，活跃参数才是推理成本的真实反映。</li>
+    <li><b>组合 > 单一：</b>混合架构（Transformer + SSM）是当前最前沿的方向，Jamba 等模型证明了"按需分配层类型"的可行性。</li>
+  </ol>
+</div>
+
+<footer>
+  LLM Tracker · LLM 模型架构参考手册 · MIT License · 数据时点 2026-08-25<br>
+  仓库：<a href="https://github.com/shikunpneg/who-is-the-ai-king">github.com/shikunpneg/who-is-the-ai-king</a>
+  · 关联页面：<a href="./pm-glossary.html">产品经理术语手册</a> · <a href="./index.html">LLM Tracker 首页</a>
+</footer>
+
+</div>
+
+<!-- ============ JavaScript ============ -->
+<script>
+  // ===== Chart 1: Attention Mechanism Comparison =====
+  var attnCompareChart = echarts.init(document.getElementById('attn-compare-chart'));
+  attnCompareChart.setOption({
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: { type: 'shadow' },
+      formatter: function(params) {
+        var result = params[0].axisValue + '<br/>';
+        params.forEach(function(p) {
+          result += p.marker + ' ' + p.seriesName + ': ' + p.value + (p.seriesName === 'KV Cache 相对大小' ? '' : '/10') + '<br/>';
+        });
+        return result;
+      }
+    },
+    legend: {
+      data: ['KV Cache 相对大小', '推理速度评分', '模型质量评分'],
+      textStyle: { color: '#5b6478', fontSize: 12 },
+      top: 0
+    },
+    grid: { left: '3%', right: '4%', bottom: '15%', containLabel: true },
+    xAxis: {
+      type: 'category',
+      data: ['MHA', 'MQA', 'GQA', 'MLA'],
+      axisLabel: { color: '#1c2333', fontSize: 13, fontWeight: 600 },
+      axisLine: { lineStyle: { color: '#e5e8f0' } }
+    },
+    yAxis: {
+      type: 'value',
+      name: '评分（1-10）',
+      nameTextStyle: { color: '#5b6478', fontSize: 12 },
+      axisLabel: { color: '#5b6478', fontSize: 11 },
+      splitLine: { lineStyle: { color: '#e5e8f0', type: 'dashed' } }
+    },
+    series: [
+      {
+        name: 'KV Cache 相对大小',
+        type: 'bar',
+        data: [100, 17, 33, 8],
+        itemStyle: { color: '#ef4444', borderRadius: [4, 4, 0, 0] },
+        label: { show: true, position: 'top', color: '#1c2333', fontSize: 11, fontWeight: 600 }
+      },
+      {
+        name: '推理速度评分',
+        type: 'bar',
+        data: [4, 8, 6.5, 9.5],
+        itemStyle: { color: '#22c55e', borderRadius: [4, 4, 0, 0] },
+        label: { show: true, position: 'top', color: '#1c2333', fontSize: 11, fontWeight: 600 }
+      },
+      {
+        name: '模型质量评分',
+        type: 'bar',
+        data: [9.5, 6.5, 8.5, 9],
+        itemStyle: { color: '#3b82f6', borderRadius: [4, 4, 0, 0] },
+        label: { show: true, position: 'top', color: '#1c2333', fontSize: 11, fontWeight: 600 }
+      }
+    ]
+  });
+
+  // ===== Chart 2: Position Encoding Comparison =====
+  var posEncodingChart = echarts.init(document.getElementById('pos-encoding-chart'));
+  posEncodingChart.setOption({
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: { type: 'shadow' },
+      formatter: function(params) {
+        var result = params[0].axisValue + '<br/>';
+        params.forEach(function(p) {
+          result += p.marker + ' ' + p.seriesName + ': ' + p.value + '<br/>';
+        });
+        return result;
+      }
+    },
+    legend: {
+      data: ['外推能力评分', '计算效率评分', '实现复杂度（反向）'],
+      textStyle: { color: '#5b6478', fontSize: 12 },
+      top: 0
+    },
+    grid: { left: '3%', right: '4%', bottom: '20%', containLabel: true },
+    xAxis: {
+      type: 'category',
+      data: ['Absolute PE', 'Sinusoidal', 'RoPE', 'ALiBi', 'YaRN', 'NoPE'],
+      axisLabel: { color: '#1c2333', fontSize: 11, rotate: 15 },
+      axisLine: { lineStyle: { color: '#e5e8f0' } }
+    },
+    yAxis: {
+      type: 'value',
+      name: '评分（1-10）',
+      nameTextStyle: { color: '#5b6478', fontSize: 12 },
+      axisLabel: { color: '#5b6478', fontSize: 11 },
+      splitLine: { lineStyle: { color: '#e5e8f0', type: 'dashed' } }
+    },
+    series: [
+      {
+        name: '外推能力评分',
+        type: 'bar',
+        data: [2, 5, 7, 9, 10, 3],
+        itemStyle: { color: '#8b5cf6', borderRadius: [4, 4, 0, 0] },
+        label: { show: true, position: 'top', color: '#1c2333', fontSize: 10 }
+      },
+      {
+        name: '计算效率评分',
+        type: 'bar',
+        data: [8, 10, 7, 10, 8, 10],
+        itemStyle: { color: '#22c55e', borderRadius: [4, 4, 0, 0] },
+        label: { show: true, position: 'top', color: '#1c2333', fontSize: 10 }
+      },
+      {
+        name: '实现复杂度（反向）',
+        type: 'bar',
+        data: [9, 8, 5, 9, 6, 10],
+        itemStyle: { color: '#f59e0b', borderRadius: [4, 4, 0, 0] },
+        label: { show: true, position: 'top', color: '#1c2333', fontSize: 10 }
+      }
+    ]
+  });
+
+  // ===== Chart 3: Attention Evolution Timeline =====
+  var attnTimelineChart = echarts.init(document.getElementById('attn-timeline-chart'));
+  attnTimelineChart.setOption({
+    tooltip: {
+      trigger: 'axis',
+      formatter: function(params) {
+        var result = params[0].axisValue + '<br/>';
+        params.forEach(function(p) {
+          result += p.marker + ' ' + p.seriesName + '<br/>';
+        });
+        return result;
+      }
+    },
+    legend: {
+      data: ['MHA', 'MQA', 'GQA', 'MLA'],
+      textStyle: { color: '#5b6478', fontSize: 12 },
+      top: 0
+    },
+    grid: { left: '3%', right: '4%', bottom: '15%', containLabel: true },
+    xAxis: {
+      type: 'category',
+      data: ['2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025'],
+      axisLabel: { color: '#5b6478', fontSize: 12 },
+      axisLine: { lineStyle: { color: '#e5e8f0' } }
+    },
+    yAxis: {
+      type: 'value',
+      name: '采用度/影响力',
+      nameTextStyle: { color: '#5b6478', fontSize: 12 },
+      axisLabel: { color: '#5b6478', fontSize: 11 },
+      splitLine: { lineStyle: { color: '#e5e8f0', type: 'dashed' } }
+    },
+    series: [
+      {
+        name: 'MHA',
+        type: 'line',
+        data: [10, 10, 9, 8, 7, 5, 3, 2, 1],
+        lineStyle: { color: '#6366f1', width: 3 },
+        itemStyle: { color: '#6366f1' },
+        symbol: 'circle',
+        symbolSize: 6
+      },
+      {
+        name: 'MQA',
+        type: 'line',
+        data: [0, 0, 0, 0, 1, 3, 5, 6, 5],
+        lineStyle: { color: '#8b5cf6', width: 2 },
+        itemStyle: { color: '#8b5cf6' },
+        symbol: 'diamond',
+        symbolSize: 6
+      },
+      {
+        name: 'GQA',
+        type: 'line',
+        data: [0, 0, 0, 0, 0, 1, 6, 9, 9],
+        lineStyle: { color: '#4f46e5', width: 3 },
+        itemStyle: { color: '#4f46e5' },
+        symbol: 'circle',
+        symbolSize: 6
+      },
+      {
+        name: 'MLA',
+        type: 'line',
+        data: [0, 0, 0, 0, 0, 0, 0, 2, 8],
+        lineStyle: { color: '#ec4899', width: 3 },
+        itemStyle: { color: '#ec4899' },
+        symbol: 'triangle',
+        symbolSize: 7
+      }
+    ]
+  });
+
+  // ===== Chart 4: Model Family Parameter Evolution (log scale line chart) =====
+  var chartFamilyParams = echarts.init(document.getElementById('chart-family-params'));
+  chartFamilyParams.setOption({
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: { type: 'line' },
+      formatter: function(params) {
+        var result = params[0].axisValue + '<br/>';
+        params.forEach(function(p) {
+          if (p.value !== null) {
+            result += p.marker + ' ' + p.seriesName + ': ' + p.value + ' B<br/>';
+          }
+        });
+        return result;
+      }
+    },
+    legend: {
+      data: ['GPT', 'Claude', 'Gemini', 'Llama', 'Qwen', 'DeepSeek', 'Mistral', 'Grok'],
+      textStyle: { color: '#5b6478', fontSize: 12 },
+      top: 0
+    },
+    grid: { left: '3%', right: '4%', bottom: '15%', containLabel: true },
+    xAxis: {
+      type: 'category',
+      data: ['2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025', '2026'],
+      axisLabel: { color: '#1c2333', fontSize: 12 },
+      axisLine: { lineStyle: { color: '#e5e8f0' } }
+    },
+    yAxis: {
+      type: 'log',
+      name: '总参数量（B，对数刻度）',
+      nameTextStyle: { color: '#5b6478', fontSize: 12 },
+      axisLabel: { color: '#5b6478', fontSize: 11 },
+      splitLine: { lineStyle: { color: '#e5e8f0', type: 'dashed' } }
+    },
+    series: [
+      {
+        name: 'GPT',
+        type: 'line',
+        data: [0.117, 1.5, 17.5, 17.5, 17.5, 1800, 2000, 5500, 7600],
+        smooth: true,
+        itemStyle: { color: '#10b981' },
+        lineStyle: { width: 2 }
+      },
+      {
+        name: 'Llama',
+        type: 'line',
+        data: [null, null, null, null, null, 65, 405, 2000, 2000],
+        smooth: true,
+        itemStyle: { color: '#3b82f6' },
+        lineStyle: { width: 2 }
+      },
+      {
+        name: 'Qwen',
+        type: 'line',
+        data: [null, null, null, null, null, 14, 72, 235, null],
+        smooth: true,
+        itemStyle: { color: '#ef4444' },
+        lineStyle: { width: 2 }
+      },
+      {
+        name: 'DeepSeek',
+        type: 'line',
+        data: [null, null, null, null, null, 67, 2360, 6710, 10000],
+        smooth: true,
+        itemStyle: { color: '#f97316' },
+        lineStyle: { width: 2 }
+      },
+      {
+        name: 'Mistral',
+        type: 'line',
+        data: [null, null, null, null, null, 73, 1230, 1410, null],
+        smooth: true,
+        itemStyle: { color: '#06b6d4' },
+        lineStyle: { width: 2 }
+      },
+      {
+        name: 'Grok',
+        type: 'line',
+        data: [null, null, null, null, null, 3140, 3140, null, null],
+        smooth: true,
+        itemStyle: { color: '#ec4899' },
+        lineStyle: { width: 2 }
+      }
+    ]
+  });
+
+  // ===== Chart 5: Model Family Context Window Evolution (log scale) =====
+  var chartFamilyContext = echarts.init(document.getElementById('chart-family-context'));
+  chartFamilyContext.setOption({
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: { type: 'line' },
+      formatter: function(params) {
+        var result = params[0].axisValue + '<br/>';
+        params.forEach(function(p) {
+          if (p.value !== null) {
+            result += p.marker + ' ' + p.seriesName + ': ' + p.value + ' tokens<br/>';
+          }
+        });
+        return result;
+      }
+    },
+    legend: {
+      data: ['GPT', 'Claude', 'Gemini', 'Llama', 'Qwen', 'DeepSeek', 'Mistral', 'Grok'],
+      textStyle: { color: '#5b6478', fontSize: 12 },
+      top: 0
+    },
+    grid: { left: '3%', right: '4%', bottom: '15%', containLabel: true },
+    xAxis: {
+      type: 'category',
+      data: ['2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025', '2026'],
+      axisLabel: { color: '#1c2333', fontSize: 12 },
+      axisLine: { lineStyle: { color: '#e5e8f0' } }
+    },
+    yAxis: {
+      type: 'log',
+      name: '上下文窗口（tokens，对数刻度）',
+      nameTextStyle: { color: '#5b6478', fontSize: 12 },
+      axisLabel: { color: '#5b6478', fontSize: 11 },
+      splitLine: { lineStyle: { color: '#e5e8f0', type: 'dashed' } }
+    },
+    series: [
+      {
+        name: 'GPT',
+        type: 'line',
+        data: [512, 1024, 2048, 2048, 4096, 8192, 128000, 128000, 256000],
+        smooth: true,
+        itemStyle: { color: '#10b981' },
+        lineStyle: { width: 2 }
+      },
+      {
+        name: 'Claude',
+        type: 'line',
+        data: [null, null, null, null, null, 9000, 200000, 1000000, 1000000],
+        smooth: true,
+        itemStyle: { color: '#8b5cf6' },
+        lineStyle: { width: 2 }
+      },
+      {
+        name: 'Gemini',
+        type: 'line',
+        data: [null, null, null, null, null, 32000, 1000000, 1000000, 1000000],
+        smooth: true,
+        itemStyle: { color: '#f59e0b' },
+        lineStyle: { width: 2 }
+      },
+      {
+        name: 'Llama',
+        type: 'line',
+        data: [null, null, null, null, null, 2048, 128000, 10000000, 10000000],
+        smooth: true,
+        itemStyle: { color: '#3b82f6' },
+        lineStyle: { width: 2 }
+      },
+      {
+        name: 'Qwen',
+        type: 'line',
+        data: [null, null, null, null, null, 2048, 32768, 32768, 131072],
+        smooth: true,
+        itemStyle: { color: '#ef4444' },
+        lineStyle: { width: 2 }
+      },
+      {
+        name: 'DeepSeek',
+        type: 'line',
+        data: [null, null, null, null, null, 4096, 128000, 128000, 256000],
+        smooth: true,
+        itemStyle: { color: '#f97316' },
+        lineStyle: { width: 2 }
+      },
+      {
+        name: 'Mistral',
+        type: 'line',
+        data: [null, null, null, null, null, 4096, 128000, 128000, 256000],
+        smooth: true,
+        itemStyle: { color: '#06b6d4' },
+        lineStyle: { width: 2 }
+      },
+      {
+        name: 'Grok',
+        type: 'line',
+        data: [null, null, null, null, null, 8192, 128000, 256000, 512000],
+        smooth: true,
+        itemStyle: { color: '#ec4899' },
+        lineStyle: { width: 2 }
+      }
+    ]
+  });
+
+  // 响应式
+  window.addEventListener('resize', function() {
+    attnCompareChart.resize();
+    posEncodingChart.resize();
+    attnTimelineChart.resize();
+    chartFamilyParams.resize();
+    chartFamilyContext.resize();
+  });
+</script>
+
+</body>
+</html>

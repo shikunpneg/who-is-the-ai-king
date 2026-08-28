@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>DeepSeek 深度求索 · 深度公司档案</title>
+<style>
+  :root{--bg:#f6f7fb;--card:#fff;--ink:#1c2333;--muted:#5b6478;--line:#e5e8f0;--accent:#4f46e5;--cn:#e11d48}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Noto Sans CJK SC','WenQuanYi Micro Hei','Microsoft YaHei','PingFang SC',sans-serif;background:var(--bg);color:var(--ink);line-height:1.75}
+  .wrap{max-width:1080px;margin:0 auto;padding:34px 22px 90px}
+  header.hero{background:linear-gradient(135deg,#0c0a1f 0%,#1e1b4b 50%,#4338ca 100%);color:#fff;border-radius:20px;padding:42px 40px;margin-bottom:30px;position:relative;overflow:hidden}
+  header.hero::after{content:"";position:absolute;right:-80px;top:-80px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,#a78bfa 0%,transparent 70%);opacity:.4}
+  .hero h1{font-size:1.9rem;font-weight:800;letter-spacing:.5px;line-height:1.35;position:relative;z-index:1}
+  .hero p.sub{margin-top:10px;color:#c7d2fe;font-size:.95rem;position:relative;z-index:1}
+  .hero .meta{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap;position:relative;z-index:1}
+  .hero .tag{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);padding:4px 14px;border-radius:999px;font-size:.82rem}
+  h2.sec{font-size:1.45rem;font-weight:800;margin:48px 0 8px;padding-left:14px;border-left:6px solid var(--accent)}
+  p.secnote{color:var(--muted);font-size:.92rem;margin-bottom:18px;padding-left:20px}
+  h3{font-size:1.05rem;font-weight:700;margin:24px 0 10px;color:#312e81}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 26px;margin-bottom:18px;overflow-x:auto}
+  table{width:100%;border-collapse:collapse;font-size:.88rem;min-width:600px}
+  th{background:#eef0fa;color:#312e81;text-align:left;padding:9px 12px;font-weight:700;border-bottom:2px solid #dde1f2;white-space:nowrap}
+  td{padding:8px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  tr:hover td{background:#fafbff}
+  td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .pill{display:inline-block;padding:2px 10px;border-radius:999px;font-size:.77rem;font-weight:600;white-space:nowrap}
+  .pill-cn{background:#ffe4e9;color:#be123c}
+  .pill-open{background:#d1fae5;color:#047857}
+  .pill-closed{background:#fef3c7;color:#92400e}
+  .pill-pri{background:#ede9fe;color:#6d28d9}
+  .note{background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:14px 18px;font-size:.88rem;color:#78350f;margin:14px 0}
+  .info{background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:14px 18px;font-size:.88rem;color:#1e3a8a;margin:14px 0}
+  .bad{background:#fef2f2;border:1px solid #fecaca;border-radius:12px;padding:14px 18px;font-size:.88rem;color:#991b1b;margin:14px 0}
+  pre{background:#0f172a;color:#e2e8f0;border-radius:10px;padding:14px 18px;font-size:.82rem;overflow-x:auto;margin:10px 0;line-height:1.6;font-family:'JetBrains Mono','Consolas',monospace}
+  code{background:#eef0fa;padding:1px 6px;border-radius:5px;font-size:.85em;font-family:'JetBrains Mono','Consolas',monospace}
+  .src{font-size:.82rem;color:var(--muted)}
+  .src a{color:var(--accent);text-decoration:none;border-bottom:1px dashed #c7d2fe}
+  .cite{color:var(--accent);text-decoration:none;font-weight:600}
+  .cite::after{content:"\2197";font-size:.7em;margin-left:2px}
+  ol.num{counter-reset:s;padding-left:24px}
+  ol.num li{counter-increment:s;margin:5px 0}
+  ol.num li::marker{content:counter(s) ".";font-weight:700;color:var(--accent)}
+  ul.flat{padding-left:22px}
+  ul.flat li{margin:4px 0}
+  .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:18px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+  .card .num{font-size:1.55rem;font-weight:800;color:var(--accent);line-height:1.1}
+  .card .lbl{font-size:.83rem;color:var(--muted);margin-top:6px}
+  footer{margin-top:60px;color:var(--muted);font-size:.82rem;text-align:center;border-top:1px solid var(--line);padding-top:22px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <h1>DeepSeek 深度求索<br>深度公司档案</h1>
+  <p class="sub">幻方量化旗下 AGI 公司 · 全球开源大模型第一阵营 · 中国 AGI 代表队</p>
+  <div class="meta">
+    <span class="tag">🇨🇳 杭州</span>
+    <span class="tag">⏱ 档案更新：2026-08-25</span>
+    <span class="tag">📦 V4 Pro / V4 Flash / V4-Vision-Exp</span>
+    <span class="tag">💎 MIT 开源</span>
+  </div>
+</header>
+
+<div class="grid3">
+  <div class="card"><div class="num">1.6T / 49B</div><div class="lbl">V4-Pro 总参 / 激活</div></div>
+  <div class="card"><div class="num">5,000 亿</div><div class="lbl">二轮融资投前估值（人民币）</div></div>
+  <div class="card"><div class="num">7.1 万亿</div><div class="lbl">OpenRouter 周 Token 调用（V4-Flash）</div></div>
+  <div class="card"><div class="num">$278.8 万</div><div class="lbl">V3 训练成本（H800 GPU 小时）</div></div>
+</div>
+
+<!-- ===== 公司概况 ===== -->
+<h2 class="sec">一、公司概况</h2>
+<div class="panel">
+  <table>
+    <tr><th>项目</th><th>详情</th></tr>
+    <tr><td>公司全名</td><td>杭州深度求索人工智能基础技术研究有限公司</td></tr>
+    <tr><td>成立时间</td><td>2023 年（幻方量化内部孵化）</td></tr>
+    <tr><td>创始人</td><td><b>梁文锋</b>（1985 年生，广东吴川，2002 湛江高考状元，浙大电子信息本硕）</td></tr>
+    <tr><td>母公司</td><td>幻方量化（2018 年千亿级头部量化私募）</td></tr>
+    <tr><td>注册地 / 总部</td><td>浙江省杭州市</td></tr>
+    <tr><td>团队规模</td><td>200+ 核心研究员 + 算法工程师（扁平化、无 KPI）</td></tr>
+    <tr><td>国家</td><td><span class="pill pill-cn">中国 🇨🇳</span></td></tr>
+  </table>
+  <div class="info">📌 <b>核心特征：</b>DeepSeek 不是普通创业公司，而是幻方量化在 2023 年 AGI 浪潮下内部孵化的「AGI 研究院」。管理延续技术底色：无 KPI、无固定任务、有想法的人随时调用训练集群算力无需审批[$TRAE_REF](https://www.donews.com/news/detail/4/6663029.html)。</div>
+</div>
+
+<div class="panel">
+  <h3>1.1 创始人梁文锋</h3>
+  <ul class="flat">
+    <li>2002 年广东湛江高考状元，考入浙大电子信息工程</li>
+    <li>大三获全国大学生电子设计竞赛全国一等奖主力成员</li>
+    <li>2008 年起尝试将机器学习应用于量化交易（金融危机期间）</li>
+    <li>2013 年联合创办幻方量化前身「雅克比投资」</li>
+    <li>2024-07 访谈中表示「<b>短期内没有融资计划，面临的问题从来不是钱，而是高端芯片被禁运</b>」</li>
+    <li>2026-06 首轮融资中<b>个人出资 200 亿元</b>，占总融资额 40%</li>
+    <li>外部投资者通过其管理的有限合伙企业注资，<b>无经营投票权、不进董事会、股份锁定五年</b></li>
+    <li>2026-07 身价达 360 亿美元，成为<b>全球 AI 公司领域新首富</b></li>
+    <li>行事风格：「人躲在产品后面，让技术和价格自己说话」</li>
+  </ul>
+</div>
+
+<!-- ===== 技术演进 ===== -->
+<h2 class="sec">二、技术演进：V1 → V4 三年五次迭代</h2>
+<div class="panel">
+  <pre>架构演进主线：
+V1 (Dense) → V2 (MoE + MLA) → V3 (FP8 + 无辅助损失) → R1 (GRPO) → V4 (1M + Agent)
+
+每一代都在前一代的工程基础上叠加创新</pre>
+</div>
+
+<div class="panel">
+  <h3>2.1 全系列演进表</h3>
+  <table>
+    <tr>
+      <th>版本</th><th>发布时间</th><th>总参/激活</th><th>上下文</th><th>核心机制</th><th>代表 Benchmark</th><th>历史意义</th>
+    </tr>
+    <tr><td>DeepSeek LLM (V1)</td><td>2024-01-05</td><td>7B / 67B Dense</td><td>4K</td><td>2T 中英双语</td><td>HumanEval 73.8 / GSM8K 84.1</td><td>建立通用基座；67B 超越 Llama 2 70B</td></tr>
+    <tr><td>DeepSeekMoE</td><td>2024-01-11</td><td>16.4B MoE</td><td>4K</td><td>细粒度 expert + shared expert</td><td>—</td><td>首次把「规模扩张」从 dense 转向 MoE</td></tr>
+    <tr><td>DeepSeek-Coder</td><td>2024-01-25</td><td>1.3B/6.7B/33B</td><td>16K</td><td>项目级代码 / FIM</td><td>HumanEval SOTA 开源</td><td>首次把「领域强化」做成独立分支</td></tr>
+    <tr><td>DeepSeek-V2</td><td>2024-05-07</td><td>236B / 21B</td><td>128K</td><td><b>MLA + DeepSeekMoE</b></td><td>—</td><td>训练成本 -42.5%，KV cache -93.3%，生成 5.76×</td></tr>
+    <tr><td>DeepSeek-Coder-V2</td><td>2024-06-17</td><td>16B/2.4B; 236B/21B</td><td>128K</td><td>V2 中间 checkpoint 再训 6T</td><td>HumanEval 90.2</td><td>代码分支完成 dense → MoE、16K → 128K 升级</td></tr>
+    <tr><td>Janus</td><td>2024-10-17</td><td>1.3B</td><td>4K</td><td>decoupled visual encoding</td><td>MMBench 69.4</td><td>首次统一「理解 + 生成」多模态</td></tr>
+    <tr><td>DeepSeek-VL2</td><td>2024-12-13</td><td>3.4B/27.5B</td><td>4K</td><td>dynamic tiling + MLA + MoE</td><td>文档/OCR/chart 全面增强</td><td>VLM 走向 MoE 化</td></tr>
+    <tr><td><b>DeepSeek-V3</b></td><td>2024-12-27</td><td>671B / 37B</td><td>128K</td><td>aux-loss-free + MTP + FP8 + DualPipe</td><td>MMLU 88.5 / GPQA 59.1</td><td>进入「世界级开源第一梯队」；训练 557 万美元</td></tr>
+    <tr><td><b>DeepSeek-R1</b></td><td>2025-01-22</td><td>671B / 37B</td><td>128K</td><td><b>R1-Zero 纯 RL + GRPO</b></td><td>AIME 79.8 / MATH-500 97.3</td><td>登顶美区 App Store；英伟达单日跌 17%</td></tr>
+    <tr><td>DeepSeek-V3.1</td><td>2025-08</td><td>685B</td><td>128K</td><td>混合推理 + 工具调用</td><td>—</td><td>向 V4 过渡</td></tr>
+    <tr><td>DeepSeek-V3.2-Exp</td><td>2025-09</td><td>685B</td><td>128K</td><td>DSA 稀疏注意力</td><td>—</td><td>为 V4 长上下文铺垫</td></tr>
+    <tr><td><b>DeepSeek-V4-Pro</b></td><td>2026-04-24</td><td><b>1.6T / 49B</b></td><td><b>1M</b></td><td>DSA2 + NSA + Mega MoE (384 专家) + Hyper-Connections</td><td>世界知识大幅领先开源</td><td><b>首个完全在国产芯片上运行的前沿大模型</b></td></tr>
+    <tr><td><b>DeepSeek-V4-Flash</b></td><td>2026-07-31</td><td>284B / 13B</td><td>1M</td><td>同 V4-Pro</td><td>智能指数 50（超 Pro 6 分）</td><td>OpenRouter 周调用量全球第一</td></tr>
+    <tr><td>DeepSeek-V4-Flash-Vision-Exp</td><td>2026-08-21</td><td>—</td><td>1M</td><td>多模态</td><td>vs Opus 4.8 = 2 胜 2 负</td><td>V4 Flash 视觉版，价格与 V4 Flash 一致</td></tr>
+  </table>
+  <p class="src">来源：<a class="cite" href="https://blog.csdn.net/qq_73472828/article/details/160610245">CSDN V1-V4 深度解读</a>、<a class="cite" href="https://blog.csdn.net/weixin_60896526/article/details/159998755">DeepSeek 演进表</a>、<a class="cite" href="https://m.36kr.com/p/3780412330939399">36kr V4 详解</a>、<a class="cite" href="https://www.eet-china.com/mp/a490841.html">EET V4 技术报告</a>。</p>
+</div>
+
+<div class="panel">
+  <h3>2.2 V4 四大核心架构创新（55 页技术报告）</h3>
+  <ol class="num">
+    <li><b>混合注意力架构</b>：DSA2（DeepSeek Attention 2）整合 V3/R1 的 DSA 设计 + 引入 2026 年初的 NSA（Native Sparse Attention）稀疏注意力方案</li>
+    <li><b>Mega MoE 内核</b>：每层 384 个专家，每次激活 6 个 + 1 个共享专家</li>
+    <li><b>流形约束超连接（mHC / Hyper-Connections）</b>：缓解深层网络的梯度传播问题</li>
+    <li><b>Muon 优化器 + FP4 量化感知训练</b>：MoE 专家参数采用 FP4，其余大部分 FP8；训练效率极大提升</li>
+  </ol>
+  <pre>DeepSeek-V4 架构全景
+─────────────────────────────────
+│ 注意力层             │ FFN层（MoE）       │
+│ ┌────────────────┐   │ ┌────────────────┐│
+│ │ 滑动窗口注意力  │   │ │ 384 routed     ││
+│ │ + 完整注意力    │   │ │ 专家 + 1 shared ││
+│ │ (DSA2 调度)    │   │ │ (Mega 内核)    ││
+│ └────────────────┘   │ └────────────────┘│
+─────────────────────────────────
+残差连接: Hyper-Connections (mHC)
+量化: Muon 优化器 + FP4/FP8 混合</pre>
+</div>
+
+<div class="panel">
+  <h3>2.3 训练成本：把行业按在地上摩擦</h3>
+  <table>
+    <tr><th>指标</th><th>V3</th><th>V4</th><th>对标</th></tr>
+    <tr><td>训练总时长</td><td>278.8 万 H800 GPU 小时</td><td>未披露（推测翻倍）</td><td>GPT-4 估算 5,000 万+ GPU 小时</td></tr>
+    <tr><td>训练成本</td><td><b>557 万美元</b></td><td>未披露</td><td>GPT-4 估算 1 亿美元+</td></tr>
+    <tr><td>预训练数据</td><td>14.8T tokens</td><td><b>33T tokens</b></td><td>Llama 3 = 15T</td></tr>
+    <tr><td>KV cache 减少</td><td>V2 起 -93.3%</td><td>—</td><td>—</td></tr>
+    <tr><td>生成吞吐</td><td>5.76×（V2 相比 V1）</td><td>—</td><td>—</td></tr>
+  </table>
+  <div class="info">📊 <b>关键意义：</b>V3 训练成本仅 557 万美元 = GPT-4 的 <b>1/18</b>，震惊硅谷；这一数字也直接导致 2025-01-27 英伟达单日市值蒸发近 6,000 亿美元[$TRAE_REF](https://m.36kr.com/p/3780412330939399)。</div>
+</div>
+
+<!-- ===== 算力底座 ===== -->
+<h2 class="sec">三、算力底座：迁移到华为昇腾</h2>
+<div class="panel">
+  <h3>3.1 从英伟达到华为的关键迁移</h3>
+  <ol class="num">
+    <li><b>R1 时代</b>：对英伟达 GPU 的 PTX 底层做了极致优化，是「花小钱办大事」的核心</li>
+    <li><b>V4 时代</b>：整套系统从英伟达 CUDA 生态迁到华为昇腾 CANN，<b>所有底层代码、调度逻辑、工程体系要重写</b></li>
+    <li><b>原因</b>：英伟达 H200 对华禁运；DeepSeek 主动选择「主权算力」路线</li>
+    <li><b>挑战</b>：昇腾在内存带宽、芯片互联、KV Cache 管理的成熟度与英伟达有差距；CANN 算子覆盖、自动并行不如 CUDA</li>
+    <li><b>结果</b>：V4 Pro 面向华为昇腾；V4 Flash 可在其他国产芯片上跑</li>
+    <li><b>代价</b>：V4 原计划 2-3 月发布，延至 4 月 24 日</li>
+  </ol>
+  <div class="info">📌 <b>战略意义：</b>「<b>首个完全在国产芯片上运行的前沿大模型</b>」——华为 CANN 官方账号为此开了直播站台。这是中美 AI 脱钩下中国 AI 自主可控的关键里程碑[$TRAE_REF](https://cloud.tencent.com.cn/developer/article/2662161)。</div>
+</div>
+
+<!-- ===== 定价与商业化 ===== -->
+<h2 class="sec">四、定价与商业化（2026-08）</h2>
+<div class="panel">
+  <h3>4.1 API 定价（最新）</h3>
+  <table>
+    <tr><th>模型</th><th>输入价（高峰期/空闲期）</th><th>输出价（高峰期/空闲期）</th><th>缓存命中</th><th>等效美元/M</th></tr>
+    <tr><td><b>V4-Pro</b></td><td class="num">3 / 1.5 元/M</td><td class="num">9 / 4.5 元/M</td><td class="num">0.1 / 0.05 元/M</td><td>输出 $0.30</td></tr>
+    <tr><td><b>V4-Flash</b></td><td class="num">1 元/M</td><td class="num">2 元/M</td><td>—</td><td>输出 $0.28</td></tr>
+    <tr><td><b>V4-Flash-Vision-Exp</b></td><td>3 / 1.5 元/M</td><td>9 / 4.5 元/M</td><td>—</td><td>Pro 的 1/3</td></tr>
+  </table>
+  <p class="src">来源：<a class="cite" href="https://www.chaincatcher.com/tags/seek">ChainCatcher 价格追踪</a>。高峰期：北京时间 9:00-12:00、14:00-18:00；其他时间减半。</p>
+  <div class="note">⚠️ <b>2026-08-06 重磅：</b>DeepSeek 在开发者后台发布公告「<b>计划近期整体上调全部 API 服务定价，预计涨幅较大</b>」。这是 2024-05 以来首次涨价，对中小开发者尤其敏感[$TRAE_REF](https://www.donews.com/news/detail/4/6663029.html)。</div>
+</div>
+
+<div class="panel">
+  <h3>4.2 营收与用户量</h3>
+  <table>
+    <tr><th>指标</th><th>数据</th><th>时点 / 来源</th></tr>
+    <tr><td>OpenRouter 周 Token 调用</td><td class="num"><b>7.1 万亿 token</b>（V4-Flash）</td><td>2026-08 全球第一</td></tr>
+    <tr><td>单日 Token 处理量</td><td class="num">8 万亿 token</td><td>V4-Flash 上线当日</td></tr>
+    <tr><td>B.AI 平台累计吞吐</td><td class="num">6,415.24 亿 token</td><td>2026-08-21</td></tr>
+    <tr><td>B.AI 单日峰值</td><td class="num">2,859.63 亿 token</td><td>2026-08-20</td></tr>
+    <tr><td>App MAU</td><td class="num">1.39 亿</td><td>2026-06 AICPB</td></tr>
+    <tr><td>网站月访问</td><td class="num">5.41 亿</td><td>2026-05（国内总榜第 1）</td></tr>
+    <tr><td>Open Code 增长</td><td class="num">+30%（V4-Flash 上线当日）</td><td>—</td></tr>
+  </table>
+</div>
+
+<div class="panel">
+  <h3>4.3 融资历史</h3>
+  <table>
+    <tr><th>轮次</th><th>时间</th><th>金额</th><th>估值</th><th>关键点</th></tr>
+    <tr><td>首轮</td><td>2026-06</td><td>500 亿元</td><td>约 3,500 亿元</td><td>梁文锋个人出资 200 亿（40%）；外部无投票权；股份锁定五年；国家 AI 产业基金唯一例外</td></tr>
+    <tr><td>二轮（重启）</td><td>2026-08</td><td>500 亿元</td><td>约 <b>5,000 亿元</b></td><td>较首轮 +43%；7 月底一度因闭门交流会外泄暂停</td></tr>
+    <tr><td>市场预测退出</td><td>2029</td><td>—</td><td>5,000 亿美元（乐观）</td><td>对应年化 91.66%</td></tr>
+  </table>
+  <p class="src">来源：<a class="cite" href="https://app.myzaker.com/news/article.php?pk=6a76a2208e9f096c9c03f3cf">小哪吒财经梁文锋特稿</a>、<a class="cite" href="https://www.donews.com/news/detail/4/6663029.html">DoNews 500 亿融资</a>。</p>
+  <div class="info">📌 <b>融资特点：</b>梁文锋「自掏 200 亿保控制权」+「无投票权 + 五年锁定期」的安排极为罕见，<b>确保技术路线完全自主</b>。这是中国 AI 公司中独有的融资结构[$TRAE_REF](https://www.donews.com/news/detail/4/6663029.html)。</div>
+</div>
+
+<!-- ===== Benchmark ===== -->
+<h2 class="sec">五、Benchmark 表现</h2>
+<div class="panel">
+  <h3>5.1 R1（2025-01 推理模型）</h3>
+  <table>
+    <tr><th>基准</th><th>分数</th><th>意义</th></tr>
+    <tr><td>AIME 2024</td><td class="num">79.8</td><td>美国数学邀请赛</td></tr>
+    <tr><td>MATH-500</td><td class="num">97.3</td><td>几乎满分</td></tr>
+    <tr><td>ArenaHard</td><td class="num">92.3</td><td>长链条推理</td></tr>
+    <tr><td>USAMO</td><td>—</td><td>奥数级</td></tr>
+  </table>
+</div>
+
+<div class="panel">
+  <h3>5.2 V4-Pro（2026-04）</h3>
+  <ul class="flat">
+    <li>Agent Coding 模式：内部测评体验优于 Claude Sonnet 4.5；交付质量接近 Opus 4.6 非思考模式</li>
+    <li>世界知识：大幅领先其他开源模型，仅稍逊于 Gemini 3.1 Pro</li>
+    <li>数学和代码推理：超越当前所有已公开评测的开源模型</li>
+  </ul>
+</div>
+
+<div class="panel">
+  <h3>5.3 V4-Flash 多模态 Agent 评测（vs Claude Opus 4.8，2026-08-21）</h3>
+  <table>
+    <tr><th>基准</th><th>V4-Flash-Vision-Exp</th><th>Opus 4.8</th><th>结果</th></tr>
+    <tr><td>Agents' Last Exam</td><td class="num">27.3</td><td class="num">25.7</td><td>胜</td></tr>
+    <tr><td>ZeroBench</td><td class="num">35.0</td><td class="num">34.0</td><td>胜</td></tr>
+    <tr><td>ApexBench</td><td class="num">36.5</td><td class="num">39.4</td><td>负</td></tr>
+    <tr><td>Chartography</td><td class="num">64.3</td><td class="num">65.0</td><td>负</td></tr>
+  </table>
+  <p class="src">来源：<a class="cite" href="https://www.chaincatcher.com/article/2284431">ChainCatcher</a>。注：该结果为 DeepSeek 官方自测，非第三方独立榜单。</p>
+</div>
+
+<!-- ===== 战略 ===== -->
+<h2 class="sec">六、公司战略</h2>
+<div class="panel">
+  <h3>6.1 战略关键词：架构创新优先 + 极致开源 + 算力主权</h3>
+  <ol class="num">
+    <li><b>不盲目堆参数</b>：用架构创新（MLA / DSA / NSA / MoE / FP4）换效率，而非靠参数规模</li>
+    <li><b>全栈 MIT 开源</b>：V1-V4 全系 MIT 协议；技术报告 55-79 页公开</li>
+    <li><b>价格战</b>：V4-Flash 输出 0.28 美元/百万 token = OpenAI 1/5；海外开发者实测同等任务成本从 $35 降至 $0.31</li>
+    <li><b>算力主权</b>：从英伟达迁到华为昇腾；为国家 AI 自主可控做兜底</li>
+    <li><b>不依赖 IPO / 商业化</b>：早期「短期不融资」；近期涨价或与算力成本上升有关</li>
+  </ol>
+</div>
+
+<div class="panel">
+  <h3>6.2 DeepSeek vs OpenAI 战略对比</h3>
+  <table>
+    <tr><th>维度</th><th>DeepSeek</th><th>OpenAI</th></tr>
+    <tr><td>开源</td><td><span class="pill pill-open">MIT 完全开源</span></td><td>完全闭源（仅 gpt-oss 开源）</td></tr>
+    <tr><td>算力</td><td>华为昇腾（V4）+ 部分英伟达</td><td>英伟达独家</td></tr>
+    <tr><td>商业模式</td><td>API 按量（极低）+ 待 IPO</td><td>API + ChatGPT Plus + 企业 + 硬件</td></tr>
+    <tr><td>团队</td><td>200+ 核心，无 KPI，扁平化</td><td>数千人，含销售、运营</td></tr>
+    <tr><td>创始人曝光</td><td>极低，「人躲在产品后面」</td><td>Sam Altman 高频发声</td></tr>
+    <tr><td>目标</td><td>AGI（梁文锋：「保持团队稳定就一定能做成 AGI」）</td><td>万亿算力 + AGI</td></tr>
+  </table>
+</div>
+
+<div class="panel">
+  <h3>6.3 风险与挑战</h3>
+  <ul class="flat">
+    <li><b>算力受限</b>：V4 迁昇腾后性能与英伟达仍有差距；后续模型迭代速度可能受影响</li>
+    <li><b>涨价压力</b>：2026-08 API 全线涨价，对中小开发者粘性构成威胁</li>
+    <li><b>团队稳定性</b>：梁文锋本人承认「融资后大家期权多，最大风险是团队稳定」</li>
+    <li><b>国际化挑战</b>：美方监管持续收紧；欧盟 GDPR / 印度 / 东南亚合规成本上升</li>
+    <li><b>开源生态两面性</b>：开源带来生态但难形成护城河；易被大厂快速复制</li>
+  </ul>
+</div>
+
+<!-- ===== 数据声明 ===== -->
+<h2 class="sec">七、数据声明</h2>
+<div class="panel">
+  <ol class="num">
+    <li>DeepSeek V4 训练成本、模型内部结构、训练数据全部公开（55 页技术报告）</li>
+    <li>融资估值信息来自媒体披露（DoNews、小哪吒财经），公司未直接公告</li>
+    <li>OpenRouter Token 调用量为第三方平台数据</li>
+    <li>梁文锋个人出资 200 亿 = 首轮 40% 来自媒体多方交叉印证</li>
+    <li>2026-08 涨价公告目前为预告，细节待官方发布</li>
+  </ol>
+</div>
+
+<footer>
+  资料来源：
+  <a class="cite" href="https://blog.csdn.net/qq_73472828/article/details/160610245">CSDN V1-V4 深度解读</a> ·
+  <a class="cite" href="https://blog.csdn.net/weixin_60896526/article/details/159998755">DeepSeek 演进表</a> ·
+  <a class="cite" href="https://m.36kr.com/p/3780412330939399">36kr V4 详解</a> ·
+  <a class="cite" href="https://www.eet-china.com/mp/a490841.html">EET V4 技术报告</a> ·
+  <a class="cite" href="https://cloud.tencent.com.cn/developer/article/2662161">腾讯云 V4 深度</a> ·
+  <a class="cite" href="https://www.donews.com/news/detail/4/6663029.html">DoNews 500 亿融资</a> ·
+  <a class="cite" href="https://www.chaincatcher.com/tags/seek">ChainCatcher V4 跟踪</a> ·
+  <a class="cite" href="https://app.myzaker.com/news/article.php?pk=6a76a2208e9f096c9c03f3cf">小哪吒财经梁文锋特稿</a><br>
+  报告生成：2026-08-25 · 数据时点：2026-08
+</footer>
+
+</div>
+</body>
+</html>

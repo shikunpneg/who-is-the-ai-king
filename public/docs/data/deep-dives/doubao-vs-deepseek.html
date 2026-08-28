@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>豆包 vs DeepSeek · 深度横向对比</title>
+<style>
+  :root{--bg:#f6f7fb;--card:#fff;--ink:#1c2333;--muted:#5b6478;--line:#e5e8f0;--accent:#4f46e5;--cn:#e11d48;--ds:#4f46e5}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Noto Sans CJK SC','WenQuanYi Micro Hei','Microsoft YaHei','PingFang SC',sans-serif;background:var(--bg);color:var(--ink);line-height:1.75}
+  .wrap{max-width:1100px;margin:0 auto;padding:34px 22px 90px}
+  header.hero{background:linear-gradient(135deg,#1e1b4b 0%,#4f46e5 50%,#e11d48 100%);color:#fff;border-radius:20px;padding:42px 40px;margin-bottom:30px;position:relative;overflow:hidden}
+  header.hero::after{content:"";position:absolute;right:-80px;top:-80px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,#fbbf24 0%,transparent 70%);opacity:.35}
+  .hero h1{font-size:1.9rem;font-weight:800;letter-spacing:.5px;line-height:1.35;position:relative;z-index:1}
+  .hero p.sub{margin-top:10px;color:#fef3c7;font-size:.95rem;position:relative;z-index:1}
+  h2.sec{font-size:1.45rem;font-weight:800;margin:48px 0 8px;padding-left:14px;border-left:6px solid var(--accent)}
+  p.secnote{color:var(--muted);font-size:.92rem;margin-bottom:18px;padding-left:20px}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 26px;margin-bottom:18px;overflow-x:auto}
+  table{width:100%;border-collapse:collapse;font-size:.88rem;min-width:700px}
+  th{background:#eef0fa;color:#312e81;text-align:left;padding:9px 12px;font-weight:700;border-bottom:2px solid #dde1f2;white-space:nowrap}
+  td{padding:8px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  tr:hover td{background:#fafbff}
+  td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .pill{display:inline-block;padding:2px 10px;border-radius:999px;font-size:.77rem;font-weight:600}
+  .pill-cn{background:#ffe4e9;color:#be123c}
+  .pill-ds{background:#e0e7ff;color:#3730a3}
+  .pill-open{background:#d1fae5;color:#047857}
+  .pill-closed{background:#fef3c7;color:#92400e}
+  .info{background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:14px 18px;font-size:.88rem;color:#1e3a8a;margin:14px 0}
+  .note{background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:14px 18px;font-size:.88rem;color:#78350f;margin:14px 0}
+  .src{font-size:.82rem;color:var(--muted)}
+  .cite{color:var(--accent);text-decoration:none;font-weight:600}
+  .cite::after{content:"\2197";font-size:.7em;margin-left:2px}
+  ol.num{counter-reset:s;padding-left:24px}
+  ol.num li{counter-increment:s;margin:5px 0}
+  ol.num li::marker{content:counter(s) ".";font-weight:700;color:var(--accent)}
+  footer{margin-top:60px;color:var(--muted);font-size:.82rem;text-align:center;border-top:1px solid var(--line);padding-top:22px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <h1>豆包 vs DeepSeek<br>中国大模型两极深度对比</h1>
+  <p class="sub">闭源流量王 × 开源技术王 · 字节 vs 幻方 · 嵌入生态 vs 重塑生态</p>
+</div>
+
+<h2 class="sec">一、一句话定位</h2>
+<div class="panel">
+  <table>
+    <tr><th>维度</th><th>豆包 Doubao / Seed（字节跳动）</th><th>DeepSeek 深度求索（幻方量化）</th></tr>
+    <tr><td>一句话</td><td>「全模态 + 极低价 + 嵌入字节全产品」的 C 端流量王</td><td>「架构创新 + 完全开源 + 算力自主」的 AGI 派</td></tr>
+    <tr><td>核心阵营</td><td>闭源生态派</td><td>开源普惠派</td></tr>
+    <tr><td>母公司</td><td>字节跳动（2025 估值 3,000 亿美元）</td><td>幻方量化（千亿级量化私募）</td></tr>
+    <tr><td>代表产品</td><td>豆包 App / 火山引擎 / 抖音 / 飞书 / 即梦</td><td>DeepSeek App / API / OpenRouter / 国产芯片</td></tr>
+  </table>
+</div>
+
+<h2 class="sec">二、关键指标横向对比</h2>
+<div class="panel">
+  <table>
+    <tr><th>维度</th><th>豆包</th><th>DeepSeek</th><th>谁强？</th></tr>
+    <tr><td><b>App 月活 MAU</b></td><td class="num"><span class="pill pill-cn">3.24 亿</span></td><td class="num">1.39 亿</td><td>豆包（2.3 倍）</td></tr>
+    <tr><td><b>App 日活 DAU</b></td><td class="num"><span class="pill pill-cn">1.5 亿+</span></td><td>—</td><td>豆包</td></tr>
+    <tr><td><b>网站月访问</b></td><td>—</td><td class="num"><span class="pill pill-ds">5.41 亿</span></td><td>DeepSeek</td></tr>
+    <tr><td><b>日均 Token 调用</b></td><td class="num"><span class="pill pill-cn">180 万亿</span></td><td>—</td><td>豆包（API + 全嵌入）</td></tr>
+    <tr><td><b>OpenRouter 周 Token</b></td><td>—</td><td class="num"><span class="pill pill-ds">7.1 万亿</span></td><td>DeepSeek（全球第一）</td></tr>
+    <tr><td><b>中国 MaaS 份额</b></td><td class="num"><span class="pill pill-cn">49.5%</span></td><td class="num">~15%</td><td>豆包</td></tr>
+  </table>
+</div>
+
+<div class="panel">
+  <h3>2.1 旗舰模型参数</h3>
+  <table>
+    <tr><th>维度</th><th>豆包 Seed 2.1 Pro</th><th>DeepSeek V4-Pro</th><th>DeepSeek V4-Flash</th></tr>
+    <tr><td>总参数</td><td class="num"><b>未披露</b></td><td class="num">1.6T</td><td class="num">284B</td></tr>
+    <tr><td>激活参数</td><td class="num">—</td><td class="num">49B</td><td class="num">13B</td></tr>
+    <tr><td>架构</td><td>闭源 MoE（推测）</td><td>MoE + DSA2 + NSA + Hyper-Connections</td><td>同 V4-Pro</td></tr>
+    <tr><td>上下文</td><td>256K</td><td>1M</td><td>1M</td></tr>
+    <tr><td>最大输出</td><td>256K</td><td>384K</td><td>384K</td></tr>
+    <tr><td>模态</td><td>文本/图像/视频 → 文本</td><td>纯文本（视觉版单独）</td><td>纯文本（视觉版单独）</td></tr>
+    <tr><td>开源</td><td><span class="pill pill-closed">完全闭源</span></td><td><span class="pill pill-open">MIT</span></td><td><span class="pill pill-open">MIT</span></td></tr>
+    <tr><td>技术报告</td><td>未公开</td><td>55 页公开</td><td>55 页公开</td></tr>
+  </table>
+  <div class="info">📌 DeepSeek 公开程度远超豆包；V4 技术报告 55 页、模型权重全部 MIT 协议，<b>OpenRouter 上开发者首选</b>；豆包完全闭源，但靠字节系产品内化获取调用量。</div>
+</div>
+
+<div class="panel">
+  <h3>2.2 价格对比（元/百万 token）</h3>
+  <table>
+    <tr><th>价位</th><th>豆包 Seed 2.1 Pro</th><th>DeepSeek V4-Pro</th><th>DeepSeek V4-Flash</th></tr>
+    <tr><td>输入（高峰 / 空闲）</td><td class="num">6 / 6</td><td class="num">3 / 1.5</td><td class="num">1 / 1</td></tr>
+    <tr><td>输出（高峰 / 空闲）</td><td class="num">30 / 30</td><td class="num">9 / 4.5</td><td class="num">2 / 2</td></tr>
+    <tr><td>缓存命中</td><td>1.2 / M</td><td>0.1 / 0.05</td><td>—</td></tr>
+    <tr><td>等效输出价（$）</td><td>≈ $4.2</td><td>≈ $0.6</td><td>≈ $0.28</td></tr>
+  </table>
+  <div class="note">⚠️ <b>DeepSeek V4-Flash 输出价仅 $0.28/百万 token，是 GPT-5.6 Luna（$1.2）的 1/4，豆包 2.1 Pro 的 1/15</b>[$TRAE_REF](https://www.donews.com/news/detail/4/6663029.html)。豆包涨价后（2026-08-06 后）将拉大这一差距。</div>
+</div>
+
+<div class="panel">
+  <h3>2.3 性能 Benchmark</h3>
+  <table>
+    <tr><th>基准</th><th>豆包 Seed 2.1 Pro</th><th>DeepSeek V4-Pro</th><th>DeepSeek V4-Flash</th><th>对标</th></tr>
+    <tr><td>Terminal Bench 2.1</td><td class="num">71.0</td><td>—</td><td>—</td><td>Claude Opus 4.7: 71.7</td></tr>
+    <tr><td>SWE-Pro（长程工程）</td><td class="num">57.5</td><td>—</td><td>—</td><td>GPT-5.5: 58.6</td></tr>
+    <tr><td>SciCode（科学编程）</td><td class="num"><b>59.8</b></td><td>—</td><td>—</td><td>GPT-5.5: 58.4</td></tr>
+    <tr><td>MCP-Atlas（Agent 工具）</td><td class="num"><b>83.8</b></td><td>—</td><td>—</td><td>GPT-5.5: 81.6</td></tr>
+    <tr><td>AA 智能指数</td><td>—</td><td class="num">53</td><td class="num">50</td><td>GPT-5.6 Luna: 51</td></tr>
+    <tr><td>AIME 2024</td><td>—</td><td>—</td><td>—</td><td>R1: 79.8</td></tr>
+    <tr><td>Code Arena Elo（用户盲测）</td><td class="num">1539</td><td>—</td><td>—</td><td>全球第 8</td></tr>
+  </table>
+  <p class="src">数据综合自 DataLearner、Artificial Analysis、火山引擎官方。</p>
+  <div class="info">📊 <b>双方在不同基准各占优势：</b>豆包 2.1 Pro 在<b>代码 Agent 评测</b>（MCP-Atlas、SciCode）领先；DeepSeek V4-Flash 在<b>AA 智能指数</b>上比 V4-Pro 高 6 分，与 GPT-5.6 Luna 仅差 1 分。</div>
+</div>
+
+<div class="panel">
+  <h3>2.4 算力 / 商业模式</h3>
+  <table>
+    <tr><th>维度</th><th>豆包</th><th>DeepSeek</th></tr>
+    <tr><td>算力</td><td>字节自有集群（推测含英伟达 + 国产）</td><td>华为昇腾（V4）+ 部分英伟达 + 自建集群</td></tr>
+    <tr><td>训练成本</td><td>未披露</td><td><b>V3 仅 557 万美元</b>（行业 1/18）</td></tr>
+    <tr><td>商业化</td><td>API + C 端付费 + 字节系嵌入</td><td>API（极低价）+ 即将 IPO</td></tr>
+    <tr><td>融资</td><td>字节内部输血</td><td>首轮 500 亿 + 二轮 500 亿（估值 5000 亿）</td></tr>
+    <tr><td>客户</td><td>B 端：火山方舟；C 端：豆包 App</td><td>B 端：OpenRouter / 开发者</td></tr>
+    <tr><td>生态</td><td>嵌入 10+ 字节系产品</td><td>开源生态 + OpenRouter 聚合</td></tr>
+  </table>
+</div>
+
+<h2 class="sec">三、战略路径差异</h2>
+<div class="panel">
+  <ol class="num">
+    <li><b>豆包 = 嵌入派：</b>把 AI 能力内化到抖音 / 飞书 / 即梦 / 剪映等 10+ 个亿级产品，靠字节生态闭环取胜</li>
+    <li><b>DeepSeek = 重塑派：</b>用开源 + 架构创新 + 算力自主，重塑全球 AI 产业规则</li>
+    <li><b>豆包 = 平台思维：</b>绑定字节生态；客户用即用、不用即失</li>
+    <li><b>DeepSeek = 工程师思维：</b>技术报告 55 页、参数 / 训练数据全部公开，让全球开发者投票</li>
+  </ol>
+</div>
+
+<div class="panel">
+  <h3>3.1 风险对比</h3>
+  <table>
+    <tr><th>风险</th><th>豆包</th><th>DeepSeek</th></tr>
+    <tr><td>开源压力</td><td>不开放，开发者难独立</td><td>护城河来自训练而非权重</td></tr>
+    <tr><td>海外封锁</td><td>商业化渠道受限</td><td>模型被海外开发者自发采用</td></tr>
+    <tr><td>付费转化</td><td>2026-05 后 MAU 流失 1173 万</td><td>2026-08 API 涨价亦可能流失</td></tr>
+    <tr><td>团队稳定性</td><td>字节大盘稳定</td><td>梁文锋自承「最大风险」</td></tr>
+    <tr><td>算力受限</td><td>字节体量可解决</td><td>昇腾仍有差距</td></tr>
+  </table>
+</div>
+
+<h2 class="sec">四、谁会赢？</h2>
+<div class="panel">
+  <h3>四个赛道的不同答案</h3>
+  <ol class="num">
+    <li><b>中国 C 端流量：</b>豆包（3.24 亿 MAU vs DeepSeek 1.39 亿）</li>
+    <li><b>中国 MaaS 收入：</b>豆包（49.5% 中国份额 vs DeepSeek 约 15%）</li>
+    <li><b>中国 B 端 API 价格：</b>DeepSeek V4-Flash 0.28 美元 = 豆包 1/15</li>
+    <li><b>全球开发者口碑：</b>DeepSeek（OpenRouter 全球第一 + MIT 开源）</li>
+    <li><b>AGI 长期路线：</b>DeepSeek（架构 + 算力 + 团队「自训 2 万张卡」文化）</li>
+    <li><b>短期商业化：</b>豆包（绑定字节生态，内化调用量）</li>
+  </ol>
+  <div class="info">📌 <b>结论：</b>「豆包守流量、DeepSeek 攻生态」是 2026 年中国大模型的基本盘。<b>不存在一方吃掉另一方</b>，二者是<b>互补关系</b>，共同把国产模型推上世界第一阵营。</div>
+</div>
+
+<h2 class="sec">五、附：相关深度报告</h2>
+<div class="panel">
+  <ul class="flat">
+    <li><a class="cite" href="./bytedance-doubao.html">豆包大模型 · 深度公司档案（ByteDance Seed）</a></li>
+    <li><a class="cite" href="./deepseek.html">DeepSeek 深度求索 · 深度公司档案</a></li>
+    <li><a class="cite" href="../../全球LLM公司六维分类报告.html">全球 LLM 公司六维分类总报告</a></li>
+  </ul>
+</div>
+
+<footer>
+  报告生成：2026-08-25 · 数据时点：2026-08<br>
+  来源：火山引擎 / DataLearner / Artificial Analysis / ChainCatcher / DoNews / 36kr / EET China / CSDN / 腾讯云
+</footer>
+
+</div>
+</body>
+</html>
